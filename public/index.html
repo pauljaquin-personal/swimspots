@@ -1,47 +1,25 @@
 <!doctype html>
 <html lang="en-NZ">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Swim Spots NZ</title>
-
-  <meta
-    name="description"
-    content="Discover open-water swimming spots, routes and conditions around New Zealand."
-  >
-
-  <link rel="stylesheet" href="/styles.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swim Spots — Find your next swim</title>
+<meta name="description" content="Explore swimming spots across Aotearoa New Zealand. Discover lakes, rivers and beaches, save your favourites and find water-quality sources.">
+<link rel="stylesheet" href="/vendor/leaflet.css"><link rel="stylesheet" href="/styles.css">
+<script defer src="/vendor/leaflet.js"></script><script type="module" src="/app.js"></script>
 </head>
-
 <body>
-  <main>
-    <section class="hero">
-      <div class="content">
-
-        <p class="eyebrow">
-          OPEN-WATER SWIMMING · AOTEAROA NEW ZEALAND
-        </p>
-
-        <h1>Swim Spots</h1>
-
-        <p class="intro">
-          Discover places to swim, explore routes and check
-          conditions around New Zealand.
-        </p>
-
-        <div class="status">
-          <span class="dot"></span>
-          We're building something new.
-        </div>
-
-        <p class="small">
-          Swim spots, water conditions, routes and local knowledge —
-          all in one place.
-        </p>
-
-      </div>
-    </section>
-  </main>
-</body>
-</html>
+<a class="skip" href="#search">Skip to swim spots</a>
+<header><a class="brand" href="/" aria-label="Swim Spots home"><span class="brand-icon">≋</span>swimspots<span class="nz">NZ</span></a><nav aria-label="Main"><button id="explore" class="nav-active">Explore</button><button id="saved" aria-pressed="false">Saved <span id="saved-count">0</span></button></nav><button id="contribute" class="outline">＋ Suggest a spot</button></header>
+<main>
+<section class="intro"><div><p class="eyebrow">AOTEAROA, ONE SWIM AT A TIME</p><h1>Find your next <em>happy place.</em></h1><p>From alpine lakes to saltwater dips. Explore somewhere worth getting wet.</p></div><div class="intro-note"><span>≋</span><p>A little less scrolling.<br>A little more swimming.</p></div></section>
+<section class="explorer" aria-label="Find swimming spots">
+<aside class="sidebar"><div class="search-area"><label for="search">Where do you want to swim?</label><div class="search-row"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Try Wānaka, Auckland, a lake…" autocomplete="off"></div><div class="filters" aria-label="Water type"><button data-type="all" aria-pressed="true">All spots</button><button data-type="lake" aria-pressed="false">Lakes</button><button data-type="river" aria-pressed="false">Rivers</button><button data-type="sea" aria-pressed="false">Sea</button><button data-type="pool" aria-pressed="false">Pools</button></div><div class="filter-row"><label class="sr-only" for="region">Region</label><select id="region"><option value="all">All New Zealand</option></select><button id="near" class="text-button">◎ Near me</button></div><p id="location-status" class="small" role="status"></p></div><div class="results-heading"><h2 id="result-count" aria-live="polite">Loading spots…</h2><button id="reset" class="text-button">Reset</button></div><p class="collection-note">Starter collection · details still being verified</p><div id="results" class="results"></div></aside>
+<div class="map-wrap"><div id="map" aria-label="Interactive map of New Zealand swim spots"></div><div class="map-label"><span class="live-dot"></span> YOUR NEXT DIP STARTS HERE</div><button id="fit-map" class="map-fit">↗ Show all results</button><p id="map-status" class="map-status" role="status" hidden></p><div class="map-note">Explore the spot. Check conditions before you swim.</div></div>
+</section>
+<section class="bottom-note"><span class="note-icon">↗</span><div><h2>A good swim starts with good information.</h2><p>Conditions change. Check current water quality, weather and local signs before entering the water.</p></div><a href="https://www.lawa.org.nz/explore-data/swimming" target="_blank" rel="noopener noreferrer">Check water quality on LAWA ↗</a></section>
+</main>
+<footer><span class="brand">≋ swimspots</span><span>Made for the waters of Aotearoa.</span><span>Early access · Growing with you</span></footer>
+<dialog id="spot-dialog" aria-labelledby="spot-title"><button class="close" aria-label="Close spot details">×</button><div id="spot-content"></div></dialog>
+<dialog id="suggest-dialog" aria-labelledby="suggest-title"><button class="close" aria-label="Close suggestion">×</button><p class="eyebrow">LOCAL KNOWLEDGE GOES A LONG WAY</p><h2 id="suggest-title">Know a good spot?</h2><p>Prepare a suggestion for review. Download it and share it with the Swimspots maintainer. Nothing is submitted or published automatically.</p><form id="suggest-form"><label>Spot name<input name="name" required maxlength="120"></label><label>Region<input name="region" required maxlength="80"></label><label>Water type<select name="type"><option value="lake">Lake</option><option value="river">River</option><option value="sea">Sea</option><option value="pool">Pool</option></select></label><label>What should swimmers know?<textarea name="notes" required maxlength="2000" rows="4" placeholder="Access, facilities, hazards and sources…"></textarea></label><button class="primary" type="submit">Download suggestion</button><p id="suggest-status" role="status"></p></form></dialog>
+<noscript><p class="noscript">Enable JavaScript to explore the map and spot collection. You can also <a href="https://www.lawa.org.nz/explore-data/swimming">check swimming locations on LAWA</a>.</p></noscript>
+</body></html>

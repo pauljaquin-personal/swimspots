@@ -1,0 +1,656 @@
+{
+  "schemaVersion": 1,
+  "spots": [
+    {
+      "id": "queenstown-bay",
+      "name": "Queenstown Bay",
+      "type": "lake",
+      "region": "Otago",
+      "waterbody": "Lake Whakatipu",
+      "coordinates": [
+        -45.0347,
+        168.66
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "A lakefront spot beside central Queenstown, with the mountains of Whakatipu beyond the bay.",
+      "access": "Entry point and accessibility not yet verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "LAWA notes that bacteria can rise after rain and advises avoiding swimming for 48 hours after rainfall. Check the current notice before swimming.",
+      "source": {
+        "name": "LAWA — Queenstown Bay",
+        "url": "https://www.lawa.org.nz/explore-data/otago-region/lakes/lake-whakatipu/lake-whakatipu-at-queenstown-bay",
+        "checkedAt": "2026-09-21"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Queenstown Bay",
+        "url": "https://www.lawa.org.nz/explore-data/otago-region/lakes/lake-whakatipu/lake-whakatipu-at-queenstown-bay"
+      },
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      },
+      "routeIds": []
+    },
+    {
+      "id": "roys-bay",
+      "name": "Roys Bay",
+      "type": "lake",
+      "region": "Otago",
+      "waterbody": "Lake Wānaka",
+      "coordinates": [
+        -44.6957,
+        169.1322
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Explore the Wānaka lakefront at Roys Bay. This starter listing links to the local monitoring site.",
+      "access": "Entry point and accessibility not yet verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local hazards have not been verified. Check current conditions and on-site notices.",
+      "source": {
+        "name": "LAWA — Roys Bay",
+        "url": "https://www.lawa.org.nz/explore-data/otago-region/lakes/lake-wanaka/lake-wanaka-at-roys-bay-shore",
+        "checkedAt": "2026-09-21"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Roys Bay",
+        "url": "https://www.lawa.org.nz/explore-data/otago-region/lakes/lake-wanaka/lake-wanaka-at-roys-bay-shore"
+      },
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      },
+      "routeIds": []
+    },
+    {
+      "id": "frankton-bay",
+      "name": "Frankton Bay",
+      "type": "lake",
+      "region": "Otago",
+      "waterbody": "Lake Whakatipu",
+      "coordinates": [
+        -45.026,
+        168.727
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "A Whakatipu location in the Frankton arm. Check the local monitoring site and signs before choosing an entry point.",
+      "access": "Entry point and accessibility not yet verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local hazards have not been verified. Check current conditions and on-site notices.",
+      "source": {
+        "name": "LAWA — site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-21"
+      },
+      "conditionsSource": {
+        "name": "LAWA swimming directory",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      },
+      "routeIds": []
+    },
+    {
+      "id": "hawea",
+      "name": "Lake Hāwea",
+      "type": "lake",
+      "region": "Otago",
+      "waterbody": "Lake Hāwea",
+      "coordinates": [
+        -44.607,
+        169.253
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "A starter location on Lake Hāwea. The monitored swimming embayment is listed in the LAWA directory.",
+      "access": "Entry point and accessibility not yet verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local hazards have not been verified. Check current conditions and on-site notices.",
+      "source": {
+        "name": "LAWA — site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-21"
+      },
+      "conditionsSource": {
+        "name": "LAWA swimming directory",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      },
+      "routeIds": []
+    },
+    {
+      "id": "st-clair",
+      "name": "St Clair Beach",
+      "type": "sea",
+      "region": "Otago",
+      "waterbody": "Pacific coast",
+      "coordinates": [
+        -45.913,
+        170.489
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Discover the Dunedin coast at St Clair. Consult current coastal conditions and local advice.",
+      "access": "Entry point and accessibility not yet verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local hazards have not been verified. Check current conditions and on-site notices.",
+      "source": {
+        "name": "LAWA — site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-21"
+      },
+      "conditionsSource": {
+        "name": "LAWA swimming directory",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      },
+      "routeIds": []
+    },
+    {
+      "id": "outram",
+      "name": "Outram",
+      "type": "river",
+      "region": "Otago",
+      "waterbody": "Taieri River",
+      "coordinates": [
+        -45.858,
+        170.235
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "A Taieri River monitoring location near Outram. River access and conditions require local verification.",
+      "access": "Entry point and accessibility not yet verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local hazards have not been verified. Check current conditions and on-site notices.",
+      "source": {
+        "name": "LAWA — site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-21"
+      },
+      "conditionsSource": {
+        "name": "LAWA swimming directory",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      },
+      "routeIds": []
+    },
+    {
+      "id": "mission-bay",
+      "name": "Mission Bay",
+      "type": "sea",
+      "region": "Auckland",
+      "waterbody": "Waitematā Harbour",
+      "coordinates": [
+        -36.848,
+        174.831
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "An Auckland waterfront location on Tāmaki Drive. Explore the bay and check current water-quality advice.",
+      "access": "Entry point and accessibility not yet verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local hazards have not been verified. Check current conditions and on-site notices.",
+      "source": {
+        "name": "Auckland NZ — Mission Bay",
+        "url": "https://www.aucklandnz.com/explore/mission-bay",
+        "checkedAt": "2026-09-21"
+      },
+      "conditionsSource": {
+        "name": "LAWA swimming directory",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      },
+      "routeIds": []
+    }
+  ]
+}

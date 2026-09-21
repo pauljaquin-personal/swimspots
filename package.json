@@ -1,0 +1,24 @@
+{
+  "name": "swimspots",
+  "version": "1.0.0",
+  "description": "Swimspots NZ static map application",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "dev": "node scripts/serve.js",
+    "test": "node --test tests/model.test.js",
+    "test:e2e": "playwright test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.63.0"
+  },
+  "dependencies": {
+    "leaflet": "^1.9.4"
+  },
+  "private": true,
+  "type": "module"
+}
