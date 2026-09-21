@@ -6,9 +6,11 @@ A stable `id`, display `name`, `waterbody`, `region`, `type` (`lake`, `river`, `
 
 `source` records the listing source URL, publisher and date the editorial source was checked. This date does not imply field verification or freshness of conditions. `conditionsSource` is an external monitoring source, not an imported reading. Directory links are not site-specific monitoring results.
 
-Each condition contains `status`, `value`, `unit`, `source` and `observedAt`. All are currently unavailable, with null values and timestamps. Future adapters must preserve the provider's observation time and units; distinguish `unavailable`, `fresh`, `stale` and `error`; and expire observations using provider-specific thresholds. Never infer a safe-to-swim status from missing data, weather or a historical reading. Store `fetchedAt` separately from `observedAt`. The UI currently deliberately displays unavailable conditions until a tested adapter and renderer are implemented.
+Static catalog `conditions` remain unavailable placeholders. Live results are fetched separately from `/api/conditions?spot=<id>`; never update the catalog with transient readings. `lawa` records the matched official widget site ID and URL.
 
-A future provider boundary should return `{ spotId, metric, value, unit, source: { name, url }, observedAt, fetchedAt, status }`. Credentials belong in Cloudflare secrets, not browser code. Add caching, attribution/licence checks, timeouts, unit validation and stale/error behaviour before connecting a provider. No Strava or Garmin dependency is built into the public spot model.
+The response contains `weather` and, for sea spots, `marine` provider groups with `status`, `source`, `validAt`, `fetchedAt`, `observedAt: null`, and normalized metric values/units. Current weather is model output, not station observations. Water-quality information stays in the official LAWA report with its sample date and guidance; it is not converted into our own safety classification.
+
+See [feed-integrations.md](feed-integrations.md) for cache/expiry policies, units, licences, API keys and remaining gaps. A future station adapter must use actual observation timestamps and retain station identity and distance from the spot.
 
 ## Route
 

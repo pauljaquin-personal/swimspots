@@ -92,7 +92,13 @@
           "observedAt": null
         }
       },
-      "routeIds": []
+      "routeIds": [],
+      "lawa": {
+        "siteId": 40722,
+        "embedUrl": "https://embed.lawa.org.nz/swim/iframe/medium/550/500/40722/",
+        "source": "https://embed.lawa.org.nz/setup",
+        "matchedAt": "2026-09-21"
+      }
     },
     {
       "id": "roys-bay",
@@ -185,7 +191,13 @@
           "observedAt": null
         }
       },
-      "routeIds": []
+      "routeIds": [],
+      "lawa": {
+        "siteId": 39410,
+        "embedUrl": "https://embed.lawa.org.nz/swim/iframe/medium/550/500/39410/",
+        "source": "https://embed.lawa.org.nz/setup",
+        "matchedAt": "2026-09-21"
+      }
     },
     {
       "id": "frankton-bay",
@@ -278,7 +290,13 @@
           "observedAt": null
         }
       },
-      "routeIds": []
+      "routeIds": [],
+      "lawa": {
+        "siteId": 37188,
+        "embedUrl": "https://embed.lawa.org.nz/swim/iframe/medium/550/500/37188/",
+        "source": "https://embed.lawa.org.nz/setup",
+        "matchedAt": "2026-09-21"
+      }
     },
     {
       "id": "hawea",
@@ -371,7 +389,13 @@
           "observedAt": null
         }
       },
-      "routeIds": []
+      "routeIds": [],
+      "lawa": {
+        "siteId": 37186,
+        "embedUrl": "https://embed.lawa.org.nz/swim/iframe/medium/550/500/37186/",
+        "source": "https://embed.lawa.org.nz/setup",
+        "matchedAt": "2026-09-21"
+      }
     },
     {
       "id": "st-clair",
@@ -464,7 +488,13 @@
           "observedAt": null
         }
       },
-      "routeIds": []
+      "routeIds": [],
+      "lawa": {
+        "siteId": 37274,
+        "embedUrl": "https://embed.lawa.org.nz/swim/iframe/medium/550/500/37274/",
+        "source": "https://embed.lawa.org.nz/setup",
+        "matchedAt": "2026-09-21"
+      }
     },
     {
       "id": "outram",
@@ -557,7 +587,13 @@
           "observedAt": null
         }
       },
-      "routeIds": []
+      "routeIds": [],
+      "lawa": {
+        "siteId": 8703,
+        "embedUrl": "https://embed.lawa.org.nz/swim/iframe/medium/550/500/8703/",
+        "source": "https://embed.lawa.org.nz/setup",
+        "matchedAt": "2026-09-21"
+      }
     },
     {
       "id": "mission-bay",
@@ -650,7 +686,13 @@
           "observedAt": null
         }
       },
-      "routeIds": []
+      "routeIds": [],
+      "lawa": {
+        "siteId": 24451,
+        "embedUrl": "https://embed.lawa.org.nz/swim/iframe/medium/550/500/24451/",
+        "source": "https://embed.lawa.org.nz/setup",
+        "matchedAt": "2026-09-21"
+      }
     }
   ]
 }
