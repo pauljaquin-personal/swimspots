@@ -244,6 +244,28 @@ export function mountConditions(container, spot) {
       ),
     );
   container.append(water);
+  if (spot.council) {
+    const council = el("section", null, "feed-section council-links");
+    council.append(
+      el("h3", spot.council.name),
+      el(
+        "p",
+        "Official reports · readings open on the provider’s website",
+        "feed-label",
+      ),
+      el("p", spot.council.note, "small"),
+    );
+    for (const source of spot.council.links)
+      council.append(external(source.name + " ↗", source.url));
+    council.append(
+      el(
+        "p",
+        "Direct readings are not imported into Swimspots yet.",
+        "feed-time",
+      ),
+    );
+    container.append(council);
+  }
   if (spot.type !== "sea")
     container.append(
       el(

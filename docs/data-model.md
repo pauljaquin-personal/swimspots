@@ -18,8 +18,4 @@ Routes belong in `routes.json`, separate from spots. Proposed record: `id`, `nam
 
 ## Suggestion
 
-The client exports `{ schemaVersion, name, region, type, notes, moderationStatus: 'pending', createdAt }`. This is a local file only, not a public posting. A future backend should validate, rate-limit, store privately and require moderation before adding a public spot. Contact details, if introduced, must be stored separately and not published. Downloading a suggestion is not evidence that a moderator received it.
-
-## Seed provenance
-
-Sources identify locations; coordinates are approximate editorial map positions, not precise monitoring stations or entry points. Queenstown and Roys Bay link to LAWA site pages; other Otago locations are listed in LAWA's embed directory. Mission Bay links to Auckland's tourism listing. Source links are retained per record. No current water-quality ratings, facility claims or routes are fabricated.
+Submissions are validated server-side and stored separately with a UUID, location fields, creation time and pending/approved/rejected status. Reviewer notes and timestamps remain private. Only approved records are projected into public spot objects; submitted feed identifiers and privileged fields are discarded. See [submission storage and deployment](submissions.md). Browser drafts are optional localStorage state; receipt is confirmed only after durable server storage.

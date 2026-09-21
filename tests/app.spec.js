@@ -1,5 +1,8 @@
 import { test, expect } from "@playwright/test";
 test.beforeEach(async ({ page }) => {
+  await page.route("**/api/community-spots", (r) =>
+    r.fulfill({ json: { spots: [], submissionsEnabled: true } }),
+  );
   await page.route("**/api/conditions?*", (r) =>
     r.fulfill({ status: 503, body: "unavailable" }),
   );
@@ -40,24 +43,17 @@ test("search, filter, details, saved persistence and empty state", async ({
     await page.locator("body").evaluate((el) => el.scrollWidth),
   ).toBeLessThanOrEqual(await page.evaluate(() => innerWidth));
 });
-test("deep link and suggestion download", async ({ page }) => {
+test("deep link and suggestion form", async ({ page }) => {
   await page.goto("/#spot=queenstown-bay");
   await expect(
     page.getByRole("heading", { name: "Queenstown Bay", exact: true }),
   ).toBeVisible();
   await page.getByRole("button", { name: "Close spot details" }).click();
   await page.locator("#contribute").click();
-  await page.getByLabel("Spot name").fill("Test bay");
-  await page.getByLabel("Region", { exact: true }).last().fill("Otago");
-  await page.getByLabel("What should swimmers know?").fill("Test suggestion");
-  const download = page.waitForEvent("download");
-  await page.getByRole("button", { name: "Download suggestion" }).click();
-  expect((await download).suggestedFilename()).toBe(
-    "swimspots-suggestion.json",
-  );
-  await expect(page.locator("#suggest-status")).toContainText(
-    "has not been submitted",
-  );
+  await expect(
+    page.getByRole("button", { name: "Submit for review", exact: true }),
+  ).toBeVisible();
+  await expect(page.getByLabel("Latitude", { exact: true })).toBeVisible();
 });
 test("location permission denial gives recovery", async ({ page, context }) => {
   await context.clearPermissions();

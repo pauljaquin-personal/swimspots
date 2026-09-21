@@ -852,3 +852,100 @@ form select {
 .forecast-details .forecast-scroll {
   margin-bottom: 10px;
 }
+
+/* Community contribution and moderation */
+#suggest-dialog {
+  max-width: 700px;
+}
+#suggest-map {
+  height: 250px;
+  border-radius: 14px;
+  margin: 12px 0;
+  background: #e0e8e2;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.check-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.5;
+}
+.check-label input {
+  width: 20px;
+  flex: 0 0 20px;
+  margin-top: 4px;
+}
+.honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+[hidden] {
+  display: none !important;
+}
+#suggest-status {
+  overflow-wrap: anywhere;
+}
+.review-page {
+  max-width: 840px;
+  margin: 30px auto;
+  padding: 24px;
+}
+.review-page h1 {
+  font-size: 2.5rem;
+}
+.review-page label {
+  display: block;
+  margin: 12px 0;
+}
+.review-page input,
+.review-page textarea,
+.review-page select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccd8d1;
+  border-radius: 8px;
+  font: inherit;
+}
+.review-page .check-label {
+  display: flex;
+}
+.review-page .check-label input {
+  width: 20px;
+}
+.review-card {
+  padding: 24px;
+  border: 1px solid #d4ded6;
+  border-radius: 18px;
+  margin: 20px 0;
+  background: white;
+}
+.review-card a {
+  display: block;
+  margin: 12px 0;
+}
+.review-card button {
+  margin: 10px 10px 0 0;
+}
+.council-links a {
+  display: block;
+  margin: 12px 0;
+}
+@media (max-width: 600px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .review-page {
+    padding: 16px;
+  }
+  .review-card {
+    padding: 16px;
+  }
+}

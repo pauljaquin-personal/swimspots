@@ -41,4 +41,4 @@ Recommendation: retain these working prototype feeds while evaluating a MetServi
 
 ## Not connected
 
-Freshwater temperatures, lake levels, river flows, local tide predictions and local currents still need verified station mappings and usable feeds. MetService integration needs a key/access agreement and a tested adapter; adding a key alone will not activate it. Community moderation and verified routes remain separate milestones.
+Freshwater temperatures, lake levels, river flows, local tide predictions and local currents still need verified station mappings and usable feeds. MetService integration needs a key/access agreement and a tested adapter; adding a key alone will not activate it. Community moderation is implemented locally; production configuration and verified routes remain separate milestones. Official ORC dashboard and Mission Bay Safeswim links are attached to catalog records. Direct council readings are still unconnected; see [the council source review](roadmap.md#council-source-decision).

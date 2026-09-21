@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en-NZ">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Review submissions — Swimspots</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script type="module" src="/review.js"></script>
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="/">≋ swimspots</a><a href="/">Back to the map</a>
+    </header>
+    <main class="review-page">
+      <p class="eyebrow">GROW THE COLLECTION</p>
+      <h1>Review suggestions</h1>
+      <p>
+        Check the entry point, public access, hazards and source before
+        publishing. Approval confirms a listing review, not swimming safety.
+      </p>
+      <form id="review-login">
+        <label
+          >Reviewer token<input
+            id="review-token"
+            type="password"
+            autocomplete="off"
+            placeholder="Not needed in the local preview" /></label
+        ><button class="primary">Load review queue</button>
+        <p class="small">
+          The token stays in memory for this page only. Public deployments
+          require a private reviewer token; the local preview allows review on
+          this computer.
+        </p>
+      </form>
+      <label
+        >Show<select id="review-filter">
+          <option value="pending">Pending review</option>
+          <option value="approved">Approved</option>
+          <option value="rejected">Rejected</option>
+        </select></label
+      >
+      <p id="review-status" role="status"></p>
+      <div id="review-list"></div>
+    </main>
+  </body>
+</html>

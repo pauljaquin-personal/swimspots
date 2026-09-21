@@ -1,3 +1,4 @@
+import { mountSubmission } from "./submit.js";
 import { mountConditions } from "./conditions.js";
 import { selectSpots, distanceKm } from "./model.js";
 const $ = (s) => document.querySelector(s);
@@ -140,7 +141,13 @@ function showSpot(s) {
   meta.append(
     el("span", s.type.toUpperCase(), "badge"),
     el("span", s.region, "badge"),
-    el("span", "Starter listing · verification pending", "badge"),
+    el(
+      "span",
+      s.listingStatus === "community-reviewed"
+        ? "Community location · reviewed"
+        : "Starter listing · verification pending",
+      "badge",
+    ),
   );
   const title = el("h2", s.name);
   title.id = "spot-title";
@@ -189,7 +196,7 @@ function showSpot(s) {
   provenance.append(
     link(s.source.name, s.source.url),
     document.createTextNode(
-      ` · Listing source reviewed ${s.source.checkedAt}. Coordinates are editorial estimates; access and facilities await local review. Weather model times and water-quality sample dates are shown separately above.`,
+      ` · Listing source reviewed ${s.source.checkedAt}. ${s.listingStatus === "community-reviewed" ? "Community entry point reviewed for publication; conditions and access can change." : "Coordinates are editorial estimates; access and facilities await local review."} Weather model times and water-quality sample dates are shown separately above.`,
     ),
   );
   content.append(provenance);
@@ -301,34 +308,24 @@ $("#spot-dialog").addEventListener("close", () => {
   disposeConditions();
   history.replaceState(null, "", location.pathname + location.search);
 });
-$("#contribute").onclick = () => $("#suggest-dialog").showModal();
-$("#suggest-form").onsubmit = (e) => {
-  e.preventDefault();
-  const suggestion = {
-    schemaVersion: 1,
-    ...Object.fromEntries(new FormData(e.target)),
-    moderationStatus: "pending",
-    createdAt: new Date().toISOString(),
-  };
-  const url = URL.createObjectURL(
-    new Blob([JSON.stringify(suggestion, null, 2)], {
-      type: "application/json",
-    }),
-  );
-  const a = el("a");
-  a.href = url;
-  a.download = "swimspots-suggestion.json";
-  a.click();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-  $("#suggest-status").textContent =
-    "Suggestion downloaded. Share the file with the maintainer for review; it has not been submitted.";
-};
+mountSubmission();
 async function init() {
   try {
     const response = await fetch("/data/spots.json");
     if (!response.ok) throw new Error("load");
     const data = await response.json();
     spots = data.spots;
+    try {
+      const community = await fetch("/api/community-spots", {
+        signal: AbortSignal.timeout(5000),
+      });
+      if (!community.ok) throw new Error("community");
+      const extra = await community.json();
+      spots.push(...extra.spots);
+    } catch {
+      document.querySelector(".collection-note").textContent =
+        "Community locations could not load. Showing the starter collection.";
+    }
     [...new Set(spots.map((s) => s.region))].sort().forEach((r) => {
       const o = el("option", r);
       o.value = r;

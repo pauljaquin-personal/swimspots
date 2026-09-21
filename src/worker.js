@@ -1,5 +1,10 @@
 import catalog from "../public/data/spots.json" with { type: "json" };
 import { getConditions, RETAIN_MS } from "./feeds.js";
+import {
+  D1Submissions,
+  submissionRequest,
+  publishedSpot,
+} from "./submissions.js";
 const inFlight = new Map();
 const json = (value, status = 200) =>
   Response.json(value, {
@@ -21,6 +26,27 @@ export async function handleRequest(
 ) {
   const url = new URL(request.url);
   if (!url.pathname.startsWith("/api/")) return env.ASSETS.fetch(request);
+  const store =
+    env.SUBMISSION_STORE ||
+    (env.SUBMISSIONS_DB ? new D1Submissions(env.SUBMISSIONS_DB) : null);
+  if (
+    ["/api/submissions", "/api/community-spots", "/api/review"].includes(
+      url.pathname,
+    ) ||
+    url.pathname.startsWith("/api/review/")
+  ) {
+    try {
+      return await submissionRequest(request, env, catalog.spots, store);
+    } catch {
+      return json(
+        {
+          error:
+            "The service could not save or load this request. Keep your draft and retry.",
+        },
+        503,
+      );
+    }
+  }
   if (request.method !== "GET")
     return new Response("Method not allowed", {
       status: 405,
@@ -33,7 +59,16 @@ export async function handleRequest(
     url.searchParams.getAll("spot").length !== 1
   )
     return json({ error: "Supply one spot identifier" }, 400);
-  const spot = catalog.spots.find((s) => s.id === url.searchParams.get("spot"));
+  const id = url.searchParams.get("spot");
+  let spot = catalog.spots.find((s) => s.id === id);
+  if (!spot && store && /^community-[0-9a-f-]{36}$/.test(id || "")) {
+    try {
+      const record = await store.get(id.slice(10));
+      if (record?.status === "approved") spot = publishedSpot(record);
+    } catch {
+      return json({ error: "Spot unavailable" }, 503);
+    }
+  }
   if (!spot) return json({ error: "Unknown spot" }, 404);
   // Only known catalog coordinates are accepted. This cannot proxy arbitrary URLs.
   const cacheKey = new Request(

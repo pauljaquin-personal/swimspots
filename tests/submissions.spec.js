@@ -1,0 +1,94 @@
+import { test, expect } from "@playwright/test";
+test("submit, private pending queue, edit and publish, then view on map", async ({
+  page,
+}, testInfo) => {
+  const name = "Browser test " + crypto.randomUUID();
+  await page.route("**/api/conditions?*", (r) =>
+    r.fulfill({ status: 503, body: "offline" }),
+  );
+  await page.goto("/");
+  await page.locator("#contribute").click();
+  const form = page.locator("#suggest-form");
+  for (const [field, value] of Object.entries({
+    name,
+    region: "Test region",
+    waterbody: "Test water",
+    latitude: testInfo.project.name.includes("mobile") ? "-43.33" : "-43.23",
+    longitude: "171.23",
+    description: "Test listing only",
+    access: "Public access to be verified",
+    hazards: "Unverified test hazards",
+    sourceUrl: "https://www.orc.govt.nz/",
+  }))
+    await form.locator(`[name="${field}"]`).fill(value);
+  await form.locator("[name=consent]").check();
+  await page
+    .getByRole("button", { name: "Submit for review", exact: true })
+    .click();
+  await expect(page.locator("#suggest-status")).toContainText(
+    /Suggestion received|Possible matches/,
+  );
+  if (await page.locator("#duplicate-confirm").isVisible())
+    await page.locator("#duplicate-confirm").click();
+  await expect(page.locator("#suggest-status")).toContainText(
+    "Suggestion received",
+  );
+  await page.getByRole("button", { name: "Close suggestion" }).click();
+  await page.getByRole("searchbox").fill(name);
+  await expect(page.locator(".spot-card")).toHaveCount(0);
+  await page.goto("/review.html");
+  const card = page
+    .locator(".review-card")
+    .filter({ has: page.getByRole("heading", { name, exact: true }) });
+  await expect(card).toBeVisible();
+  await card.locator("[name=name]").fill(name + " reviewed");
+  await card.locator("[name=note]").fill("Automated test: checked the fixture");
+  await card.getByRole("button", { name: "Approve and publish" }).click();
+  await expect(card.getByRole("status")).toContainText("Confirm you checked");
+  await card.locator("[name=reviewConfirmed]").check();
+  await card.getByRole("button", { name: "Approve and publish" }).click();
+  await expect(card).toHaveCount(0);
+  await page.goto("/");
+  await page.getByRole("searchbox").fill(name);
+  await expect(page.locator(".spot-card")).toHaveCount(1);
+  await page
+    .getByRole("button", { name: `View ${name} reviewed`, exact: true })
+    .click();
+  await expect(
+    page.getByText("Community location · reviewed", { exact: true }),
+  ).toBeVisible();
+});
+test("draft survives reload and failed delivery retains inputs", async ({
+  page,
+}) => {
+  await page.route("**/api/submissions", (r) =>
+    r.fulfill({
+      status: 503,
+      json: { error: "Temporarily unavailable; draft retained." },
+    }),
+  );
+  await page.goto("/");
+  await page.locator("#contribute").click();
+  const form = page.locator("#suggest-form");
+  await form.locator("[name=name]").fill("Draft location");
+  await page.reload();
+  await page.locator("#contribute").click();
+  await expect(form.locator("[name=name]")).toHaveValue("Draft location");
+  for (const [field, value] of Object.entries({
+    region: "Otago",
+    waterbody: "Lake",
+    latitude: "-44.3",
+    longitude: "169.5",
+    description: "Description",
+    access: "Access",
+    hazards: "Unknown",
+    sourceUrl: "https://www.orc.govt.nz/",
+  }))
+    await form.locator(`[name="${field}"]`).fill(value);
+  await form.locator("[name=consent]").check();
+  await page
+    .getByRole("button", { name: "Submit for review", exact: true })
+    .click();
+  await expect(page.locator("#suggest-status")).toContainText("draft retained");
+  await expect(form.locator("[name=name]")).toHaveValue("Draft location");
+});

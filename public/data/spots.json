@@ -98,6 +98,26 @@
         "embedUrl": "https://embed.lawa.org.nz/swim/iframe/medium/550/500/40722/",
         "source": "https://embed.lawa.org.nz/setup",
         "matchedAt": "2026-09-21"
+      },
+      "council": {
+        "name": "Otago Regional Council",
+        "mode": "official-links",
+        "checkedAt": "2026-09-21",
+        "links": [
+          {
+            "name": "ORC lake buoy profiles · Lake Whakatipu",
+            "url": "https://envdata.orc.govt.nz/AQWebPortal/Data/Dashboard/1676"
+          },
+          {
+            "name": "ORC lake and river levels / flows",
+            "url": "https://envdata.orc.govt.nz/AQWebPortal/Data/Dashboard/213"
+          },
+          {
+            "name": "ORC rainfall observations",
+            "url": "https://envdata.orc.govt.nz/AQWebPortal/Data/Dashboard/234"
+          }
+        ],
+        "note": "Open the ORC dashboard and select the lake or monitoring station. Readings may be provisional. Buoy temperature depends on depth and location and is not a measurement at this swimming entry point."
       }
     },
     {
@@ -197,6 +217,26 @@
         "embedUrl": "https://embed.lawa.org.nz/swim/iframe/medium/550/500/39410/",
         "source": "https://embed.lawa.org.nz/setup",
         "matchedAt": "2026-09-21"
+      },
+      "council": {
+        "name": "Otago Regional Council",
+        "mode": "official-links",
+        "checkedAt": "2026-09-21",
+        "links": [
+          {
+            "name": "ORC lake buoy profiles · Lake Wānaka",
+            "url": "https://envdata.orc.govt.nz/AQWebPortal/Data/Dashboard/1676"
+          },
+          {
+            "name": "ORC lake and river levels / flows",
+            "url": "https://envdata.orc.govt.nz/AQWebPortal/Data/Dashboard/213"
+          },
+          {
+            "name": "ORC rainfall observations",
+            "url": "https://envdata.orc.govt.nz/AQWebPortal/Data/Dashboard/234"
+          }
+        ],
+        "note": "Open the ORC dashboard and select the lake or monitoring station. Readings may be provisional. Buoy temperature depends on depth and location and is not a measurement at this swimming entry point."
       }
     },
     {
@@ -296,6 +336,26 @@
         "embedUrl": "https://embed.lawa.org.nz/swim/iframe/medium/550/500/37188/",
         "source": "https://embed.lawa.org.nz/setup",
         "matchedAt": "2026-09-21"
+      },
+      "council": {
+        "name": "Otago Regional Council",
+        "mode": "official-links",
+        "checkedAt": "2026-09-21",
+        "links": [
+          {
+            "name": "ORC lake buoy profiles · Lake Whakatipu",
+            "url": "https://envdata.orc.govt.nz/AQWebPortal/Data/Dashboard/1676"
+          },
+          {
+            "name": "ORC lake and river levels / flows",
+            "url": "https://envdata.orc.govt.nz/AQWebPortal/Data/Dashboard/213"
+          },
+          {
+            "name": "ORC rainfall observations",
+            "url": "https://envdata.orc.govt.nz/AQWebPortal/Data/Dashboard/234"
+          }
+        ],
+        "note": "Open the ORC dashboard and select the lake or monitoring station. Readings may be provisional. Buoy temperature depends on depth and location and is not a measurement at this swimming entry point."
       }
     },
     {
@@ -395,6 +455,26 @@
         "embedUrl": "https://embed.lawa.org.nz/swim/iframe/medium/550/500/37186/",
         "source": "https://embed.lawa.org.nz/setup",
         "matchedAt": "2026-09-21"
+      },
+      "council": {
+        "name": "Otago Regional Council",
+        "mode": "official-links",
+        "checkedAt": "2026-09-21",
+        "links": [
+          {
+            "name": "ORC lake buoy profiles · Lake Hāwea",
+            "url": "https://envdata.orc.govt.nz/AQWebPortal/Data/Dashboard/1676"
+          },
+          {
+            "name": "ORC lake and river levels / flows",
+            "url": "https://envdata.orc.govt.nz/AQWebPortal/Data/Dashboard/213"
+          },
+          {
+            "name": "ORC rainfall observations",
+            "url": "https://envdata.orc.govt.nz/AQWebPortal/Data/Dashboard/234"
+          }
+        ],
+        "note": "Open the ORC dashboard and select the lake or monitoring station. Readings may be provisional. Buoy temperature depends on depth and location and is not a measurement at this swimming entry point."
       }
     },
     {
@@ -494,6 +574,22 @@
         "embedUrl": "https://embed.lawa.org.nz/swim/iframe/medium/550/500/37274/",
         "source": "https://embed.lawa.org.nz/setup",
         "matchedAt": "2026-09-21"
+      },
+      "council": {
+        "name": "Otago Regional Council",
+        "mode": "official-links",
+        "checkedAt": "2026-09-21",
+        "links": [
+          {
+            "name": "ORC lake and river levels / flows",
+            "url": "https://envdata.orc.govt.nz/AQWebPortal/Data/Dashboard/213"
+          },
+          {
+            "name": "ORC rainfall observations",
+            "url": "https://envdata.orc.govt.nz/AQWebPortal/Data/Dashboard/234"
+          }
+        ],
+        "note": "Open the ORC dashboard and select the lake or monitoring station. Readings may be provisional. Buoy temperature depends on depth and location and is not a measurement at this swimming entry point."
       }
     },
     {
@@ -593,6 +689,22 @@
         "embedUrl": "https://embed.lawa.org.nz/swim/iframe/medium/550/500/8703/",
         "source": "https://embed.lawa.org.nz/setup",
         "matchedAt": "2026-09-21"
+      },
+      "council": {
+        "name": "Otago Regional Council",
+        "mode": "official-links",
+        "checkedAt": "2026-09-21",
+        "links": [
+          {
+            "name": "ORC lake and river levels / flows",
+            "url": "https://envdata.orc.govt.nz/AQWebPortal/Data/Dashboard/213"
+          },
+          {
+            "name": "ORC rainfall observations",
+            "url": "https://envdata.orc.govt.nz/AQWebPortal/Data/Dashboard/234"
+          }
+        ],
+        "note": "Open the ORC dashboard and select the lake or monitoring station. Readings may be provisional. Buoy temperature depends on depth and location and is not a measurement at this swimming entry point."
       }
     },
     {
@@ -692,6 +804,18 @@
         "embedUrl": "https://embed.lawa.org.nz/swim/iframe/medium/550/500/24451/",
         "source": "https://embed.lawa.org.nz/setup",
         "matchedAt": "2026-09-21"
+      },
+      "council": {
+        "name": "Safeswim · Auckland",
+        "mode": "official-links",
+        "checkedAt": "2026-09-21",
+        "links": [
+          {
+            "name": "Mission Bay Beach · current Safeswim report",
+            "url": "https://safeswim.org.nz/locations/mission-bay-beach"
+          }
+        ],
+        "note": "View current water quality, warnings, beach information and tides on the official location report. Check its timestamps before swimming."
       }
     }
   ]

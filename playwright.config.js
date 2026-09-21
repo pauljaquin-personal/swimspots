@@ -12,7 +12,8 @@ export default defineConfig({
   webServer: {
     command: "node scripts/serve.js",
     url: "http://127.0.0.1:4173",
-    reuseExistingServer: true,
+    reuseExistingServer: !process.env.CI,
+    env: { SUBMISSIONS_FILE: "/tmp/swimspots-browser-submissions.json" },
   },
   projects: [
     { name: "desktop", use: { viewport: { width: 1440, height: 1000 } } },

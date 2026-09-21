@@ -21,10 +21,10 @@ Static files are served from `public/`; a small Cloudflare Worker handles `/api/
 - Saved spots in local browser storage (no account); optional on-device geolocation with distance sorting.
 - Seven editorial starter records, with source links, approximate coordinates and explicit verification status.
 - Weather and coastal model feeds with source/time labels, bounded caching and outage handling; official LAWA reports for water quality.
-- Shareable `#spot=<id>` links and downloadable suggestions awaiting manual review.
+- Shareable `#spot=<id>` links, saved submission drafts, a persisted review queue and approved community locations.
 - Separate route dataset and documented future provider interface.
 
-**This is an initial collection, not a complete national directory.** Most entries are in Otago, with Mission Bay in Auckland. Pools have no records yet. The map covers New Zealand. Weather/marine forecasts and LAWA reports are connected. Freshwater temperature/level/flow, local tides/currents and verified routes are not. Access points, parking, facilities and coordinates need local verification before the listings can be considered complete. Suggestions download locally; there is no submission service or moderation dashboard yet.
+**This is an initial collection, not a complete national directory.** Most entries are in Otago, with Mission Bay in Auckland. Pools have no records yet. The map covers New Zealand. Weather/marine forecasts and LAWA reports are connected. Freshwater temperature/level/flow, local tides/currents and verified routes are not. Access points, parking, facilities and coordinates need local verification before the listings can be considered complete. Submissions and the reviewer dashboard work in the local preview. Public submissions require the D1 database and reviewer secret described in [submission setup](docs/submissions.md).
 
 ## Test
 
@@ -34,7 +34,7 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-The browser suite covers desktop and mobile search/filtering, saved persistence, spot deep links, suggestion downloads, location success/denial, data failure and map-tile failure. An optional `PLAYWRIGHT_EXECUTABLE_PATH` can select a local browser.
+The browser suite covers desktop and mobile search/filtering, saved persistence, spot deep links, submission/approval and draft recovery, location success/denial, data failure and map-tile failure. An optional `PLAYWRIGHT_EXECUTABLE_PATH` can select a local browser.
 
 ## Data & providers
 
@@ -44,8 +44,6 @@ Map tiles are requested directly from OpenStreetMap; location coordinates used f
 
 ## Next milestones
 
-1. Verify spot coordinates, entry points, facilities and local hazards; expand regions.
-2. Evaluate MetService access, add verified freshwater station feeds, and confirm commercial API licensing before monetisation.
-3. Add a server-side submission/moderation flow before accepting public submissions.
-4. Publish verified routes independently of locations, with geometry and provenance.
-5. Evaluate Strava/Garmin integrations only after permission, privacy and product requirements are defined.
+See the [reconciled roadmap](docs/roadmap.md). Next: curate real entry points, arrange supported ORC data access, configure production submissions, and release the reviewed build. Swim routes come after this, with Strava/Garmin integration later.
+
+[Community submission setup and limits](docs/submissions.md) · [Council source findings](docs/roadmap.md#council-source-decision)

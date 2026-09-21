@@ -1,4 +1,9 @@
 import { test, expect } from "@playwright/test";
+test.beforeEach(async ({ page }) => {
+  await page.route("**/api/community-spots", (r) =>
+    r.fulfill({ json: { spots: [] } }),
+  );
+});
 function feed(spotId = "queenstown-bay", status = "fresh") {
   const now = Date.now();
   return {
