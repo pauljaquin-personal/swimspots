@@ -3,7 +3,7 @@ test('search, filter, details, saved persistence and empty state',async({page})=
  await page.goto('/'); await expect(page.locator('.spot-card')).toHaveCount(7);
  await page.getByRole('searchbox').fill('wanaka'); await expect(page.locator('.spot-card')).toHaveCount(1);
  await page.getByRole('button',{name:'View Roys Bay',exact:true}).click(); await expect(page.getByRole('heading',{name:'Roys Bay',exact:true})).toBeVisible(); await expect(page.getByText('Not available',{exact:true})).toHaveCount(4);
- await page.getByRole('button',{name:'☆ Save spot',exact:true}).click(); await page.keyboard.press('Escape');
+ await page.getByRole('button',{name:'☆ Save spot',exact:true}).click(); await page.keyboard.press('Escape'); await expect(page.locator('#spot-dialog')).not.toBeVisible(); await expect(page).toHaveURL('http://127.0.0.1:4173/');
  await page.reload(); await expect(page.getByRole('button',{name:'Unsave Roys Bay'})).toBeVisible();
  await page.getByRole('button',{name:/Saved 1/}).click(); await expect(page.locator('.spot-card')).toHaveCount(1);
  await page.getByRole('button',{name:'Reset',exact:true}).click(); await page.getByRole('button',{name:'Pools',exact:true}).click(); await expect(page.getByText('No spots found just yet.')).toBeVisible();
