@@ -10,7 +10,9 @@ Pending and rejected records are never returned by the public spots endpoint. A 
 
 ## Production configuration before enabling submissions
 
-No Cloudflare database has been provisioned or production deployment made by this change. In the owning Cloudflare account:
+The beta database `swimspots-submissions` is provisioned in Cloudflare’s Oceania region, migration 0001 is applied, and the production binding is recorded in `wrangler.jsonc`. ADMIN_TOKEN is configured as a Worker secret. The real D1 submission/approval flow is verified on a version preview before promotion.
+
+For a separate deployment, use its own database and reviewer credential:
 
 1. Create a D1 database (`npx wrangler d1 create swimspots-submissions`).
 2. Add its actual returned ID to `wrangler.jsonc` using binding `SUBMISSIONS_DB`, database_name `swimspots-submissions`, migrations_dir `migrations`.

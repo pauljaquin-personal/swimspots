@@ -4,8 +4,8 @@ Reconciled 21 September 2026 with the earlier **Review Swim Spots Architecture**
 
 1. **Map and spot model — implemented in draft PR.** Search, categories, near me, saved spots, access/hazards, provenance, mobile layout.
 2. **Conditions — working prototype.** Modelled weather and regional marine data; LAWA reports. ORC dashboards and Mission Bay Safeswim report linked. Direct council readings need a supported current feed and verified station/depth mappings.
-3. **Community locations — implemented locally, deployment configuration outstanding.** Persisted submissions, draft recovery, duplicate checks, private review queue, editable review and approve/reject workflow. Approved spots join the map and get weather forecasts. No automatic council station assignment.
-4. **Curate and release.** Add and review real local entry points; verify access, facilities and hazards. Configure production D1 and reviewer credentials, complete deployment checks, then merge/deploy when requested.
+3. **Community locations — implemented and configured for beta.** Persisted submissions, draft recovery, duplicate checks, private review queue, editable review and approve/reject workflow. Approved spots join the map and get weather forecasts. No automatic council station assignment.
+4. **Curate and release.** Add and review real local entry points; verify access, facilities and hazards. Production D1 and reviewer credentials are configured; validate the beta with a small curated collection.
 5. **Swim routes.** Routes are distinct from locations: geometry, distance, entry/exit points, hazards and provenance. Establish editorial verification before accepting community routes.
 6. **Later integrations.** Strava/Garmin adapters, accounts and possible payments only when product needs justify them. Do not publish private activity tracks by default.
 

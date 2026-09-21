@@ -7,4 +7,5 @@
     "run_worker_first": ["/api/*"],
   },
   "main": "src/worker.js",
+  "d1_databases": [{"binding":"SUBMISSIONS_DB","database_name":"swimspots-submissions","database_id":"29c4e0ff-0439-4c1e-a9e7-2fe75b5a99db","migrations_dir":"migrations"}],
 }
