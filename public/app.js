@@ -36,6 +36,38 @@ function link(text, href) {
   a.rel = "noopener noreferrer";
   return a;
 }
+function cardArtwork(s) {
+  const art = el("span", "≋", `spot-art ${s.type}`);
+  art.setAttribute("aria-hidden", "true");
+  if (s.photo?.url) {
+    const img = document.createElement("img");
+    img.src = s.photo.url;
+    img.alt = "";
+    img.loading = "lazy";
+    img.decoding = "async";
+    img.onerror = () => img.remove();
+    art.append(img);
+  }
+  return art;
+}
+function detailArtwork(s) {
+  const banner = el("div", null, "detail-banner");
+  if (!s.photo?.url) return banner;
+  const img = document.createElement("img");
+  img.src = s.photo.url;
+  img.alt = s.photo.alt || `${s.name} swimming spot`;
+  img.decoding = "async";
+  img.onerror = () => {
+    img.remove();
+    banner.querySelector(".photo-credit")?.remove();
+  };
+  banner.append(img);
+  if (s.photo.credit) {
+    const credit = el("span", `Photo: ${s.photo.credit}`, "photo-credit");
+    banner.append(credit);
+  }
+  return banner;
+}
 function save(id) {
   state.saved = state.saved.includes(id)
     ? state.saved.filter((s) => s !== id)
@@ -90,8 +122,7 @@ function render() {
     const card = el("article", null, "spot-card");
     const open = el("button", null, "card-open");
     open.setAttribute("aria-label", `View ${s.name}`);
-    const art = el("span", "≋", `spot-art ${s.type}`);
-    art.setAttribute("aria-hidden", "true");
+    const art = cardArtwork(s);
     const copy = el("span", null, "card-copy");
     copy.append(
       el("span", s.type, "type-label"),
@@ -152,7 +183,7 @@ function showSpot(s) {
   const title = el("h2", s.name);
   title.id = "spot-title";
   content.append(
-    el("div", null, "detail-banner"),
+    detailArtwork(s),
     meta,
     title,
     el("p", s.description),
