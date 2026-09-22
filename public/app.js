@@ -63,7 +63,20 @@ function detailArtwork(s) {
   };
   banner.append(img);
   if (s.photo.credit) {
-    const credit = el("span", `Photo: ${s.photo.credit}`, "photo-credit");
+    const credit = el("span", "Photo: ", "photo-credit");
+    if (s.photo.sourceUrl) {
+      credit.append(link(s.photo.credit, s.photo.sourceUrl));
+    } else {
+      credit.append(document.createTextNode(s.photo.credit));
+    }
+    if (s.photo.license) {
+      credit.append(document.createTextNode(" · "));
+      if (s.photo.licenseUrl) {
+        credit.append(link(s.photo.license, s.photo.licenseUrl));
+      } else {
+        credit.append(document.createTextNode(s.photo.license));
+      }
+    }
     banner.append(credit);
   }
   return banner;
