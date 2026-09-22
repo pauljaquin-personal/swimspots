@@ -980,3 +980,24 @@ form select {
     padding: 16px;
   }
 }
+
+.photo-fields {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 14px 4px;
+  margin: 18px 0;
+}
+.photo-fields legend {
+  padding: 0 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.review-photo {
+  display: block;
+  width: min(100%, 560px);
+  max-height: 360px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin: 14px 0;
+  border: 1px solid var(--line);
+}
