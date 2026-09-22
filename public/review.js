@@ -16,7 +16,7 @@ const labels = {
   parking: "Parking",
   facilities: "Facilities",
   hazards: "Hazards",
-  sourceUrl: "Source URL",
+  sourceUrl: "Source URL (optional)",
   photoAlt: "Photo description",
   photoCredit: "Photo credit",
 };
@@ -138,11 +138,13 @@ async function load() {
           photo.remove();
         }
       }
-      const source = make("a", "Open submitted source ↗");
-      source.href = record.data.sourceUrl;
-      source.target = "_blank";
-      source.rel = "noopener noreferrer";
-      form.append(source);
+      if (record.data.sourceUrl) {
+        const source = make("a", "Open submitted source ↗");
+        source.href = record.data.sourceUrl;
+        source.target = "_blank";
+        source.rel = "noopener noreferrer";
+        form.append(source);
+      }
       const map = make("a", "Check coordinates on OpenStreetMap ↗");
       map.href = `https://www.openstreetmap.org/?mlat=${record.data.coordinates[0]}&mlon=${record.data.coordinates[1]}#map=16/${record.data.coordinates[0]}/${record.data.coordinates[1]}`;
       map.target = "_blank";
@@ -151,7 +153,7 @@ async function load() {
       if (record.status === "pending") {
         const cl = make(
           "label",
-          "I checked the location, public access, hazards and source.",
+          "I checked the location, public access, hazards and any provided source.",
         );
         cl.className = "check-label";
         const check = make("input");

@@ -342,3 +342,16 @@ test("photo upload rejects unsupported content and oversize declarations", () =>
     );
     assert.equal(response.status, 413);
   }));
+
+test("optional source accepts missing and blank values but still validates supplied URLs", () => {
+  for (const value of [undefined, null, "", "   "]) {
+    const data = validateSubmission({ ...sample(), sourceUrl: value });
+    assert.equal(data.sourceUrl, "");
+    const spot = publishedSpot({ id: "test", data, reviewedAt: "2026-09-22" });
+    assert.equal(spot.source.url, undefined);
+    assert.equal(spot.source.name, "Community submission · reviewed");
+  }
+  assert.equal(validateSubmission({ ...sample(), sourceUrl: " https://example.com " }).sourceUrl, "https://example.com/");
+  for (const value of ["bad-url", "http://example.com", "https://localhost", 123, "x".repeat(501)])
+    assert.throws(() => validateSubmission({ ...sample(), sourceUrl: value }));
+});

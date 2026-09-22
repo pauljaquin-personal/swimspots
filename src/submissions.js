@@ -16,7 +16,9 @@ export function validateSubmission(input) {
   if (!input || typeof input !== "object" || Array.isArray(input))
     throw new Error("Provide a location.");
   const data = {};
-  const optionalText = new Set(["parking", "facilities", "photoAlt", "photoCredit"]);
+  const optionalText = new Set([
+    "parking", "facilities", "photoAlt", "photoCredit", "sourceUrl",
+  ]);
   for (const [key, max] of Object.entries(fields)) {
     const value =
       input[key] == null && optionalText.has(key) ? "" : input[key];
@@ -31,7 +33,6 @@ export function validateSubmission(input) {
     "description",
     "access",
     "hazards",
-    "sourceUrl",
   ])
     if (!data[key]) throw new Error(`Please provide ${key}.`);
   if (!["lake", "river", "sea", "pool"].includes(input.type))
@@ -49,21 +50,23 @@ export function validateSubmission(input) {
       "Choose coordinates in mainland New Zealand (latitude -48 to -33, longitude 165 to 179.9).",
     );
   data.coordinates = [lat, lon];
-  let url;
-  try {
-    url = new URL(data.sourceUrl);
-  } catch {
-    throw new Error("Provide a valid public source URL.");
+  if (data.sourceUrl) {
+    let url;
+    try {
+      url = new URL(data.sourceUrl);
+    } catch {
+      throw new Error("Provide a valid public source URL.");
+    }
+    if (
+      url.protocol !== "https:" ||
+      url.username ||
+      url.password ||
+      !url.hostname.includes(".") ||
+      /^(localhost|127\.|10\.|192\.168\.|169\.254\.)/.test(url.hostname)
+    )
+      throw new Error("Use a public HTTPS source URL.");
+    data.sourceUrl = url.href;
   }
-  if (
-    url.protocol !== "https:" ||
-    url.username ||
-    url.password ||
-    !url.hostname.includes(".") ||
-    /^(localhost|127\.|10\.|192\.168\.|169\.254\.)/.test(url.hostname)
-  )
-    throw new Error("Use a public HTTPS source URL.");
-  data.sourceUrl = url.href;
   if (input.consent !== true)
     throw new Error("Confirm that these details may be published.");
   return data;
@@ -102,7 +105,7 @@ export function publishedSpot(record) {
     listingStatus: "community-reviewed",
     source: {
       name: "Community submission · reviewed",
-      url: d.sourceUrl,
+      ...(d.sourceUrl ? { url: d.sourceUrl } : {}),
       checkedAt: record.reviewedAt.slice(0, 10),
     },
     conditionsSource: {
@@ -441,7 +444,7 @@ export async function submissionRequest(
         return reply(
           {
             error:
-              "Confirm you checked the location, access, hazards and source.",
+              "Confirm you checked the location, access, hazards and any provided source.",
           },
           400,
         );

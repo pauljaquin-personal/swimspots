@@ -48,6 +48,9 @@ test("renders real feed contract, zeros, sources and lazy official LAWA report",
   );
   await page.goto("/#spot=queenstown-bay");
   await expect(page.getByText("0.0 °C", { exact: true })).toBeVisible();
+  await expect(page.locator(".condition").filter({ hasText: "Wind from" }).locator("strong")).toHaveText("S");
+  const headings = await page.locator("#spot-content h3").allTextContents();
+  expect(headings.indexOf("Access & local knowledge")).toBeLessThan(headings.indexOf("Weather at this spot"));
   await expect(page.getByText("0.0 mm", { exact: true })).toBeVisible();
   await expect(
     page.getByText("Model estimate · not a station observation"),

@@ -39,3 +39,14 @@ test("seed records have unique ids, valid NZ coordinates and honest missing cond
     }
   }
 });
+
+test("wind direction uses all 16 compass points and wraps at north", async () => {
+  const { compassPoint } = await import("../public/model.js");
+  const points = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
+  points.forEach((point, i) => assert.equal(compassPoint(i * 22.5), point));
+  for (const angle of [0, 360, 720, -360, 359, 348.75]) assert.equal(compassPoint(angle), "N");
+  assert.equal(compassPoint(11.249), "N");
+  assert.equal(compassPoint(11.25), "NNE");
+  assert.equal(compassPoint(-22.5), "NNW");
+  for (const value of [null, undefined, "", "90", NaN, Infinity]) assert.equal(compassPoint(value), "Not available");
+});

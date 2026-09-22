@@ -4,9 +4,9 @@
 
 Run `npm run dev`, then **Suggest a spot**. Drafts persist in browser localStorage. Submitted records persist in `.local/submissions.json` (ignored by Git, outside public assets). Review at `/review.html`. Loopback development permits review without a token; this is never enabled by Wrangler or the production configuration. Back up this file if keeping real curation work. Test files use temporary directories; browser CI uses a fresh checkout.
 
-Submitters provide coordinates, waterbody, access, hazards, a public HTTPS source and permission to publish. No contact details or accounts are collected. The form states what is private and what may become public. Do not enter sensitive location/access information. Publication permission is intentionally not restored from a saved draft.
+Submitters provide coordinates, waterbody, access, hazards and permission to publish. No contact details or accounts are collected. The form states what is private and what may become public. Do not enter sensitive location/access information. Publication permission is intentionally not restored from a saved draft.
 
-Pending and rejected records are never returned by the public spots endpoint. A reviewer can edit the listing and must record a note and confirm source/access/location/hazard checks before approval. An approval is a listing review, not a safety assessment. Approved spots automatically join the map and receive model forecasts; they have no invented council station or water-quality match.
+Pending and rejected records are never returned by the public spots endpoint. A reviewer can edit the listing and must record a note and confirm access/location/hazard checks and check any provided source before approval. An approval is a listing review, not a safety assessment. Approved spots automatically join the map and receive model forecasts; they have no invented council station or water-quality match.
 
 ## Production configuration before enabling submissions
 
@@ -38,3 +38,5 @@ The reviewer token is held only in page memory. A private note and submission fi
 - Published records cannot yet be edited or withdrawn in this review UI; corrections currently require an administrator database update. Keep the first release in controlled curation until that workflow is added. Contributor accounts, multi-photo galleries, notifications and reputation are later work.
 
 Back up production D1 and establish a retention policy for rejected/pending records before opening submissions broadly. No privacy contact address is invented in the UI.
+
+The public source or information link is optional in both submission and review. Blank, omitted or whitespace-only URLs are accepted; supplied URLs must pass public HTTPS validation. Supplied links appear under **About this listing** after approval. Listings without a URL show the community review credit without an empty link.
