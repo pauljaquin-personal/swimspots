@@ -9,6 +9,8 @@ export const fields = {
   facilities: 500,
   hazards: 1500,
   sourceUrl: 500,
+  photoAlt: 250,
+  photoCredit: 120,
 };
 export function validateSubmission(input) {
   if (!input || typeof input !== "object" || Array.isArray(input))
@@ -104,6 +106,15 @@ export function publishedSpot(record) {
       name: "LAWA",
       url: "https://www.lawa.org.nz/explore-data/swimming",
     },
+    ...(d.photo
+      ? {
+          photo: {
+            url: `/api/photos/${record.id}`,
+            alt: d.photoAlt || `${d.name} swimming spot`,
+            ...(d.photoCredit ? { credit: d.photoCredit } : {}),
+          },
+        }
+      : {}),
     routes: [],
   };
 }
@@ -149,6 +160,16 @@ export class D1Submissions {
       .run();
     return r.meta.changes === 1;
   }
+  async attachPhoto(id, photo) {
+    const record = await this.get(id);
+    if (!record || record.status !== "pending") return false;
+    record.data.photo = photo;
+    const r = await this.db
+      .prepare("UPDATE submissions SET data=? WHERE id=? AND status='pending'")
+      .bind(JSON.stringify(record.data), id)
+      .run();
+    return r.meta.changes === 1;
+  }
   async quota(key, bucket) {
     const r = await this.db
       .prepare(
@@ -180,7 +201,36 @@ const reply = (v, status = 200) =>
       "X-Content-Type-Options": "nosniff",
     },
   });
-export async function submissionRequest(request, env, catalog, store) {
+const uuidPattern =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const photoTypes = {
+  "image/jpeg": { ext: "jpg", magic: (b) => b[0] === 0xff && b[1] === 0xd8 && b[2] === 0xff },
+  "image/png": {
+    ext: "png",
+    magic: (b) =>
+      b[0] === 0x89 &&
+      b[1] === 0x50 &&
+      b[2] === 0x4e &&
+      b[3] === 0x47 &&
+      b[4] === 0x0d &&
+      b[5] === 0x0a &&
+      b[6] === 0x1a &&
+      b[7] === 0x0a,
+  },
+  "image/webp": {
+    ext: "webp",
+    magic: (b) =>
+      String.fromCharCode(...b.slice(0, 4)) === "RIFF" &&
+      String.fromCharCode(...b.slice(8, 12)) === "WEBP",
+  },
+};
+export async function submissionRequest(
+  request,
+  env,
+  catalog,
+  store,
+  photos = null,
+) {
   const url = new URL(request.url),
     path = url.pathname;
   const local =
@@ -218,6 +268,62 @@ export async function submissionRequest(request, env, catalog, store) {
       return reply({ error: "Unknown status." }, 400);
     return reply({ submissions: await store.list(status) });
   }
+  const publicPhoto = path.match(/^\/api\/photos\/([0-9a-f-]+)$/i);
+  const reviewPhoto = path.match(/^\/api\/review-photo\/([0-9a-f-]+)$/i);
+  if ((publicPhoto || reviewPhoto) && request.method === "GET") {
+    if (!photos) return reply({ error: "Photo storage is not configured." }, 503);
+    const id = (publicPhoto || reviewPhoto)[1];
+    if (!uuidPattern.test(id)) return reply({ error: "Photo not found." }, 404);
+    const record = await store.get(id);
+    if (!record?.data?.photo) return reply({ error: "Photo not found." }, 404);
+    if (publicPhoto && record.status !== "approved")
+      return reply({ error: "Photo not found." }, 404);
+    const object = await photos.get(record.data.photo.key);
+    if (!object) return reply({ error: "Photo not found." }, 404);
+    return new Response(object.body, {
+      headers: {
+        "Content-Type": record.data.photo.contentType,
+        "Cache-Control": publicPhoto
+          ? "public, max-age=86400, stale-while-revalidate=604800"
+          : "private, no-store",
+        "X-Content-Type-Options": "nosniff",
+        "Content-Disposition": "inline",
+      },
+    });
+  }
+  const uploadPhoto = path.match(/^\/api\/submission-photo\/([0-9a-f-]+)$/i);
+  if (uploadPhoto && request.method === "PUT") {
+    if (request.headers.get("Origin") !== url.origin)
+      return reply({ error: "Upload from this website." }, 403);
+    if (!photos) return reply({ error: "Photo uploads are not enabled yet." }, 503);
+    const id = uploadPhoto[1];
+    if (!uuidPattern.test(id)) return reply({ error: "Unknown submission." }, 404);
+    const record = await store.get(id);
+    if (!record || record.status !== "pending")
+      return reply({ error: "This suggestion cannot accept a photo." }, 409);
+    const contentType = (request.headers.get("Content-Type") || "")
+      .split(";")[0]
+      .trim()
+      .toLowerCase();
+    const type = photoTypes[contentType];
+    if (!type)
+      return reply({ error: "Use a JPEG, PNG or WebP photograph." }, 415);
+    const declared = Number(request.headers.get("Content-Length") || 0);
+    if (declared > 8 * 1024 * 1024)
+      return reply({ error: "Photo must be 8 MB or smaller." }, 413);
+    const bytes = new Uint8Array(await request.arrayBuffer());
+    if (!bytes.length || bytes.length > 8 * 1024 * 1024)
+      return reply({ error: "Photo must be between 1 byte and 8 MB." }, 413);
+    if (!type.magic(bytes))
+      return reply({ error: "The uploaded file is not a valid image." }, 415);
+    const key = `submissions/${id}/primary.${type.ext}`;
+    await photos.put(key, bytes, { httpMetadata: { contentType } });
+    if (!(await store.attachPhoto(id, { key, contentType }))) {
+      await photos.delete(key);
+      return reply({ error: "This suggestion cannot accept a photo." }, 409);
+    }
+    return reply({ id, uploaded: true }, 201);
+  }
   if (request.method !== "POST")
     return reply({ error: "Method not allowed." }, 405);
   if (request.headers.get("Origin") !== url.origin)
@@ -252,9 +358,7 @@ export async function submissionRequest(request, env, catalog, store) {
       return reply({ error: "Submission could not be accepted." }, 400);
     if (
       typeof body.id !== "string" ||
-      !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
-        body.id,
-      )
+      !uuidPattern.test(body.id)
     )
       return reply(
         { error: "Invalid submission reference. Reload and retry." },
@@ -340,6 +444,7 @@ export async function submissionRequest(request, env, catalog, store) {
         );
       try {
         data = validateSubmission({ ...body.data, consent: true });
+        if (record.data.photo) data.photo = record.data.photo;
       } catch (e) {
         return reply({ error: e.message }, 400);
       }
@@ -357,6 +462,8 @@ export async function submissionRequest(request, env, catalog, store) {
         { error: "This suggestion was already reviewed. Refresh the queue." },
         409,
       );
+    if (body.status === "rejected" && record.data.photo && photos)
+      await photos.delete(record.data.photo.key).catch(() => {});
     return reply({ id, status: body.status });
   }
   return reply({ error: "Not found." }, 404);
