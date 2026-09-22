@@ -55,6 +55,14 @@ export class LocalSubmissions {
       return true;
     });
   }
+  async attachPhoto(id, photo) {
+    return this.change((s) => {
+      const r = s.records.find((x) => x.id === id);
+      if (!r || r.status !== "pending") return false;
+      r.data.photo = photo;
+      return true;
+    });
+  }
   async quota(key, bucket) {
     return this.change((s) => {
       for (const k of Object.keys(s.limits))
