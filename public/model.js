@@ -9,3 +9,13 @@ export function selectSpots(spots, { query = '', type = 'all', region = 'all', s
     && (!savedOnly || saved.includes(s.id)) && normalise(`${s.name} ${s.region} ${s.waterbody}`).includes(normalise(query.trim())))
     .sort((a, b) => location ? distanceKm(location, a.coordinates) - distanceKm(location, b.coordinates) : 0);
 }
+
+// Meteorological direction: the compass point the wind comes from.
+export function compassPoint(degrees) {
+  if (typeof degrees !== "number" || !Number.isFinite(degrees))
+    return "Not available";
+  const points = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE",
+    "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
+  const normalized = ((degrees % 360) + 360) % 360;
+  return points[Math.round(normalized / 22.5) % 16];
+}

@@ -201,6 +201,17 @@ function showSpot(s) {
     title,
     el("p", s.description),
   );
+  content.append(el("h3", "Access & local knowledge"));
+  const details = el("dl");
+  for (const [label, value] of Object.entries({
+    Access: s.access,
+    Parking: s.parking,
+    Facilities: s.facilities,
+    "Hazards & local advice": s.hazards,
+    Location: `${s.coordinates.join(", ")} · approximate, not a verified water-entry point`,
+  }))
+    details.append(el("dt", label), el("dd", value));
+  content.append(details);
   const feedPanel = el("div", null, "spot-feeds");
   content.append(feedPanel);
   disposeConditions = mountConditions(feedPanel, s);
@@ -220,17 +231,6 @@ function showSpot(s) {
   };
   actions.append(source, bookmark);
   content.append(actions);
-  content.append(el("h3", "Access & local knowledge"));
-  const details = el("dl");
-  for (const [label, value] of Object.entries({
-    Access: s.access,
-    Parking: s.parking,
-    Facilities: s.facilities,
-    "Hazards & local advice": s.hazards,
-    Location: `${s.coordinates.join(", ")} · approximate, not a verified water-entry point`,
-  }))
-    details.append(el("dt", label), el("dd", value));
-  content.append(details);
   content.append(
     el("h3", "Swim routes"),
     el("p", "No verified routes published for this spot yet."),
@@ -238,9 +238,11 @@ function showSpot(s) {
   content.append(el("h3", "About this listing"));
   const provenance = el("p");
   provenance.append(
-    link(s.source.name, s.source.url),
+    s.source.url
+      ? link(s.source.name, s.source.url)
+      : document.createTextNode(s.source.name),
     document.createTextNode(
-      ` · Listing source reviewed ${s.source.checkedAt}. ${s.listingStatus === "community-reviewed" ? "Community entry point reviewed for publication; conditions and access can change." : "Coordinates are editorial estimates; access and facilities await local review."} Weather model times and water-quality sample dates are shown separately above.`,
+      ` · Listing reviewed ${s.source.checkedAt}. ${s.listingStatus === "community-reviewed" ? "Community entry point reviewed for publication; conditions and access can change." : "Coordinates are editorial estimates; access and facilities await local review."} Weather model times and water-quality sample dates are shown separately above.`,
     ),
   );
   content.append(provenance);

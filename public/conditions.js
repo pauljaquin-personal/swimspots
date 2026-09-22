@@ -1,3 +1,4 @@
+import { compassPoint } from "./model.js";
 const el = (tag, text, className) => {
   const n = document.createElement(tag);
   if (text != null) n.textContent = text;
@@ -77,7 +78,7 @@ function weatherView(feed) {
     card("Air temperature", number(feed.current.airTemperature)),
     card("Wind at 10 m", number(feed.current.windSpeed)),
     card("Wind gusts", number(feed.current.windGusts)),
-    card("Wind from", number(feed.current.windDirection, 0)),
+    card("Wind from", compassPoint(feed.current.windDirection?.value)),
     card("Past 24h precipitation · modelled", number(feed.rain24h)),
   );
   section.append(
