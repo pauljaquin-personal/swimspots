@@ -118,6 +118,14 @@
           }
         ],
         "note": "Open the ORC dashboard and select the lake or monitoring station. Readings may be provisional. Buoy temperature depends on depth and location and is not a measurement at this swimming entry point."
+      },
+      "photo": {
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/34/Queenstown_Bay_Lake_Wakatipu_01.jpg/960px-Queenstown_Bay_Lake_Wakatipu_01.jpg",
+        "alt": "Queenstown Bay on Lake Whakatipu, viewed across the water toward the Queenstown lakefront.",
+        "credit": "Krzysztof Golik",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Queenstown_Bay_Lake_Wakatipu_01.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
       }
     },
     {
