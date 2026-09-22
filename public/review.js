@@ -5,7 +5,8 @@ const $ = (s) => document.querySelector(s),
     return n;
   };
 let token = "",
-  busy = false;
+  busy = false,
+  photoUrls = [];
 const labels = {
   name: "Spot name",
   region: "Region",
@@ -32,6 +33,23 @@ async function api(path, options = {}) {
   if (!response.ok) throw new Error(data.error || "Request failed.");
   return data;
 }
+async function loadPhoto(id) {
+  const response = await fetch("/api/review-photo/" + id, {
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+    signal: AbortSignal.timeout(15000),
+  });
+  if (!response.ok) {
+    let message = "Could not load submitted photograph.";
+    try {
+      const data = await response.json();
+      if (data.error) message = data.error;
+    } catch {}
+    throw new Error(message);
+  }
+  const url = URL.createObjectURL(await response.blob());
+  photoUrls.push(url);
+  return url;
+}
 function field(form, name, label, value, type = "text") {
   const l = make("label", label),
     input = make(type === "textarea" ? "textarea" : "input");
@@ -48,6 +66,8 @@ async function load() {
   if (busy) return;
   busy = true;
   $("#review-status").textContent = "Loading…";
+  for (const url of photoUrls) URL.revokeObjectURL(url);
+  photoUrls = [];
   $("#review-list").replaceChildren();
   try {
     const { submissions } = await api(
@@ -105,9 +125,18 @@ async function load() {
       if (record.data.photo) {
         const photo = make("img");
         photo.className = "review-photo";
-        photo.src = "/api/review-photo/" + record.id;
-        photo.alt = record.data.photoAlt || record.data.name + " submitted photograph";
+        photo.alt =
+          record.data.photoAlt ||
+          record.data.name + " submitted photograph";
         form.append(photo);
+        try {
+          photo.src = await loadPhoto(record.id);
+        } catch (e) {
+          const photoError = make("p", e.message);
+          photoError.className = "small";
+          form.append(photoError);
+          photo.remove();
+        }
       }
       const source = make("a", "Open submitted source ↗");
       source.href = record.data.sourceUrl;
