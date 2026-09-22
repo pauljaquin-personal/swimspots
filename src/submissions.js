@@ -16,10 +16,13 @@ export function validateSubmission(input) {
   if (!input || typeof input !== "object" || Array.isArray(input))
     throw new Error("Provide a location.");
   const data = {};
+  const optionalText = new Set(["parking", "facilities", "photoAlt", "photoCredit"]);
   for (const [key, max] of Object.entries(fields)) {
-    if (typeof input[key] !== "string" || input[key].trim().length > max)
+    const value =
+      input[key] == null && optionalText.has(key) ? "" : input[key];
+    if (typeof value !== "string" || value.trim().length > max)
       throw new Error(`Check ${key} (maximum ${max} characters).`);
-    data[key] = input[key].trim();
+    data[key] = value.trim();
   }
   for (const key of [
     "name",
