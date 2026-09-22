@@ -33,10 +33,19 @@ export async function handleRequest(
     ["/api/submissions", "/api/community-spots", "/api/review"].includes(
       url.pathname,
     ) ||
-    url.pathname.startsWith("/api/review/")
+    url.pathname.startsWith("/api/review/") ||
+    url.pathname.startsWith("/api/submission-photo/") ||
+    url.pathname.startsWith("/api/photos/") ||
+    url.pathname.startsWith("/api/review-photo/")
   ) {
     try {
-      return await submissionRequest(request, env, catalog.spots, store);
+      return await submissionRequest(
+        request,
+        env,
+        catalog.spots,
+        store,
+        env.SPOT_PHOTOS || null,
+      );
     } catch {
       return json(
         {

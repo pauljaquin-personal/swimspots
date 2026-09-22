@@ -9,6 +9,8 @@ const fields = [
   "facilities",
   "hazards",
   "sourceUrl",
+  "photoAlt",
+  "photoCredit",
   "latitude",
   "longitude",
 ];
@@ -101,6 +103,17 @@ export function mountSubmission() {
   form.onsubmit = async (event) => {
     event.preventDefault();
     if (busy) return;
+    const photo = field("photo").files?.[0] || null;
+    if (photo) {
+      if (!["image/jpeg", "image/png", "image/webp"].includes(photo.type)) {
+        status.textContent = "Use a JPEG, PNG or WebP photograph.";
+        return;
+      }
+      if (photo.size > 8 * 1024 * 1024) {
+        status.textContent = "Photo must be 8 MB or smaller.";
+        return;
+      }
+    }
     const d = draft();
     const data = {
       ...d,
@@ -133,7 +146,26 @@ export function mountSubmission() {
         button.disabled = false;
         return;
       }
-      status.textContent = `Suggestion received. Reference: ${result.id}. Status: ${result.status}. Pending suggestions are visible only to reviewers until approved.`;
+      if (photo) {
+        status.textContent = "Suggestion received. Uploading photograph…";
+        const photoResponse = await fetch(
+          "/api/submission-photo/" + encodeURIComponent(result.id),
+          {
+            method: "PUT",
+            headers: { "Content-Type": photo.type },
+            body: photo,
+            signal: controller.signal,
+          },
+        );
+        const photoResult = await photoResponse.json();
+        if (!photoResponse.ok) {
+          status.textContent =
+            `Suggestion received (reference: ${result.id}), but the photograph was not uploaded: ${photoResult.error || "upload failed"}. Press Submit for review again to retry the photo.`;
+          button.disabled = false;
+          return;
+        }
+      }
+      status.textContent = `Suggestion received. Reference: ${result.id}. Status: ${result.status}.${photo ? " Photograph uploaded for private review." : ""} Pending suggestions are visible only to reviewers until approved.`;
       document.querySelector("#duplicate-confirm").hidden = true;
       document.querySelector("#start-new").hidden = false;
       try {

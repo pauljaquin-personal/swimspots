@@ -16,6 +16,8 @@ const labels = {
   facilities: "Facilities",
   hazards: "Hazards",
   sourceUrl: "Source URL",
+  photoAlt: "Photo description",
+  photoCredit: "Photo credit",
 };
 async function api(path, options = {}) {
   const response = await fetch(path, {
@@ -100,6 +102,13 @@ async function load() {
         record.data.coordinates[1],
         "number",
       );
+      if (record.data.photo) {
+        const photo = make("img");
+        photo.className = "review-photo";
+        photo.src = "/api/review-photo/" + record.id;
+        photo.alt = record.data.photoAlt || record.data.name + " submitted photograph";
+        form.append(photo);
+      }
       const source = make("a", "Open submitted source ↗");
       source.href = record.data.sourceUrl;
       source.target = "_blank";

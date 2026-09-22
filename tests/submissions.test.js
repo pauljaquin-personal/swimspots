@@ -24,6 +24,8 @@ const sample = () => ({
   facilities: "",
   hazards: "Not inspected yet",
   sourceUrl: "https://www.orc.govt.nz/",
+  photoAlt: "",
+  photoCredit: "",
   consent: true,
 });
 const post = (path, body, headers = {}) =>
@@ -216,3 +218,127 @@ test("unconfigured storage fails explicitly; forged published fields are discard
   );
   assert.equal(r.status, 503);
 });
+
+test("photo upload stays private until approval and publishes through the photo endpoint", () =>
+  withStore(async (store) => {
+    class FakePhotos {
+      constructor() {
+        this.objects = new Map();
+      }
+      async put(key, bytes, options) {
+        this.objects.set(key, {
+          bytes: new Uint8Array(bytes),
+          httpMetadata: options?.httpMetadata || {},
+        });
+      }
+      async get(key) {
+        const value = this.objects.get(key);
+        if (!value) return null;
+        return {
+          body: value.bytes,
+          httpMetadata: value.httpMetadata,
+        };
+      }
+      async delete(key) {
+        this.objects.delete(key);
+      }
+    }
+    const photos = new FakePhotos();
+    const d = { ...sample(), photoAlt: "A test lake entry point", photoCredit: "Test photographer" };
+    const env = { LOCAL_REVIEW: true };
+    let response = await submissionRequest(post("/api/submissions", d), env, [], store, photos);
+    assert.equal(response.status, 201);
+    const jpeg = new Uint8Array([0xff, 0xd8, 0xff, 0xdb, 0x00, 0x43]);
+    response = await submissionRequest(
+      new Request("http://127.0.0.1:4173/api/submission-photo/" + d.id, {
+        method: "PUT",
+        headers: {
+          Origin: "http://127.0.0.1:4173",
+          "Content-Type": "image/jpeg",
+        },
+        body: jpeg,
+      }),
+      env,
+      [],
+      store,
+      photos,
+    );
+    assert.equal(response.status, 201);
+    response = await submissionRequest(
+      new Request("http://127.0.0.1:4173/api/photos/" + d.id),
+      env,
+      [],
+      store,
+      photos,
+    );
+    assert.equal(response.status, 404);
+    response = await submissionRequest(
+      post("/api/review/" + d.id, {
+        status: "approved",
+        data: d,
+        note: "Verified photo and listing",
+        reviewConfirmed: true,
+      }),
+      env,
+      [],
+      store,
+      photos,
+    );
+    assert.equal(response.status, 200);
+    const spot = publishedSpot(await store.get(d.id));
+    assert.equal(spot.photo.url, "/api/photos/" + d.id);
+    assert.equal(spot.photo.alt, d.photoAlt);
+    assert.equal(spot.photo.credit, d.photoCredit);
+    response = await submissionRequest(
+      new Request("http://127.0.0.1:4173/api/photos/" + d.id),
+      env,
+      [],
+      store,
+      photos,
+    );
+    assert.equal(response.status, 200);
+    assert.equal(response.headers.get("Content-Type"), "image/jpeg");
+  }));
+
+test("photo upload rejects unsupported content and oversize declarations", () =>
+  withStore(async (store) => {
+    const photos = {
+      put: async () => {},
+      get: async () => null,
+      delete: async () => {},
+    };
+    const d = sample(),
+      env = { LOCAL_REVIEW: true };
+    await submissionRequest(post("/api/submissions", d), env, [], store, photos);
+    let response = await submissionRequest(
+      new Request("http://127.0.0.1:4173/api/submission-photo/" + d.id, {
+        method: "PUT",
+        headers: {
+          Origin: "http://127.0.0.1:4173",
+          "Content-Type": "text/plain",
+        },
+        body: "not an image",
+      }),
+      env,
+      [],
+      store,
+      photos,
+    );
+    assert.equal(response.status, 415);
+    response = await submissionRequest(
+      new Request("http://127.0.0.1:4173/api/submission-photo/" + d.id, {
+        method: "PUT",
+        headers: {
+          Origin: "http://127.0.0.1:4173",
+          "Content-Type": "image/jpeg",
+          "Content-Length": String(9 * 1024 * 1024),
+        },
+        body: new Uint8Array([0xff, 0xd8, 0xff]),
+      }),
+      env,
+      [],
+      store,
+      photos,
+    );
+    assert.equal(response.status, 413);
+  }));
