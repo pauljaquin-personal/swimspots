@@ -235,12 +235,39 @@
             maxlength="500"
             placeholder="https://…"
         /></label>
+        <fieldset class="photo-fields">
+          <legend>Photograph (optional)</legend>
+          <label
+            >Add one photo<input
+              name="photo"
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+          /></label>
+          <p class="small">
+            JPEG, PNG or WebP, up to 8 MB. The photo is private while the
+            suggestion is awaiting review and is published only if the spot is
+            approved.
+          </p>
+          <label
+            >Photo description for screen readers<input
+              name="photoAlt"
+              maxlength="250"
+              placeholder="e.g. Queenstown Bay looking across the lake"
+          /></label>
+          <label
+            >Photo credit (optional)<input
+              name="photoCredit"
+              maxlength="120"
+              placeholder="Your name, club or photographer"
+          /></label>
+        </fieldset>
         <label class="honeypot" aria-hidden="true"
           >Website<input name="website" tabindex="-1" autocomplete="off"
         /></label>
         <label class="check-label"
           ><input name="consent" type="checkbox" required /> I may share these
-          details and agree they can be published. I have not included private
+          details and agree they can be published. If I upload a photograph, I
+          own it or have permission to publish it. I have not included private
           contact details or private access information.</label
         >
         <p class="small">
