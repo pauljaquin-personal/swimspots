@@ -11,7 +11,7 @@ test("search, filter, details, saved persistence and empty state", async ({
   page,
 }) => {
   await page.goto("/");
-  await expect(page.locator(".spot-card")).toHaveCount(7);
+  await expect(page.locator(".spot-card")).toHaveCount(57);
   await page.getByRole("searchbox").fill("wanaka");
   await expect(page.locator(".spot-card")).toHaveCount(1);
   await page
@@ -71,7 +71,7 @@ test("location sorts spots nearest first", async ({ page, context }) => {
   await context.grantPermissions(["geolocation"]);
   await context.setGeolocation({ latitude: -36.848, longitude: 174.831 });
   await page.goto("/");
-  await expect(page.locator(".spot-card")).toHaveCount(7);
+  await expect(page.locator(".spot-card")).toHaveCount(57);
   await page.locator("#near").click();
   await expect(page.locator(".spot-card").first()).toContainText("Mission Bay");
   await expect(page.locator(".spot-card").first()).toContainText("0.0 km");
