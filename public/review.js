@@ -78,6 +78,12 @@ async function load() {
       const card = make("article");
       card.className = "review-card";
       card.append(
+        make(
+          "p",
+          record.data.targetSpotId
+            ? "UPDATE TO EXISTING SPOT"
+            : "NEW SWIM SPOT",
+        ),
         make("h2", record.data.name),
         make(
           "p",

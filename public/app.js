@@ -229,7 +229,13 @@ function showSpot(s) {
       ? "★ Saved"
       : "☆ Save spot";
   };
-  actions.append(source, bookmark);
+  const contribute = el("button", "Add photo or local knowledge", "outline");
+  contribute.onclick = () => {
+    document.dispatchEvent(
+      new CustomEvent("swimspots:edit-spot", { detail: s }),
+    );
+  };
+  actions.append(source, bookmark, contribute);
   content.append(actions);
   content.append(
     el("h3", "Swim routes"),
@@ -246,6 +252,18 @@ function showSpot(s) {
     ),
   );
   content.append(provenance);
+  if (s.communitySourceUrl) {
+    const communitySource = el("p");
+    communitySource.append(
+      link("Community information source ↗", s.communitySourceUrl),
+      document.createTextNode(
+        s.communityReviewedAt
+          ? ` · Reviewed ${new Date(s.communityReviewedAt).toLocaleDateString("en-NZ")}`
+          : "",
+      ),
+    );
+    content.append(communitySource);
+  }
   const show = el("button", "Show this spot on the map", "primary");
   show.onclick = () => {
     $("#spot-dialog").close();
@@ -367,6 +385,18 @@ async function init() {
       });
       if (!community.ok) throw new Error("community");
       const extra = await community.json();
+      for (const update of extra.updates || []) {
+        const target = spots.find((s) => s.id === update.targetSpotId);
+        if (!target) continue;
+        target.access = update.access || target.access;
+        target.parking = update.parking || target.parking;
+        target.facilities = update.facilities || target.facilities;
+        target.hazards = update.hazards || target.hazards;
+        if (update.photo) target.photo = update.photo;
+        target.listingStatus = "community-reviewed";
+        target.communitySourceUrl = update.sourceUrl || "";
+        target.communityReviewedAt = update.reviewedAt;
+      }
       spots.push(...extra.spots);
     } catch {
       document.querySelector(".collection-note").textContent =

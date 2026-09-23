@@ -88,6 +88,27 @@ export function duplicateSpots(data, spots) {
     )
     .map((s) => ({ id: s.id, name: s.name }));
 }
+export function publishedUpdate(record) {
+  const d = record.data;
+  return {
+    targetSpotId: d.targetSpotId,
+    access: d.access,
+    parking: d.parking || "Not yet verified.",
+    facilities: d.facilities || "Not yet verified.",
+    hazards: d.hazards,
+    sourceUrl: d.sourceUrl || "",
+    reviewedAt: record.reviewedAt,
+    ...(d.photo
+      ? {
+          photo: {
+            url: `/api/photos/${record.id}`,
+            alt: d.photoAlt || `${d.name} swimming spot`,
+            ...(d.photoCredit ? { credit: d.photoCredit } : {}),
+          },
+        }
+      : {}),
+  };
+}
 export function publishedSpot(record) {
   const d = record.data;
   return {
@@ -254,9 +275,15 @@ export async function submissionRequest(
       return reply({ error: "Reviewer sign-in required." }, 401);
   }
   if (path === "/api/community-spots" && request.method === "GET") {
-    if (!store) return reply({ spots: [], submissionsEnabled: false });
+    if (!store)
+      return reply({ spots: [], updates: [], submissionsEnabled: false });
+    const approved = await store.list("approved");
     return reply({
-      spots: (await store.list("approved")).map(publishedSpot),
+      spots: approved.filter((r) => !r.data.targetSpotId).map(publishedSpot),
+      updates: approved
+        .filter((r) => r.data.targetSpotId)
+        .reverse()
+        .map(publishedUpdate),
       submissionsEnabled: true,
     });
   }
@@ -373,6 +400,14 @@ export async function submissionRequest(
     let data;
     try {
       data = validateSubmission(body);
+      if (body.targetSpotId != null) {
+        if (
+          typeof body.targetSpotId !== "string" ||
+          !catalog.some((s) => s.id === body.targetSpotId)
+        )
+          throw new Error("Choose an existing swim spot to update.");
+        data.targetSpotId = body.targetSpotId;
+      }
     } catch (e) {
       return reply({ error: e.message }, 400);
     }
@@ -405,7 +440,7 @@ export async function submissionRequest(
       ...catalog,
       ...(await store.list("approved")).map(publishedSpot),
     ];
-    const duplicates = duplicateSpots(data, all);
+    const duplicates = data.targetSpotId ? [] : duplicateSpots(data, all);
     if (duplicates.length && body.duplicateConfirmed !== true)
       return reply(
         {
@@ -450,6 +485,7 @@ export async function submissionRequest(
         );
       try {
         data = validateSubmission({ ...body.data, consent: true });
+        if (record.data.targetSpotId) data.targetSpotId = record.data.targetSpotId;
         if (record.data.photo) data.photo = record.data.photo;
       } catch (e) {
         return reply({ error: e.message }, 400);

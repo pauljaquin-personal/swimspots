@@ -21,7 +21,8 @@ export function mountSubmission() {
     button = form.querySelector("[type=submit]");
   let id = crypto.randomUUID(),
     busy = false,
-    duplicateConfirmed = false;
+    duplicateConfirmed = false,
+    targetSpotId = null;
   const field = (name) => form.elements.namedItem(name);
   try {
     const saved = JSON.parse(localStorage.getItem(key) || "null");
@@ -48,8 +49,49 @@ export function mountSubmission() {
     duplicateConfirmed = true;
     form.requestSubmit();
   };
+  function setCoreLocked(locked) {
+    for (const name of ["name", "region", "waterbody", "type", "latitude", "longitude", "description"])
+      field(name).disabled = locked;
+  }
+  function setMode(spot = null) {
+    targetSpotId = spot?.id || null;
+    if (spot) {
+      form.reset();
+      id = crypto.randomUUID();
+      duplicateConfirmed = true;
+      const values = {
+        name: spot.name,
+        region: spot.region,
+        waterbody: spot.waterbody,
+        type: spot.type,
+        latitude: String(spot.coordinates[0]),
+        longitude: String(spot.coordinates[1]),
+        description: spot.description,
+        access: spot.access,
+        parking: spot.parking || "",
+        facilities: spot.facilities || "",
+        hazards: spot.hazards,
+        sourceUrl: "",
+        photoAlt: "",
+        photoCredit: "",
+      };
+      for (const [name, value] of Object.entries(values)) field(name).value = value;
+      setCoreLocked(true);
+      document.querySelector("#suggest-title").textContent = `Add to ${spot.name}`;
+      button.textContent = "Submit update for review";
+    } else {
+      setCoreLocked(false);
+      document.querySelector("#suggest-title").textContent = "Know a good spot?";
+      button.textContent = "Submit for review";
+    }
+    document.querySelector("#duplicate-confirm").hidden = true;
+    document.querySelector("#start-new").hidden = true;
+    status.textContent = "";
+    updatePin();
+  }
   document.querySelector("#start-new").onclick = () => {
     form.reset();
+    setMode(null);
     id = crypto.randomUUID();
     button.disabled = false;
     document.querySelector("#start-new").hidden = true;
@@ -61,6 +103,11 @@ export function mountSubmission() {
   let pinMap, pin;
 
   document.querySelector("#contribute").onclick = () => {
+    if (targetSpotId) {
+      form.reset();
+      id = crypto.randomUUID();
+    }
+    setMode(null);
     document.querySelector("#suggest-dialog").showModal();
     if (window.L && !pinMap) {
       pinMap = L.map("suggest-map", { scrollWheelZoom: false }).setView(
@@ -82,6 +129,31 @@ export function mountSubmission() {
     pinMap?.invalidateSize();
     updatePin();
   };
+  document.addEventListener("swimspots:edit-spot", (event) => {
+    setMode(event.detail);
+    document.querySelector("#spot-dialog")?.close();
+    document.querySelector("#suggest-dialog").showModal();
+    if (window.L && !pinMap) {
+      pinMap = L.map("suggest-map", { scrollWheelZoom: false }).setView(
+        event.detail.coordinates,
+        13,
+      );
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution:
+          '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        maxZoom: 19,
+      }).addTo(pinMap);
+      pinMap.on("click", (e) => {
+        if (targetSpotId) return;
+        field("latitude").value = e.latlng.lat.toFixed(6);
+        field("longitude").value = e.latlng.lng.toFixed(6);
+        updatePin();
+      });
+    }
+    pinMap?.setView(event.detail.coordinates, 13);
+    pinMap?.invalidateSize();
+    updatePin();
+  });
   function updatePin() {
     const lat = Number(field("latitude").value),
       lon = Number(field("longitude").value);
@@ -118,6 +190,7 @@ export function mountSubmission() {
     const data = {
       ...d,
       id,
+      ...(targetSpotId ? { targetSpotId } : {}),
       coordinates: [Number(d.latitude), Number(d.longitude)],
       consent: field("consent").checked,
       website: field("website").value,
@@ -165,7 +238,7 @@ export function mountSubmission() {
           return;
         }
       }
-      status.textContent = `Suggestion received. Reference: ${result.id}. Status: ${result.status}.${photo ? " Photograph uploaded for private review." : ""} Pending suggestions are visible only to reviewers until approved.`;
+      status.textContent = `${targetSpotId ? "Update" : "Suggestion"} received. Reference: ${result.id}. Status: ${result.status}.${photo ? " Photograph uploaded for private review." : ""} Pending submissions are visible only to reviewers until approved.`;
       document.querySelector("#duplicate-confirm").hidden = true;
       document.querySelector("#start-new").hidden = false;
       try {
