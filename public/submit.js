@@ -103,6 +103,8 @@ export function mountSubmission() {
   let pinMap, pin;
 
   document.querySelector("#contribute").onclick = () => {
+    form.reset();
+    id = crypto.randomUUID();
     setMode(null);
     document.querySelector("#suggest-dialog").showModal();
     if (window.L && !pinMap) {
@@ -139,6 +141,12 @@ export function mountSubmission() {
           '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         maxZoom: 19,
       }).addTo(pinMap);
+      pinMap.on("click", (e) => {
+        if (targetSpotId) return;
+        field("latitude").value = e.latlng.lat.toFixed(6);
+        field("longitude").value = e.latlng.lng.toFixed(6);
+        updatePin();
+      });
     }
     pinMap?.setView(event.detail.coordinates, 13);
     pinMap?.invalidateSize();
