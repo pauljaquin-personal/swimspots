@@ -825,6 +825,4656 @@
         ],
         "note": "View current water quality, warnings, beach information and tides on the official location report. Check its timestamps before swimming."
       }
+    },
+    {
+      "id": "arrow-river-cornwall-street",
+      "name": "Arrow River – Cornwall Street",
+      "type": "river",
+      "region": "Otago",
+      "waterbody": "Arrow River",
+      "coordinates": [
+        -44.9417,
+        168.8325
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Arrow River – Cornwall Street is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "River/lake levels, currents, water quality and toxic algae conditions can change. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "clutha-dunorling-street",
+      "name": "Clutha River / Mata-Au – Dunorling Street",
+      "type": "river",
+      "region": "Otago",
+      "waterbody": "Clutha River / Mata-Au",
+      "coordinates": [
+        -45.2468,
+        169.3918
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Clutha River / Mata-Au – Dunorling Street is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "River/lake levels, currents, water quality and toxic algae conditions can change. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "hampden-beach",
+      "name": "Hampden Beach – Campground",
+      "type": "sea",
+      "region": "Otago",
+      "waterbody": "Pacific Ocean",
+      "coordinates": [
+        -45.3245,
+        170.824
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Hampden Beach – Campground is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local surf, tide, current and water-quality conditions can change quickly. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "kaka-point-beach",
+      "name": "Kaka Point Beach",
+      "type": "sea",
+      "region": "Otago",
+      "waterbody": "Pacific Ocean",
+      "coordinates": [
+        -46.3868,
+        169.7865
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Kaka Point Beach is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local surf, tide, current and water-quality conditions can change quickly. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "kakanui-estuary",
+      "name": "Kākanui Estuary",
+      "type": "sea",
+      "region": "Otago",
+      "waterbody": "Kākanui Estuary",
+      "coordinates": [
+        -45.1838,
+        170.9008
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Kākanui Estuary is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local surf, tide, current and water-quality conditions can change quickly. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "kakanui-river-clifton-falls",
+      "name": "Kakanui River – Clifton Falls Bridge",
+      "type": "river",
+      "region": "Otago",
+      "waterbody": "Kakanui River",
+      "coordinates": [
+        -45.125,
+        170.895
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Kakanui River – Clifton Falls Bridge is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "River/lake levels, currents, water quality and toxic algae conditions can change. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "kawarau-arm-bannockburn",
+      "name": "Kawarau Arm – Bannockburn Bridge",
+      "type": "river",
+      "region": "Otago",
+      "waterbody": "Kawarau Arm",
+      "coordinates": [
+        -45.0837,
+        169.1905
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Kawarau Arm – Bannockburn Bridge is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "River/lake levels, currents, water quality and toxic algae conditions can change. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "lake-dunstan-alpha-street",
+      "name": "Lake Dunstan – Alpha Street",
+      "type": "lake",
+      "region": "Otago",
+      "waterbody": "Lake Dunstan",
+      "coordinates": [
+        -45.0405,
+        169.198
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Lake Dunstan – Alpha Street is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "River/lake levels, currents, water quality and toxic algae conditions can change. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "lake-dunstan-clyde-rowing-club",
+      "name": "Lake Dunstan – Clyde Rowing Club",
+      "type": "lake",
+      "region": "Otago",
+      "waterbody": "Lake Dunstan",
+      "coordinates": [
+        -45.184,
+        169.316
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Lake Dunstan – Clyde Rowing Club is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "River/lake levels, currents, water quality and toxic algae conditions can change. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "lake-hayes-mill-creek",
+      "name": "Lake Hayes – Mill Creek Shallows",
+      "type": "lake",
+      "region": "Otago",
+      "waterbody": "Lake Hayes",
+      "coordinates": [
+        -44.9905,
+        168.8155
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Lake Hayes – Mill Creek Shallows is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "River/lake levels, currents, water quality and toxic algae conditions can change. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "lake-waihola-jetty",
+      "name": "Lake Waihola – Jetty",
+      "type": "lake",
+      "region": "Otago",
+      "waterbody": "Lake Waihola",
+      "coordinates": [
+        -46.0188,
+        170.0988
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Lake Waihola – Jetty is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "River/lake levels, currents, water quality and toxic algae conditions can change. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "lawyers-head-beach",
+      "name": "Lawyers Head Beach",
+      "type": "sea",
+      "region": "Otago",
+      "waterbody": "Pacific Ocean",
+      "coordinates": [
+        -45.9173,
+        170.5385
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Lawyers Head Beach is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local surf, tide, current and water-quality conditions can change quickly. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "macandrew-bay",
+      "name": "Macandrew Bay",
+      "type": "sea",
+      "region": "Otago",
+      "waterbody": "Otago Harbour",
+      "coordinates": [
+        -45.872,
+        170.598
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Macandrew Bay is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local surf, tide, current and water-quality conditions can change quickly. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "manuherekia-shaky-bridge",
+      "name": "Manuherekia River – Shaky Bridge",
+      "type": "river",
+      "region": "Otago",
+      "waterbody": "Manuherekia River",
+      "coordinates": [
+        -45.2487,
+        169.3902
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Manuherekia River – Shaky Bridge is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "River/lake levels, currents, water quality and toxic algae conditions can change. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "middle-beach-dunedin",
+      "name": "Middle Beach – Dunedin",
+      "type": "sea",
+      "region": "Otago",
+      "waterbody": "Pacific Ocean",
+      "coordinates": [
+        -45.9106,
+        170.4968
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Middle Beach – Dunedin is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local surf, tide, current and water-quality conditions can change quickly. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "oamaru-friendly-bay",
+      "name": "Ōamaru Harbour – Friendly Bay",
+      "type": "sea",
+      "region": "Otago",
+      "waterbody": "Ōamaru Harbour",
+      "coordinates": [
+        -45.1017,
+        170.9739
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Ōamaru Harbour – Friendly Bay is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local surf, tide, current and water-quality conditions can change quickly. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "otokia-creek-brighton",
+      "name": "Otokia Creek – Brighton Beach",
+      "type": "sea",
+      "region": "Otago",
+      "waterbody": "Otokia Creek / Pacific Ocean",
+      "coordinates": [
+        -45.9465,
+        170.328
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Otokia Creek – Brighton Beach is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local surf, tide, current and water-quality conditions can change quickly. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "pinders-pond",
+      "name": "Pinders Pond",
+      "type": "lake",
+      "region": "Otago",
+      "waterbody": "Pinders Pond",
+      "coordinates": [
+        -45.51,
+        169.315
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Pinders Pond is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "River/lake levels, currents, water quality and toxic algae conditions can change. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "pounawea-estuary",
+      "name": "Pounawea Estuary",
+      "type": "sea",
+      "region": "Otago",
+      "waterbody": "Catlins Estuary",
+      "coordinates": [
+        -46.4748,
+        169.687
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Pounawea Estuary is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local surf, tide, current and water-quality conditions can change quickly. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "sandfly-bay",
+      "name": "Sandfly Bay – Otago Peninsula",
+      "type": "sea",
+      "region": "Otago",
+      "waterbody": "Pacific Ocean",
+      "coordinates": [
+        -45.896,
+        170.647
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Sandfly Bay – Otago Peninsula is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local surf, tide, current and water-quality conditions can change quickly. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "smaills-beach",
+      "name": "Smaills Beach – Dunedin",
+      "type": "sea",
+      "region": "Otago",
+      "waterbody": "Pacific Ocean",
+      "coordinates": [
+        -45.9175,
+        170.5685
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Smaills Beach – Dunedin is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local surf, tide, current and water-quality conditions can change quickly. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "st-kilda-beach",
+      "name": "St Kilda Beach – Dunedin",
+      "type": "sea",
+      "region": "Otago",
+      "waterbody": "Pacific Ocean",
+      "coordinates": [
+        -45.9104,
+        170.512
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "St Kilda Beach – Dunedin is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local surf, tide, current and water-quality conditions can change quickly. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "taieri-waipiata",
+      "name": "Taieri River – Waipiata",
+      "type": "river",
+      "region": "Otago",
+      "waterbody": "Taieri River",
+      "coordinates": [
+        -45.1775,
+        170.006
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Taieri River – Waipiata is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "River/lake levels, currents, water quality and toxic algae conditions can change. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "tomahawk-beach-east",
+      "name": "Tomahawk Beach – East",
+      "type": "sea",
+      "region": "Otago",
+      "waterbody": "Pacific Ocean",
+      "coordinates": [
+        -45.9045,
+        170.5635
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Tomahawk Beach – East is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local surf, tide, current and water-quality conditions can change quickly. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "tomahawk-beach-west",
+      "name": "Tomahawk Beach – West",
+      "type": "sea",
+      "region": "Otago",
+      "waterbody": "Pacific Ocean",
+      "coordinates": [
+        -45.9048,
+        170.5515
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Tomahawk Beach – West is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local surf, tide, current and water-quality conditions can change quickly. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "waianakarua-graves-dam",
+      "name": "Waianakarua River – Graves Dam",
+      "type": "river",
+      "region": "Otago",
+      "waterbody": "Waianakarua River",
+      "coordinates": [
+        -45.28,
+        170.765
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Waianakarua River – Graves Dam is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "River/lake levels, currents, water quality and toxic algae conditions can change. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "waikouaiti-estuary-karitane",
+      "name": "Waikouaiti Estuary – Karitane Wharf",
+      "type": "sea",
+      "region": "Otago",
+      "waterbody": "Waikouaiti Estuary",
+      "coordinates": [
+        -45.6385,
+        170.6575
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Waikouaiti Estuary – Karitane Wharf is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local surf, tide, current and water-quality conditions can change quickly. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "waikouaiti-river-bucklands",
+      "name": "Waikouaiti River – Bucklands Crossing",
+      "type": "river",
+      "region": "Otago",
+      "waterbody": "Waikouaiti River",
+      "coordinates": [
+        -45.583,
+        170.616
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Waikouaiti River – Bucklands Crossing is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "River/lake levels, currents, water quality and toxic algae conditions can change. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "aparima-river-thornbury",
+      "name": "Aparima River – Thornbury",
+      "type": "river",
+      "region": "Southland",
+      "waterbody": "Aparima River",
+      "coordinates": [
+        -46.291,
+        168.098
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Aparima River – Thornbury is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "River/lake levels, currents, water quality and toxic algae conditions can change. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "awarua-bay-tiwai",
+      "name": "Awarua Bay – Tiwai Pumphouse",
+      "type": "sea",
+      "region": "Southland",
+      "waterbody": "Awarua Bay",
+      "coordinates": [
+        -46.584,
+        168.405
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Awarua Bay – Tiwai Pumphouse is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local surf, tide, current and water-quality conditions can change quickly. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "bluff-morrisons-beach",
+      "name": "Bluff Harbour – Morrison's Beach",
+      "type": "sea",
+      "region": "Southland",
+      "waterbody": "Bluff Harbour",
+      "coordinates": [
+        -46.597,
+        168.33
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Bluff Harbour – Morrison's Beach is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local surf, tide, current and water-quality conditions can change quickly. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "colac-bay",
+      "name": "Colac Bay – opposite Marae",
+      "type": "sea",
+      "region": "Southland",
+      "waterbody": "Foveaux Strait",
+      "coordinates": [
+        -46.3615,
+        167.8945
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Colac Bay – opposite Marae is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local surf, tide, current and water-quality conditions can change quickly. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "halfmoon-bay-bathing-beach",
+      "name": "Halfmoon Bay – Bathing Beach",
+      "type": "sea",
+      "region": "Southland",
+      "waterbody": "Halfmoon Bay",
+      "coordinates": [
+        -46.8988,
+        168.126
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Halfmoon Bay – Bathing Beach is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local surf, tide, current and water-quality conditions can change quickly. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "halfmoon-bay-elgin-terrace",
+      "name": "Halfmoon Bay – Elgin Terrace",
+      "type": "sea",
+      "region": "Southland",
+      "waterbody": "Halfmoon Bay",
+      "coordinates": [
+        -46.8995,
+        168.1285
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Halfmoon Bay – Elgin Terrace is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local surf, tide, current and water-quality conditions can change quickly. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "jacobs-river-estuary",
+      "name": "Jacobs River Estuary – Railway Bridge East",
+      "type": "sea",
+      "region": "Southland",
+      "waterbody": "Jacobs River Estuary",
+      "coordinates": [
+        -46.35,
+        168.018
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Jacobs River Estuary – Railway Bridge East is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local surf, tide, current and water-quality conditions can change quickly. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "lake-manapouri-frasers-beach",
+      "name": "Lake Manapouri – Frasers Beach",
+      "type": "lake",
+      "region": "Southland",
+      "waterbody": "Lake Manapouri",
+      "coordinates": [
+        -45.5665,
+        167.604
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Lake Manapouri – Frasers Beach is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "River/lake levels, currents, water quality and toxic algae conditions can change. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "lake-te-anau-boat-harbour",
+      "name": "Lake Te Anau – Boat Harbour Beach",
+      "type": "lake",
+      "region": "Southland",
+      "waterbody": "Lake Te Anau",
+      "coordinates": [
+        -45.414,
+        167.7175
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Lake Te Anau – Boat Harbour Beach is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "River/lake levels, currents, water quality and toxic algae conditions can change. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "mataura-river-gore",
+      "name": "Mataura River – Gore",
+      "type": "river",
+      "region": "Southland",
+      "waterbody": "Mataura River",
+      "coordinates": [
+        -46.1015,
+        168.943
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Mataura River – Gore is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "River/lake levels, currents, water quality and toxic algae conditions can change. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "mataura-river-riversdale",
+      "name": "Mataura River – Riversdale Bridge",
+      "type": "river",
+      "region": "Southland",
+      "waterbody": "Mataura River",
+      "coordinates": [
+        -45.903,
+        168.739
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Mataura River – Riversdale Bridge is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "River/lake levels, currents, water quality and toxic algae conditions can change. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "mataura-river-mataura-bridge",
+      "name": "Mataura River – downstream of Mataura Bridge",
+      "type": "river",
+      "region": "Southland",
+      "waterbody": "Mataura River",
+      "coordinates": [
+        -46.193,
+        168.865
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Mataura River – downstream of Mataura Bridge is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "River/lake levels, currents, water quality and toxic algae conditions can change. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "monkey-island",
+      "name": "Monkey Island – Frentz Road",
+      "type": "sea",
+      "region": "Southland",
+      "waterbody": "Te Waewae Bay",
+      "coordinates": [
+        -46.309,
+        167.75
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Monkey Island – Frentz Road is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local surf, tide, current and water-quality conditions can change quickly. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "new-river-estuary-omaui",
+      "name": "New River Estuary – Ōmaui",
+      "type": "sea",
+      "region": "Southland",
+      "waterbody": "New River Estuary",
+      "coordinates": [
+        -46.497,
+        168.255
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "New River Estuary – Ōmaui is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local surf, tide, current and water-quality conditions can change quickly. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "new-river-estuary-water-ski-club",
+      "name": "New River Estuary – Water Ski Club",
+      "type": "sea",
+      "region": "Southland",
+      "waterbody": "New River Estuary",
+      "coordinates": [
+        -46.427,
+        168.314
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "New River Estuary – Water Ski Club is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local surf, tide, current and water-quality conditions can change quickly. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "oreti-beach-dunns-road",
+      "name": "Oreti Beach – Dunns Road",
+      "type": "sea",
+      "region": "Southland",
+      "waterbody": "Foveaux Strait",
+      "coordinates": [
+        -46.482,
+        168.255
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Oreti Beach – Dunns Road is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local surf, tide, current and water-quality conditions can change quickly. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "oreti-river-branxholme",
+      "name": "Oreti River – Branxholme",
+      "type": "river",
+      "region": "Southland",
+      "waterbody": "Oreti River",
+      "coordinates": [
+        -46.276,
+        168.292
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Oreti River – Branxholme is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "River/lake levels, currents, water quality and toxic algae conditions can change. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "oreti-river-winton",
+      "name": "Oreti River – Winton Bridge",
+      "type": "river",
+      "region": "Southland",
+      "waterbody": "Oreti River",
+      "coordinates": [
+        -46.151,
+        168.33
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Oreti River – Winton Bridge is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "River/lake levels, currents, water quality and toxic algae conditions can change. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "porpoise-bay",
+      "name": "Porpoise Bay – Camping Ground",
+      "type": "sea",
+      "region": "Southland",
+      "waterbody": "Porpoise Bay",
+      "coordinates": [
+        -46.661,
+        169.176
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Porpoise Bay – Camping Ground is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local surf, tide, current and water-quality conditions can change quickly. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "riverton-rocks-mitchells-bay",
+      "name": "Riverton Rocks – Mitchells Bay North",
+      "type": "sea",
+      "region": "Southland",
+      "waterbody": "Foveaux Strait",
+      "coordinates": [
+        -46.365,
+        168.006
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Riverton Rocks – Mitchells Bay North is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Local surf, tide, current and water-quality conditions can change quickly. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "waiau-river-tuatapere",
+      "name": "Waiau River – Tuatapere",
+      "type": "river",
+      "region": "Southland",
+      "waterbody": "Waiau River",
+      "coordinates": [
+        -46.134,
+        167.69
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Waiau River – Tuatapere is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "River/lake levels, currents, water quality and toxic algae conditions can change. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
+    },
+    {
+      "id": "waikaia-river-waikaia",
+      "name": "Waikaia River – Waikaia",
+      "type": "river",
+      "region": "Southland",
+      "waterbody": "Waikaia River",
+      "coordinates": [
+        -45.727,
+        168.847
+      ],
+      "coordinateAccuracy": "approximate",
+      "verificationStatus": "pending",
+      "description": "Waikaia River – Waikaia is listed by LAWA as a recreational swimming location. This starter listing uses an approximate map position and should be refined with local access information as the Swimspots collection grows.",
+      "access": "Public entry point and accessibility not yet locally verified.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "River/lake levels, currents, water quality and toxic algae conditions can change. Check LAWA, weather, local signs and conditions before entering the water.",
+      "source": {
+        "name": "LAWA swimming site directory",
+        "url": "https://embed.lawa.org.nz/setup",
+        "checkedAt": "2026-09-23"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     }
   ]
 }
