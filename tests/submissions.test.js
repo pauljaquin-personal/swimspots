@@ -9,6 +9,7 @@ import {
   validateSubmission,
   submissionRequest,
   publishedSpot,
+  publishedUpdate,
 } from "../src/submissions.js";
 if (!globalThis.crypto) globalThis.crypto = webcrypto;
 const sample = () => ({
@@ -355,3 +356,59 @@ test("optional source accepts missing and blank values but still validates suppl
   for (const value of ["bad-url", "http://example.com", "https://localhost", 123, "x".repeat(501)])
     assert.throws(() => validateSubmission({ ...sample(), sourceUrl: value }));
 });
+
+test("existing spot contributions publish as updates rather than duplicate spots", () =>
+  withStore(async (store) => {
+    const base = {
+      id: "queenstown-bay",
+      name: "Queenstown Bay",
+      region: "Otago",
+      coordinates: [-45.0347, 168.66],
+    };
+    const d = {
+      ...sample(),
+      targetSpotId: base.id,
+      name: "Queenstown Bay",
+      waterbody: "Lake Whakatipu",
+      coordinates: base.coordinates,
+      access: "Use the public beach access from the lakefront.",
+      parking: "Street parking nearby.",
+      facilities: "Public toilets nearby.",
+      hazards: "Cold water and changing wind conditions.",
+      photoAlt: "Queenstown Bay shoreline",
+    };
+    const env = { LOCAL_REVIEW: true };
+    let r = await submissionRequest(
+      post("/api/submissions", d),
+      env,
+      [base],
+      store,
+    );
+    assert.equal(r.status, 201);
+    r = await submissionRequest(
+      post("/api/review/" + d.id, {
+        status: "approved",
+        data: d,
+        note: "Checked local access information",
+        reviewConfirmed: true,
+      }),
+      env,
+      [base],
+      store,
+    );
+    assert.equal(r.status, 200);
+    const record = await store.get(d.id);
+    const update = publishedUpdate(record);
+    assert.equal(update.targetSpotId, base.id);
+    assert.match(update.access, /public beach access/);
+    const response = await submissionRequest(
+      new Request("http://127.0.0.1:4173/api/community-spots"),
+      env,
+      [base],
+      store,
+    );
+    const body = await response.json();
+    assert.equal(body.spots.length, 0);
+    assert.equal(body.updates.length, 1);
+    assert.equal(body.updates[0].targetSpotId, base.id);
+  }));
