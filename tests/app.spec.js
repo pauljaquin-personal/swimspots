@@ -106,3 +106,36 @@ test("tile failure preserves searchable list", async ({ page }) => {
   await page.getByRole("searchbox").fill("queenstown");
   await expect(page.locator(".spot-card")).toHaveCount(1);
 });
+
+test("submit button is re-enabled when contributing to another existing spot", async ({ page }) => {
+  await page.route("**/api/submissions", (r) =>
+    r.fulfill({ status: 201, json: { id: crypto.randomUUID(), status: "pending" } }),
+  );
+  await page.goto("/");
+  await page.getByRole("searchbox").fill("Roys Bay");
+  await page.getByRole("button", { name: "View Roys Bay", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Add photo or local knowledge", exact: true })
+    .click();
+  const form = page.locator("#suggest-form");
+  await form.locator("[name=consent]").check();
+  const submit = page.getByRole("button", {
+    name: "Submit update for review",
+    exact: true,
+  });
+  await submit.click();
+  await expect(page.locator("#suggest-status")).toContainText("Update received");
+  await expect(submit).toBeDisabled();
+  await page.getByRole("button", { name: "Close suggestion" }).click();
+
+  await page.getByRole("searchbox").fill("Lake Te Anau");
+  await page
+    .getByRole("button", { name: "View Lake Te Anau – Boat Harbour Beach", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: "Add photo or local knowledge", exact: true })
+    .click();
+  await expect(
+    page.getByRole("button", { name: "Submit update for review", exact: true }),
+  ).toBeEnabled();
+});
