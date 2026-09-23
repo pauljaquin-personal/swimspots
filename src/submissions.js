@@ -280,7 +280,10 @@ export async function submissionRequest(
     const approved = await store.list("approved");
     return reply({
       spots: approved.filter((r) => !r.data.targetSpotId).map(publishedSpot),
-      updates: approved.filter((r) => r.data.targetSpotId).map(publishedUpdate),
+      updates: approved
+        .filter((r) => r.data.targetSpotId)
+        .reverse()
+        .map(publishedUpdate),
       submissionsEnabled: true,
     });
   }
