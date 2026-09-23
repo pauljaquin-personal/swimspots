@@ -852,7 +852,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "clutha-dunorling-street",
@@ -880,7 +945,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "hampden-beach",
@@ -908,7 +1038,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "kaka-point-beach",
@@ -936,7 +1131,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "kakanui-estuary",
@@ -964,7 +1224,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "kakanui-river-clifton-falls",
@@ -992,7 +1317,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "kawarau-arm-bannockburn",
@@ -1020,7 +1410,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "lake-dunstan-alpha-street",
@@ -1048,7 +1503,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "lake-dunstan-clyde-rowing-club",
@@ -1076,7 +1596,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "lake-hayes-mill-creek",
@@ -1104,7 +1689,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "lake-waihola-jetty",
@@ -1132,7 +1782,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "lawyers-head-beach",
@@ -1160,7 +1875,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "macandrew-bay",
@@ -1188,7 +1968,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "manuherekia-shaky-bridge",
@@ -1216,7 +2061,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "middle-beach-dunedin",
@@ -1244,7 +2154,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "oamaru-friendly-bay",
@@ -1272,7 +2247,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "otokia-creek-brighton",
@@ -1300,7 +2340,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "pinders-pond",
@@ -1328,7 +2433,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "pounawea-estuary",
@@ -1356,7 +2526,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "sandfly-bay",
@@ -1384,7 +2619,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "smaills-beach",
@@ -1412,7 +2712,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "st-kilda-beach",
@@ -1440,7 +2805,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "taieri-waipiata",
@@ -1468,7 +2898,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "tomahawk-beach-east",
@@ -1496,7 +2991,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "tomahawk-beach-west",
@@ -1524,7 +3084,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "waianakarua-graves-dam",
@@ -1552,7 +3177,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "waikouaiti-estuary-karitane",
@@ -1580,7 +3270,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "waikouaiti-river-bucklands",
@@ -1608,7 +3363,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "aparima-river-thornbury",
@@ -1636,7 +3456,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "awarua-bay-tiwai",
@@ -1664,7 +3549,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "bluff-morrisons-beach",
@@ -1692,7 +3642,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "colac-bay",
@@ -1720,7 +3735,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "halfmoon-bay-bathing-beach",
@@ -1748,7 +3828,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "halfmoon-bay-elgin-terrace",
@@ -1776,7 +3921,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "jacobs-river-estuary",
@@ -1804,7 +4014,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "lake-manapouri-frasers-beach",
@@ -1832,7 +4107,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "lake-te-anau-boat-harbour",
@@ -1860,7 +4200,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "mataura-river-gore",
@@ -1888,7 +4293,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "mataura-river-riversdale",
@@ -1916,7 +4386,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "mataura-river-mataura-bridge",
@@ -1944,7 +4479,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "monkey-island",
@@ -1972,7 +4572,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "new-river-estuary-omaui",
@@ -2000,7 +4665,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "new-river-estuary-water-ski-club",
@@ -2028,7 +4758,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "oreti-beach-dunns-road",
@@ -2056,7 +4851,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "oreti-river-branxholme",
@@ -2084,7 +4944,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "oreti-river-winton",
@@ -2112,7 +5037,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "porpoise-bay",
@@ -2140,7 +5130,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "riverton-rocks-mitchells-bay",
@@ -2168,7 +5223,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "waiau-river-tuatapere",
@@ -2196,7 +5316,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     },
     {
       "id": "waikaia-river-waikaia",
@@ -2224,7 +5409,72 @@
         "name": "LAWA — Can I Swim Here?",
         "url": "https://www.lawa.org.nz/explore-data/swimming"
       },
-      "routeIds": []
+      "routeIds": [],
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      }
     }
   ]
 }
