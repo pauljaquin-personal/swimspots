@@ -103,8 +103,10 @@ export function mountSubmission() {
   let pinMap, pin;
 
   document.querySelector("#contribute").onclick = () => {
-    form.reset();
-    id = crypto.randomUUID();
+    if (targetSpotId) {
+      form.reset();
+      id = crypto.randomUUID();
+    }
     setMode(null);
     document.querySelector("#suggest-dialog").showModal();
     if (window.L && !pinMap) {
