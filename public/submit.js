@@ -55,6 +55,7 @@ export function mountSubmission() {
   }
   function setMode(spot = null) {
     targetSpotId = spot?.id || null;
+    button.disabled = false;
     if (spot) {
       form.reset();
       id = crypto.randomUUID();
