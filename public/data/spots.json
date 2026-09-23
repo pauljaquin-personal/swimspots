@@ -5475,6 +5475,285 @@
           "observedAt": null
         }
       }
+    },
+    {
+      "id": "kingston-main-beach",
+      "name": "Kingston Main Beach",
+      "type": "lake",
+      "region": "Otago",
+      "waterbody": "Lake Whakatipu",
+      "coordinates": [
+        -45.33019,
+        168.71278
+      ],
+      "coordinateAccuracy": "photo-gps",
+      "verificationStatus": "pending",
+      "description": "A broad pebbled lakefront beach at Kingston on the southern end of Lake Whakatipu.",
+      "access": "Public access details and the preferred swimming entry point still need local verification.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Cold water, changing wind and lake conditions can affect swimming. Check local signs and conditions before entering the water.",
+      "source": {
+        "name": "QLDC — Kingston Foreshore Reserve Management Plan",
+        "url": "https://www.qldc.govt.nz/your-council/council-documents/reserve-management-plans",
+        "checkedAt": "2026-09-24"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      },
+      "routeIds": []
+    },
+    {
+      "id": "sunshine-bay",
+      "name": "Sunshine Bay",
+      "type": "lake",
+      "region": "Otago",
+      "waterbody": "Lake Whakatipu",
+      "coordinates": [
+        -45.04767,
+        168.62344
+      ],
+      "coordinateAccuracy": "photo-gps",
+      "verificationStatus": "pending",
+      "description": "A sheltered Lake Whakatipu bay west of central Queenstown, with a pebbled beach and lakeside reserve.",
+      "access": "The beach and foreshore are publicly used, but the best swimming access route and accessibility still need local verification.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Cold water and rapidly changing wind conditions are possible. Check current water quality, weather and local signs before swimming.",
+      "source": {
+        "name": "QLDC — Sunshine Bay Reserve",
+        "url": "https://letstalk.qldc.govt.nz/sunshine-bay-reserve-development-plan",
+        "checkedAt": "2026-09-24"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      },
+      "routeIds": []
+    },
+    {
+      "id": "homestead-bay",
+      "name": "Homestead Bay",
+      "type": "lake",
+      "region": "Otago",
+      "waterbody": "Lake Whakatipu",
+      "coordinates": [
+        -45.08907,
+        168.7359
+      ],
+      "coordinateAccuracy": "photo-gps",
+      "verificationStatus": "pending",
+      "description": "A Lake Whakatipu shoreline location south of Jack's Point, below the Homestead Bay area.",
+      "access": "Public shoreline access and the most appropriate swimming entry point need local verification before relying on this listing.",
+      "parking": "Not yet verified.",
+      "facilities": "Not yet verified.",
+      "hazards": "Cold water, changing wind and lake conditions can affect swimming. Check local signs, weather and conditions before entering the water.",
+      "source": {
+        "name": "Homestead Bay — location information",
+        "url": "https://www.homesteadbayqueenstown.nz/",
+        "checkedAt": "2026-09-24"
+      },
+      "conditionsSource": {
+        "name": "LAWA — Can I Swim Here?",
+        "url": "https://www.lawa.org.nz/explore-data/swimming"
+      },
+      "conditions": {
+        "waterQuality": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "wind": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "airTemperature": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "rainfall": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "forecast": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "waterLevel": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "tides": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        },
+        "currents": {
+          "status": "unavailable",
+          "value": null,
+          "unit": null,
+          "source": null,
+          "observedAt": null
+        }
+      },
+      "routeIds": []
     }
   ]
 }
