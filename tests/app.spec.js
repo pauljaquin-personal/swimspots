@@ -23,6 +23,21 @@ test("search, filter, details, saved persistence and empty state", async ({
   await expect(
     page.getByRole("heading", { name: "Water quality · LAWA" }),
   ).toBeVisible();
+  await page
+    .getByRole("button", { name: "Add photo or local knowledge", exact: true })
+    .click();
+  await expect(
+    page.getByRole("heading", { name: "Add to Roys Bay", exact: true }),
+  ).toBeVisible();
+  await expect(page.getByLabel("Spot name", { exact: true })).toHaveValue(
+    "Roys Bay",
+  );
+  await page.getByRole("button", { name: "Close suggestion" }).click();
+  await page.goto("/");
+  await page.getByRole("searchbox").fill("wanaka");
+  await page
+    .getByRole("button", { name: "View Roys Bay", exact: true })
+    .click();
   await page.getByRole("button", { name: "☆ Save spot", exact: true }).click();
   await page.keyboard.press("Escape");
   await expect(page.locator("#spot-dialog")).not.toBeVisible();
