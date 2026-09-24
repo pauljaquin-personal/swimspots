@@ -49,8 +49,6 @@ test("search, filter, details, saved persistence and empty state", async ({
   await page.getByRole("button", { name: "Pools", exact: true }).click();
   await expect(page.locator("#result-count")).toHaveText("0 spots to explore");
   await page.getByRole("button", { name: "Reset search and filters", exact: true }).click();
-  await page.locator("#region").selectOption("Auckland");
-  await expect(page.locator("#result-count")).toHaveText("1 spot to explore");
   expect(
     await page.locator("body").evaluate((el) => el.scrollWidth),
   ).toBeLessThanOrEqual(await page.evaluate(() => innerWidth));
@@ -259,4 +257,15 @@ test("initial map has no dip label and uses tighter desktop NZ framing", async (
   await expect(page.getByText("YOUR NEXT DIP STARTS HERE", { exact: true })).toHaveCount(0);
   await expect(page.locator("#map")).toBeVisible();
   await expect(page.locator(".leaflet-map-pane")).toHaveCount(1);
+});
+
+test("layers menu uses map colours and has no region selector", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Choose water types" }).click();
+  await expect(page.locator("#region")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "Lakes", exact: true })).toHaveCSS("background-color", "rgb(31, 111, 104)");
+  await expect(page.getByRole("button", { name: "Rivers", exact: true })).toHaveCSS("background-color", "rgb(111, 136, 84)");
+  await expect(page.getByRole("button", { name: "Sea", exact: true })).toHaveCSS("background-color", "rgb(51, 126, 150)");
+  await page.getByRole("button", { name: "Sea", exact: true }).click();
+  await expect(page.getByRole("button", { name: "Sea", exact: true })).toHaveCSS("border-top-color", "rgb(17, 17, 17)");
 });
