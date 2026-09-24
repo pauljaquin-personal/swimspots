@@ -239,3 +239,13 @@ test("mobile search toolbar stays at the top-left of the map", async ({ page }) 
   expect(box.y).toBeLessThan(80);
   expect(box.x).toBeLessThan(20);
 });
+
+test("minimal bottom bar exposes about, contact, share and social actions", async ({ page }) => {
+  await page.goto("/");
+  for (const name of ["About Swimspots", "Contact Swimspots", "Share Swimspots", "Social links"]) {
+    await expect(page.getByRole("button", { name })).toBeVisible();
+  }
+  await page.getByRole("button", { name: "About Swimspots" }).click();
+  await expect(page.getByRole("heading", { name: "About Swimspots" })).toBeVisible();
+  await page.getByRole("button", { name: "Close site information" }).click();
+});
