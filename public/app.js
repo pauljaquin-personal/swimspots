@@ -454,7 +454,10 @@ async function init() {
         "The map could not load. Browse spots in the list instead.";
     }
     render();
-    fit();
+    if (map) {
+      map.setView([-41.2, 173.8], 5, { animate: false });
+      requestAnimationFrame(() => map.invalidateSize(false));
+    }
     const id = new URLSearchParams(location.hash.slice(1)).get("spot");
     const spot = spots.find((s) => s.id === id);
     if (spot) showSpot(spot);
