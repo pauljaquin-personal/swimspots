@@ -511,7 +511,8 @@ async function init() {
     }
     render();
     if (map) {
-      map.setView([-41.2, 173.8], 5, { animate: false });
+      const desktop = window.matchMedia("(min-width: 781px)").matches;
+      map.setView([-41.25, 173.2], desktop ? 6 : 5, { animate: false });
       requestAnimationFrame(() => map.invalidateSize(false));
     }
     const id = new URLSearchParams(location.hash.slice(1)).get("spot");
