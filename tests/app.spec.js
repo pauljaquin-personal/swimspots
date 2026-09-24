@@ -216,3 +216,26 @@ test("mobile map fills the viewport behind the search bar", async ({ page }) => 
   expect(metrics.explorerBottom).toBeGreaterThanOrEqual(metrics.viewport - 2);
   expect(metrics.sidebarBottom).toBeLessThanOrEqual(metrics.viewport);
 });
+
+test("map toolbar opens water-type layers and uses my-location control", async ({ page, context }) => {
+  await context.grantPermissions(["geolocation"]);
+  await context.setGeolocation({ latitude: -36.8485, longitude: 174.7633 });
+  await page.goto("/");
+  await expect(page.locator("#layers-panel")).toBeHidden();
+  await page.getByRole("button", { name: "Choose water types" }).click();
+  await expect(page.locator("#layers-panel")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Lakes", exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Rivers", exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Sea", exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "Centre map on my location" }).click();
+  await expect(page.locator("#location-status")).toHaveText("Centred on your location");
+});
+
+test("mobile search toolbar stays at the top-left of the map", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+  const box = await page.locator(".sidebar").boundingBox();
+  expect(box).not.toBeNull();
+  expect(box.y).toBeLessThan(80);
+  expect(box.x).toBeLessThan(20);
+});
