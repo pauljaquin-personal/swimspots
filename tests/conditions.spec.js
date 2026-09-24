@@ -50,6 +50,8 @@ test("renders real feed contract, zeros, sources and lazy official LAWA report",
   );
   await page.goto("/#spot=queenstown-bay");
   await expect(page.getByText("0.0 °C", { exact: true })).toBeVisible();
+  await expect(page.getByText("Water temp", { exact: true })).toBeVisible();
+  await expect(page.getByText("N/A", { exact: true })).toBeVisible();
   await expect(page.locator(".condition").filter({ hasText: "From" }).locator("strong")).toHaveText("S");
   await expect(page.getByText("0.0 mm", { exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Weather" })).toBeVisible();
@@ -141,4 +143,28 @@ test("recent modelled precipitation shows a 48-hour runoff reminder", async ({
     page.getByText(/Rain in the past 48 hours/),
   ).toBeVisible();
   await expect(page.getByText(/Check water-quality advice/)).toBeVisible();
+});
+
+test("conditions use two columns and coastal water temperature comes from marine feed", async ({ page }) => {
+  const d = feed("porpoise-bay");
+  d.marine = {
+    status: "fresh",
+    source: { name: "Open-Meteo", url: "https://open-meteo.com/", licence: "CC BY 4.0" },
+    validAt: new Date().toISOString(),
+    fetchedAt: new Date().toISOString(),
+    current: {
+      seaTemperature: { value: 14.2, unit: "°C" },
+      waveHeight: { value: 0.8, unit: "m" },
+      wavePeriod: { value: 7, unit: "s" },
+    },
+  };
+  await page.route("**/api/conditions?*", (r) => r.fulfill({ json: d }));
+  await page.goto("/#spot=porpoise-bay");
+
+  await expect(page.locator(".conditions-layout")).toBeVisible();
+  await expect(page.locator(".conditions-column-weather").getByText("Weather", { exact: true })).toBeVisible();
+  await expect(page.locator(".conditions-column-water").getByText("Water quality · LAWA", { exact: true })).toBeVisible();
+  await expect(page.getByText("14.2 °C", { exact: true })).toBeVisible();
+  await expect(page.locator(".conditions-column-water").getByText("Sea conditions", { exact: true })).toBeVisible();
+  await expect(page.getByText("Sea temp", { exact: true })).toHaveCount(0);
 });
