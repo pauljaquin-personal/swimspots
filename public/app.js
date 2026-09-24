@@ -55,9 +55,11 @@ function infoDisclosure(label, glyph, value, className = "") {
 }
 function infoFact(label, glyph, value, className = "") {
   const row = el("div", null, `spot-fact ${className}`.trim());
+  const symbol = el("span", glyph, "ui-icon");
+  symbol.setAttribute("aria-hidden", "true");
   const copy = el("div", null, "spot-fact-copy");
   copy.append(el("strong", label), el("p", value || "Not yet verified."));
-  row.append(icon(label, glyph), copy);
+  row.append(symbol, copy);
   return row;
 }
 function cardArtwork(s) {
