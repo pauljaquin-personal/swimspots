@@ -1579,3 +1579,48 @@ body.planner-layout .search-row input {
 body.planner-layout .results {
   padding-top: 4px;
 }
+
+
+/* Search-only planner panel ------------------------------------------------ */
+body.planner-layout .sidebar {
+  top: 18px;
+  bottom: auto;
+  min-height: 0;
+  height: auto;
+  overflow: visible;
+}
+body.planner-layout .search-area {
+  padding: 12px;
+}
+body.planner-layout .filters,
+body.planner-layout .filter-row,
+body.planner-layout .results,
+body.planner-layout .collection-note,
+body.planner-layout .results-heading {
+  display: none !important;
+}
+body.planner-layout .search-row {
+  margin: 0;
+}
+body.planner-layout #location-status:empty {
+  display: none;
+}
+@media (max-width: 780px) {
+  body.planner-layout .sidebar {
+    top: auto;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    width: auto;
+    height: auto;
+    min-height: 0;
+    border-radius: 18px;
+    overflow: visible;
+  }
+  body.planner-layout .sidebar::before {
+    display: none;
+  }
+  body.planner-layout .search-area {
+    padding: 10px;
+  }
+}
