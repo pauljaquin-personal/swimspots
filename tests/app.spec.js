@@ -14,7 +14,7 @@ test("search, filter, details, saved persistence and empty state", async ({
   await expect(page.locator("#result-count")).toHaveText("60 spots to explore");
   await page.getByRole("searchbox").fill("wanaka");
   await expect(page.locator("#result-count")).toHaveText("1 spot to explore");
-  await page.goto("/#spot=roys-bay");
+  await page.locator(".spot-card button").first().evaluate((el) => el.click());
   await expect(
     page.getByRole("heading", { name: "Roys Bay", exact: true }),
   ).toBeVisible();
@@ -33,7 +33,7 @@ test("search, filter, details, saved persistence and empty state", async ({
   await page.getByRole("button", { name: "Close suggestion" }).click();
   await page.goto("/");
   await page.getByRole("searchbox").fill("wanaka");
-  await page.goto("/#spot=roys-bay");
+  await page.locator(".spot-card button").first().evaluate((el) => el.click());
   await page.getByRole("button", { name: "☆ Save spot", exact: true }).click();
   await page.keyboard.press("Escape");
   await expect(page.locator("#spot-dialog")).not.toBeVisible();
@@ -109,7 +109,8 @@ test("submit button is re-enabled when contributing to another existing spot", a
     r.fulfill({ status: 201, json: { id: crypto.randomUUID(), status: "pending" } }),
   );
   await page.goto("/");
-  await page.goto("/#spot=roys-bay");
+  await page.getByRole("searchbox").fill("Roys Bay");
+  await page.locator(".spot-card button").first().evaluate((el) => el.click());
   await page
     .getByRole("button", { name: "Add photo or local knowledge", exact: true })
     .click();
@@ -124,7 +125,8 @@ test("submit button is re-enabled when contributing to another existing spot", a
   await expect(submit).toBeDisabled();
   await page.getByRole("button", { name: "Close suggestion" }).click();
 
-  await page.goto("/#spot=lake-te-anau-boat-harbour-beach");
+  await page.getByRole("searchbox").fill("Lake Te Anau");
+  await page.locator(".spot-card button").first().evaluate((el) => el.click());
   await page
     .getByRole("button", { name: "Add photo or local knowledge", exact: true })
     .click();
