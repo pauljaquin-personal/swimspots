@@ -197,3 +197,22 @@ test("planner panel shows only the search bar by default", async ({ page }) => {
   await expect(page.locator(".results")).not.toBeVisible();
   await expect(page.locator(".spot-card").first()).not.toBeVisible();
 });
+
+test("mobile map fills the viewport behind the search bar", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+  const metrics = await page.evaluate(() => {
+    const map = document.querySelector(".map-wrap").getBoundingClientRect();
+    const explorer = document.querySelector(".explorer").getBoundingClientRect();
+    const sidebar = document.querySelector(".sidebar").getBoundingClientRect();
+    return {
+      viewport: innerHeight,
+      mapBottom: map.bottom,
+      explorerBottom: explorer.bottom,
+      sidebarBottom: sidebar.bottom,
+    };
+  });
+  expect(metrics.mapBottom).toBeGreaterThanOrEqual(metrics.viewport - 2);
+  expect(metrics.explorerBottom).toBeGreaterThanOrEqual(metrics.viewport - 2);
+  expect(metrics.sidebarBottom).toBeLessThanOrEqual(metrics.viewport);
+});
