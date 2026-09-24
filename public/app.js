@@ -305,7 +305,6 @@ function reset() {
     location: null,
   });
   $("#search").value = "";
-  $("#region").value = "all";
   $("#location-status").textContent = "";
   userMarker?.remove();
   document
@@ -321,11 +320,6 @@ $("#search").addEventListener("input", (e) => {
   render();
   fit();
 });
-$("#region").onchange = (e) => {
-  state.region = e.target.value;
-  render();
-  fit();
-};
 document.querySelectorAll("[data-type]").forEach(
   (b) =>
     (b.onclick = () => {
@@ -478,11 +472,6 @@ async function init() {
         note.textContent =
           "Community locations could not load. Showing the starter collection.";
     }
-    [...new Set(spots.map((s) => s.region))].sort().forEach((r) => {
-      const o = el("option", r);
-      o.value = r;
-      $("#region").append(o);
-    });
     if (window.L) {
       map = L.map("map", {
         zoomControl: false,

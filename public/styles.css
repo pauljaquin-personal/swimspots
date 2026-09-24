@@ -1916,3 +1916,34 @@ body.planner-layout .results.results-error-visible {
   box-shadow: 0 8px 24px #173d351b;
   backdrop-filter: blur(12px);
 }
+
+
+/* Water-type layer chips -------------------------------------------------- */
+body.planner-layout .layers-panel .filters button[data-type] {
+  color: #fff;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+}
+body.planner-layout .layers-panel .filters button[data-type="all"] {
+  color: var(--ink);
+  background: #fff;
+  border-color: var(--line);
+}
+body.planner-layout .layers-panel .filters button[data-type="lake"],
+body.planner-layout .layers-panel .filters button[data-type="pool"] {
+  background: var(--teal);
+}
+body.planner-layout .layers-panel .filters button[data-type="river"] {
+  background: #6f8854;
+}
+body.planner-layout .layers-panel .filters button[data-type="sea"] {
+  background: #337e96;
+}
+body.planner-layout .layers-panel .filters button[data-type][aria-pressed="true"] {
+  border-color: #111;
+  color: #fff;
+}
+body.planner-layout .layers-panel .filters button[data-type="all"][aria-pressed="true"] {
+  color: var(--ink);
+  background: #fff;
+}
