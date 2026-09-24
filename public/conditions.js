@@ -62,7 +62,7 @@ function detailsBlock(label, glyph) {
   return details;
 }
 
-function weatherView(feed) {
+function weatherView(feed, waterTemperature = null) {
   const section = el("section", null, "feed-section compact-feed");
   section.append(el("h3", "Weather"));
   if (!feed || feed.status === "unavailable") {
@@ -74,6 +74,12 @@ function weatherView(feed) {
 
   const current = el("div", null, "conditions condition-strip");
   current.append(
+    metricCard(
+      "≈",
+      "Water temp",
+      waterTemperature ? number(waterTemperature) : "N/A",
+      "condition-water-temp",
+    ),
     metricCard("°", "Air", number(feed.current.airTemperature)),
     metricCard("→", "Wind", number(feed.current.windSpeed)),
     metricCard("↝", "Gusts", number(feed.current.windGusts)),
@@ -183,7 +189,6 @@ function marineView(feed) {
 
   const cards = el("div", null, "conditions condition-strip");
   cards.append(
-    metricCard("≈", "Sea temp", number(feed.current.seaTemperature)),
     metricCard("⌇", "Wave", number(feed.current.waveHeight, 2)),
     metricCard("↔", "Period", number(feed.current.wavePeriod)),
   );
@@ -283,11 +288,19 @@ export function mountConditions(container, spot) {
     payload = null,
     loading = false;
 
+  const grid = el("div", null, "conditions-layout");
+  const left = el("div", null, "conditions-column conditions-column-weather");
+  const right = el("div", null, "conditions-column conditions-column-water");
   const feeds = el("div");
+  const marineSlot = el("div");
   const status = el("p", "Loading conditions…", "small condition-load-status");
   status.setAttribute("role", "status");
   const retry = el("button", "↻ Refresh", "outline feed-refresh compact-refresh");
-  container.append(feeds, status, retry, waterQualityView(spot));
+
+  left.append(feeds, status, retry);
+  right.append(waterQualityView(spot), marineSlot);
+  grid.append(left, right);
+  container.append(grid);
 
   if (spot.council) {
     const council = detailsBlock(spot.council.name, "i");
@@ -295,13 +308,18 @@ export function mountConditions(container, spot) {
     council.append(el("p", spot.council.note, "small"));
     for (const source of spot.council.links)
       council.append(external(source.name + " ↗", source.url));
-    container.append(council);
+    right.append(council);
   }
 
   function render() {
     if (!payload) return;
-    feeds.replaceChildren(weatherView(payload.weather));
-    if (spot.type === "sea") feeds.append(marineView(payload.marine));
+    const waterTemperature =
+      spot.type === "sea" && payload.marine?.current?.seaTemperature
+        ? payload.marine.current.seaTemperature
+        : null;
+    feeds.replaceChildren(weatherView(payload.weather, waterTemperature));
+    marineSlot.replaceChildren();
+    if (spot.type === "sea") marineSlot.append(marineView(payload.marine));
   }
 
   async function refresh() {
