@@ -391,6 +391,60 @@ $("#layers-toggle").onclick = () => {
   panel.hidden = !open;
   $("#layers-toggle").setAttribute("aria-expanded", String(open));
 };
+
+function openSiteInfo(title, body) {
+  const dialog = $("#site-info-dialog");
+  $("#site-info-title").textContent = title;
+  const content = $("#site-info-content");
+  content.replaceChildren();
+  if (Array.isArray(body)) {
+    for (const item of body) content.append(item);
+  } else {
+    content.append(el("p", body));
+  }
+  if (!dialog.open) dialog.showModal();
+}
+
+$("#about-link").onclick = () =>
+  openSiteInfo(
+    "About Swimspots",
+    "A simple map for discovering open-water swimming locations around Aotearoa New Zealand. Conditions, access and local information can change, so always check current official advice before swimming.",
+  );
+
+$("#contact-link").onclick = () =>
+  openSiteInfo(
+    "Contact",
+    "A contact form will be added here. For now, this keeps a clear place in the interface for feedback and corrections.",
+  );
+
+$("#social-link").onclick = () =>
+  openSiteInfo(
+    "Follow Swimspots",
+    "Social links will live here once the Swimspots channels are set up.",
+  );
+
+$("#share-link").onclick = async () => {
+  const shareData = {
+    title: "Swimspots NZ",
+    text: "Find open-water swimming spots around Aotearoa New Zealand.",
+    url: location.href,
+  };
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+      return;
+    }
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(location.href);
+      openSiteInfo("Share", "Link copied to your clipboard.");
+      return;
+    }
+  } catch {
+    return;
+  }
+  openSiteInfo("Share", location.href);
+};
+
 document
   .querySelectorAll("dialog .close")
   .forEach((b) => (b.onclick = () => b.closest("dialog").close()));
