@@ -521,6 +521,7 @@ async function init() {
     $("#result-count").textContent = "Spots could not load";
     const retry = el("button", "Try again", "primary");
     retry.onclick = () => location.reload();
+    $("#results").classList.add("results-error-visible");
     $("#results").replaceChildren(
       el("p", "Check your connection and try again.", "empty"),
       retry,
