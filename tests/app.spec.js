@@ -155,6 +155,12 @@ test("design lab switches themes and preserves the selected URL", async ({ page 
   await expect(page.locator("body")).toHaveAttribute("data-theme", "utility");
   await expect(page).toHaveURL(/theme=utility/);
 
+  await page.getByRole("button", { name: "Planner", exact: true }).click();
+  await expect(page.locator("body")).toHaveAttribute("data-theme", "planner");
+  await expect(page).toHaveURL(/theme=planner/);
+  await expect(page.locator(".sidebar")).toBeVisible();
+  await expect(page.locator("#map")).toBeVisible();
+
   await page.getByRole("button", { name: "Current", exact: true }).click();
   await expect(page.locator("body")).toHaveAttribute("data-theme", "current");
   await expect(page).not.toHaveURL(/theme=/);
