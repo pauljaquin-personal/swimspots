@@ -269,3 +269,11 @@ test("layers menu uses map colours and has no region selector", async ({ page })
   await page.getByRole("button", { name: "Sea", exact: true }).click();
   await expect(page.getByRole("button", { name: "Sea", exact: true })).toHaveCSS("border-top-color", "rgb(17, 17, 17)");
 });
+
+test("bottom bar includes Facebook link", async ({ page }) => {
+  await page.goto("/");
+  const facebook = page.getByRole("link", { name: "Swimspots on Facebook" });
+  await expect(facebook).toBeVisible();
+  await expect(facebook).toHaveAttribute("href", "https://www.facebook.com/swimspots.nz");
+  await expect(facebook).toHaveAttribute("target", "_blank");
+});
