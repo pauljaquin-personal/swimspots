@@ -36,8 +36,25 @@ function link(text, href) {
   a.rel = "noopener noreferrer";
   return a;
 }
+function spotGlyph(type) {
+  return { lake: "◉", river: "↝", sea: "≈", pool: "▣" }[type] || "●";
+}
+function icon(label, glyph) {
+  const span = el("span", glyph, "ui-icon");
+  span.setAttribute("aria-hidden", "true");
+  const wrap = el("span", null, "icon-label");
+  wrap.append(span, el("span", label));
+  return wrap;
+}
+function infoDisclosure(label, glyph, value, className = "") {
+  const details = el("details", null, `info-disclosure ${className}`.trim());
+  const summary = el("summary");
+  summary.append(icon(label, glyph), el("span", "›", "disclosure-chevron"));
+  details.append(summary, el("p", value || "Not yet verified.", "disclosure-copy"));
+  return details;
+}
 function cardArtwork(s) {
-  const art = el("span", "≋", `spot-art ${s.type}`);
+  const art = el("span", spotGlyph(s.type), `spot-art ${s.type}`);
   art.setAttribute("aria-hidden", "true");
   if (s.photo?.url) {
     const img = document.createElement("img");
@@ -138,13 +155,12 @@ function render() {
     const art = cardArtwork(s);
     const copy = el("span", null, "card-copy");
     copy.append(
-      el("span", s.type, "type-label"),
+      el("span", `${spotGlyph(s.type)} ${s.type}`, "type-label"),
       el("strong", s.name),
-      el("small", s.region),
       el(
         "small",
         state.location
-          ? `${distanceKm(state.location, s.coordinates).toFixed(1)} km away · straight line`
+          ? `${distanceKm(state.location, s.coordinates).toFixed(1)} km · straight line`
           : s.waterbody,
       ),
     );
@@ -195,23 +211,22 @@ function showSpot(s) {
   );
   const title = el("h2", s.name);
   title.id = "spot-title";
-  content.append(
-    detailArtwork(s),
-    meta,
-    title,
-    el("p", s.description),
+  const lede = el("p", s.description, "detail-lede");
+  const quick = el("section", null, "spot-quick-grid");
+  quick.setAttribute("aria-label", "Spot information");
+  quick.append(
+    infoDisclosure("Access", "↗", s.access),
+    infoDisclosure("Parking", "P", s.parking),
+    infoDisclosure("Facilities", "⌂", s.facilities),
+    infoDisclosure("Hazards", "!", s.hazards, "hazard"),
   );
-  content.append(el("h3", "Access & local knowledge"));
-  const details = el("dl");
-  for (const [label, value] of Object.entries({
-    Access: s.access,
-    Parking: s.parking,
-    Facilities: s.facilities,
-    "Hazards & local advice": s.hazards,
-    Location: `${s.coordinates.join(", ")} · approximate, not a verified water-entry point`,
-  }))
-    details.append(el("dt", label), el("dd", value));
-  content.append(details);
+  const locationDetails = infoDisclosure(
+    "Location",
+    "⌖",
+    `${s.coordinates.join(", ")} · approximate, not a verified water-entry point`,
+  );
+  quick.append(locationDetails);
+  content.append(detailArtwork(s), meta, title, lede, quick);
   const feedPanel = el("div", null, "spot-feeds");
   content.append(feedPanel);
   disposeConditions = mountConditions(feedPanel, s);
@@ -237,11 +252,15 @@ function showSpot(s) {
   };
   actions.append(source, bookmark, contribute);
   content.append(actions);
-  content.append(
+  const more = el("details", null, "detail-more");
+  const moreSummary = el("summary");
+  moreSummary.append(icon("More about this spot", "⋯"), el("span", "›", "disclosure-chevron"));
+  more.append(moreSummary);
+  more.append(
     el("h3", "Swim routes"),
     el("p", "No verified routes published for this spot yet."),
+    el("h3", "About this listing"),
   );
-  content.append(el("h3", "About this listing"));
   const provenance = el("p");
   provenance.append(
     s.source.url
@@ -251,7 +270,7 @@ function showSpot(s) {
       ` · Listing reviewed ${s.source.checkedAt}. ${s.listingStatus === "community-reviewed" ? "Community entry point reviewed for publication; conditions and access can change." : "Coordinates are editorial estimates; access and facilities await local review."} Weather model times and water-quality sample dates are shown separately above.`,
     ),
   );
-  content.append(provenance);
+  more.append(provenance);
   if (s.communitySourceUrl) {
     const communitySource = el("p");
     communitySource.append(
@@ -262,9 +281,10 @@ function showSpot(s) {
           : "",
       ),
     );
-    content.append(communitySource);
+    more.append(communitySource);
   }
-  const show = el("button", "Show this spot on the map", "primary");
+  content.append(more);
+  const show = el("button", "Show on map", "primary");
   show.onclick = () => {
     $("#spot-dialog").close();
     if (map) {
