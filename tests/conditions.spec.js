@@ -117,7 +117,8 @@ test("switching spots cannot show the previous feed response", async ({
   await page.goto("/#spot=queenstown-bay");
   await page.getByRole("button", { name: "Close spot details" }).click();
   await expect(page.locator("#spot-dialog")).not.toBeVisible();
-  await page.goto("/#spot=roys-bay");
+  await page.getByRole("searchbox").fill("Roys Bay");
+  await page.locator(".spot-card button").first().evaluate((el) => el.click());
   await expect(page.getByText("18.0 °C", { exact: true })).toBeVisible();
   await expect(page.locator("#spot-title")).toHaveText("Roys Bay");
 });
