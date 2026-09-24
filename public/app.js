@@ -339,7 +339,6 @@ document.querySelectorAll("[data-type]").forEach(
     }),
 );
 $("#reset").onclick = reset;
-$("#fit-map").onclick = fit;
 $("#saved").onclick = () => {
   state.savedOnly = !state.savedOnly;
   render();
@@ -426,8 +425,10 @@ async function init() {
       }
       spots.push(...extra.spots);
     } catch {
-      document.querySelector(".collection-note").textContent =
-        "Community locations could not load. Showing the starter collection.";
+      const note = document.querySelector(".collection-note");
+      if (note)
+        note.textContent =
+          "Community locations could not load. Showing the starter collection.";
     }
     [...new Set(spots.map((s) => s.region))].sort().forEach((r) => {
       const o = el("option", r);
