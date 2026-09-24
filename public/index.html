@@ -19,13 +19,7 @@
       <a class="brand" href="/" aria-label="Swim Spots home"
         ><span class="brand-icon">≋</span>swimspots<span class="nz">NZ</span></a
       >
-      <nav aria-label="Main">
-        <button id="explore" class="nav-active">Explore</button
-        ><button id="saved" aria-pressed="false">
-          Saved <span id="saved-count">0</span>
-        </button>
-      </nav>
-      <button id="contribute" class="outline">＋ Suggest a spot</button>
+      <button id="contribute" class="outline icon-only" aria-label="Suggest a spot" title="Suggest a spot">＋</button>
     </header>
     <main>
       <section class="intro">
@@ -73,6 +67,9 @@
                 ><select id="region">
                   <option value="all">All New Zealand</option></select>
               </div>
+              <button id="saved" class="layers-saved" aria-pressed="false">
+                ☆ Saved <span id="saved-count">0</span>
+              </button>
             </div>
             <p id="location-status" class="small" role="status"></p>
           </div>
