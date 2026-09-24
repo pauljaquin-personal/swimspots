@@ -46,6 +46,7 @@ test("search, filter, details, saved persistence and empty state", async ({
   await expect(
     page.getByRole("button", { name: "Unsave Roys Bay" }),
   ).toBeVisible();
+  await page.getByRole("button", { name: "Choose water types" }).click();
   await page.getByRole("button", { name: /Saved 1/ }).click();
   await expect(page.locator(".spot-card")).toHaveCount(1);
   await page.getByRole("button", { name: "Reset search and filters", exact: true }).click();
@@ -79,7 +80,7 @@ test("location permission denial gives recovery", async ({ page, context }) => {
   await page.goto("/");
   await page.locator("#near").click();
   await expect(page.locator("#location-status")).toContainText(
-    "search by town",
+    "search by place",
   );
 });
 test("location sorts spots nearest first", async ({ page, context }) => {
@@ -248,4 +249,13 @@ test("minimal bottom bar exposes about, contact, share and social actions", asyn
   await page.getByRole("button", { name: "About Swimspots" }).click();
   await expect(page.getByRole("heading", { name: "About Swimspots" })).toBeVisible();
   await page.getByRole("button", { name: "Close site information" }).click();
+});
+
+test("header is reduced to brand and add-spot icon, with Saved in layers", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByRole("button", { name: "Suggest a spot" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Explore", exact: true })).toHaveCount(0);
+  await expect(page.getByRole("button", { name: /Saved/ })).not.toBeVisible();
+  await page.getByRole("button", { name: "Choose water types" }).click();
+  await expect(page.getByRole("button", { name: /Saved/ })).toBeVisible();
 });
