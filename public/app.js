@@ -353,7 +353,7 @@ $("#explore").onclick = () => {
 $("#near").onclick = () => {
   if (!navigator.geolocation) {
     $("#location-status").textContent =
-      "Location is unavailable. Search by town or region instead.";
+      "Location is unavailable. Search by place instead.";
     return;
   }
   $("#near").disabled = true;
@@ -362,10 +362,9 @@ $("#near").onclick = () => {
     (position) => {
       state.location = [position.coords.latitude, position.coords.longitude];
       $("#near").disabled = false;
-      $("#location-status").textContent =
-        "Sorted by straight-line distance. Your location is used only on this device.";
+      $("#location-status").textContent = "Centred on your location";
       userMarker?.remove();
-      if (map)
+      if (map) {
         userMarker = L.circleMarker(state.location, {
           radius: 7,
           color: "#fff",
@@ -374,16 +373,24 @@ $("#near").onclick = () => {
         })
           .addTo(map)
           .bindTooltip("Your location");
+        map.setView(state.location, 12, { animate: false });
+      }
       render();
-      fit();
     },
     () => {
       $("#near").disabled = false;
       $("#location-status").textContent =
-        "Could not get your location. Allow location access or search by town instead.";
+        "Could not get your location. Allow location access or search by place instead.";
     },
     { timeout: 10000, maximumAge: 60000 },
   );
+};
+
+$("#layers-toggle").onclick = () => {
+  const panel = $("#layers-panel");
+  const open = panel.hidden;
+  panel.hidden = !open;
+  $("#layers-toggle").setAttribute("aria-expanded", String(open));
 };
 document
   .querySelectorAll("dialog .close")
