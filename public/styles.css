@@ -1947,3 +1947,76 @@ body.planner-layout .layers-panel .filters button[data-type="all"][aria-pressed=
   color: var(--ink);
   background: #fff;
 }
+
+
+/* Clean two-column spot summary ------------------------------------------ */
+.spot-summary-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(280px, 1.05fr);
+  gap: 28px;
+  align-items: start;
+  margin: 18px 0 10px;
+}
+.spot-description {
+  min-width: 0;
+}
+.spot-description h3 {
+  margin: 0 0 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--muted);
+}
+.spot-description p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--ink);
+}
+.spot-facts {
+  display: grid;
+  gap: 0;
+  min-width: 0;
+  border-top: 1px solid var(--line);
+}
+.spot-fact {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+.spot-fact .icon-label {
+  display: contents;
+}
+.spot-fact .icon-label > span:last-child {
+  display: none;
+}
+.spot-fact-copy {
+  min-width: 0;
+}
+.spot-fact-copy strong {
+  display: block;
+  margin: 0 0 3px;
+  font-size: 11px;
+}
+.spot-fact-copy p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+.spot-fact.hazard .ui-icon {
+  background: #fff1cf;
+  color: #7d5b13;
+}
+@media (max-width: 700px) {
+  .spot-summary-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .spot-description p {
+    font-size: 13px;
+  }
+}
