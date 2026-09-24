@@ -1,4 +1,4 @@
-const THEMES = new Set(["current", "coastal", "editorial", "utility"]);
+const THEMES = new Set(["current", "coastal", "editorial", "utility", "planner"]);
 
 function initialTheme() {
   const params = new URLSearchParams(location.search);
