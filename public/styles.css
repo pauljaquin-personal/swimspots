@@ -1406,6 +1406,9 @@ body[data-theme="planner"] {
 }
 body[data-theme="planner"] header {
   position: sticky;
+  width: 100%;
+  max-width: none;
+  margin: 0;
   top: 0;
   z-index: 1400;
   height: 64px;
@@ -1430,6 +1433,9 @@ body[data-theme="planner"] header #contribute {
 }
 body[data-theme="planner"] main {
   position: relative;
+  width: 100%;
+  max-width: none;
+  margin: 0;
 }
 body[data-theme="planner"] .design-lab {
   position: fixed;
@@ -1458,6 +1464,8 @@ body[data-theme="planner"] footer {
 }
 body[data-theme="planner"] .explorer {
   position: relative;
+  width: 100%;
+  max-width: none;
   display: block;
   margin: 0;
   height: calc(100svh - 64px);
