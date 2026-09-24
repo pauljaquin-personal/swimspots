@@ -1802,3 +1802,36 @@ body.planner-layout #location-status:not(:empty) {
     transform: none;
   }
 }
+
+
+/* Full-width bottom utility bar ------------------------------------------- */
+.bottom-tools {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: none;
+  width: 100%;
+  justify-content: center;
+  gap: 22px;
+  padding: 7px 16px calc(7px + env(safe-area-inset-bottom));
+  border: 0;
+  border-top: 1px solid #d8e1dd;
+  border-radius: 0;
+  background: #fffffff2;
+  box-shadow: 0 -6px 22px #173d3514;
+  backdrop-filter: blur(14px);
+}
+.bottom-tool {
+  width: 40px;
+  height: 40px;
+}
+@media (min-width: 900px) {
+  .bottom-tools {
+    left: 0;
+    right: 0;
+    transform: none;
+  }
+}
+body.planner-layout .explorer {
+  padding-bottom: calc(55px + env(safe-area-inset-bottom));
+}
