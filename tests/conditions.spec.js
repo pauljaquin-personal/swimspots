@@ -25,11 +25,13 @@ function feed(spotId = "queenstown-bay", status = "fresh") {
         windGusts: { value: 23, unit: "km/h" },
         windDirection: { value: 180, unit: "°" },
       },
-      rain24h: {
+      rain48h: {
         value: 0,
         unit: "mm",
-        from: new Date(now - 86400000).toISOString(),
+        from: new Date(now - 172800000).toISOString(),
         to: new Date(now).toISOString(),
+        wetHours: 0,
+        lastPrecipitationAt: null,
       },
       forecast: [],
     },
@@ -52,6 +54,9 @@ test("renders real feed contract, zeros, sources and lazy official LAWA report",
   const headings = await page.locator("#spot-content h3").allTextContents();
   expect(headings.indexOf("Access & local knowledge")).toBeLessThan(headings.indexOf("Weather at this spot"));
   await expect(page.getByText("0.0 mm", { exact: true })).toBeVisible();
+  await expect(
+    page.getByText("No precipitation is shown by the model for the completed hours in the past 48 hours."),
+  ).toBeVisible();
   await expect(
     page.getByText("Model estimate · not a station observation"),
   ).toBeVisible();
@@ -115,4 +120,24 @@ test("switching spots cannot show the previous feed response", async ({
     .click();
   await expect(page.getByText("18.0 °C", { exact: true })).toBeVisible();
   await expect(page.locator("#spot-title")).toHaveText("Roys Bay");
+});
+
+test("recent modelled precipitation shows a 48-hour runoff reminder", async ({
+  page,
+}) => {
+  const d = feed();
+  d.weather.rain48h = {
+    value: 6.4,
+    unit: "mm",
+    from: new Date(Date.now() - 172800000).toISOString(),
+    to: new Date().toISOString(),
+    wetHours: 3,
+    lastPrecipitationAt: new Date(Date.now() - 2 * 3600000).toISOString(),
+  };
+  await page.route("**/api/conditions?*", (r) => r.fulfill({ json: d }));
+  await page.goto("/#spot=queenstown-bay");
+  await expect(
+    page.getByText(/Modelled precipitation occurred within the past 48 hours/),
+  ).toBeVisible();
+  await expect(page.getByText(/Recent rain can increase runoff/)).toBeVisible();
 });
