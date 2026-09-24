@@ -79,7 +79,7 @@ function weatherView(feed) {
     card("Wind at 10 m", number(feed.current.windSpeed)),
     card("Wind gusts", number(feed.current.windGusts)),
     card("Wind from", compassPoint(feed.current.windDirection?.value)),
-    card("Past 24h precipitation · modelled", number(feed.rain24h)),
+    card("Past 48h precipitation · modelled", number(feed.rain48h)),
   );
   section.append(
     current,
@@ -89,14 +89,23 @@ function weatherView(feed) {
       "feed-time",
     ),
   );
-  if (feed.rain24h?.value !== null)
+  if (feed.rain48h?.value !== null) {
+    const recent = feed.rain48h.value > 0;
     section.append(
       el(
         "p",
-        `Precipitation period: ${date(feed.rain24h.from)} – ${date(feed.rain24h.to)}. This is modelled rain/snow, not a rain-gauge measurement.`,
+        recent
+          ? `Modelled precipitation occurred within the past 48 hours${feed.rain48h.lastPrecipitationAt ? `; most recently around ${date(feed.rain48h.lastPrecipitationAt)}` : ""}. Recent rain can increase runoff, so check current water-quality information and local advice.`
+          : "No precipitation is shown by the model for the completed hours in the past 48 hours.",
+        recent ? "feed-rain-alert" : "feed-label",
+      ),
+      el(
+        "p",
+        `Precipitation period: ${date(feed.rain48h.from)} – ${date(feed.rain48h.to)}. This is modelled precipitation, not a rain-gauge measurement.`,
         "feed-time",
       ),
     );
+  }
   if (feed.message) section.append(el("p", feed.message, "feed-error"));
   const future = (feed.forecast || [])
     .filter((r) => Date.parse(r.validAt) > Date.now())
