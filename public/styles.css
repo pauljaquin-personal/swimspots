@@ -1548,3 +1548,34 @@ body.planner-layout #spot-dialog {
     justify-self: start;
   }
 }
+
+
+/* Minimal planner sidebar -------------------------------------------------- */
+body.planner-layout .search-area {
+  padding-top: 14px;
+}
+body.planner-layout .search-row {
+  position: relative;
+}
+body.planner-layout .search-row input {
+  padding-right: 34px;
+}
+.search-reset {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1;
+}
+.search-reset:hover {
+  background: #eef3f0;
+  color: var(--ink);
+}
+body.planner-layout .results {
+  padding-top: 4px;
+}
