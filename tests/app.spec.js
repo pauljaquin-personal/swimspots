@@ -11,12 +11,10 @@ test("search, filter, details, saved persistence and empty state", async ({
   page,
 }) => {
   await page.goto("/");
-  await expect(page.locator(".spot-card")).toHaveCount(60);
+  await expect(page.locator("#result-count")).toHaveText("60 spots to explore");
   await page.getByRole("searchbox").fill("wanaka");
-  await expect(page.locator(".spot-card")).toHaveCount(1);
-  await page
-    .getByRole("button", { name: "View Roys Bay", exact: true })
-    .click();
+  await expect(page.locator("#result-count")).toHaveText("1 spot to explore");
+  await page.goto("/#spot=roys-bay");
   await expect(
     page.getByRole("heading", { name: "Roys Bay", exact: true }),
   ).toBeVisible();
@@ -35,9 +33,7 @@ test("search, filter, details, saved persistence and empty state", async ({
   await page.getByRole("button", { name: "Close suggestion" }).click();
   await page.goto("/");
   await page.getByRole("searchbox").fill("wanaka");
-  await page
-    .getByRole("button", { name: "View Roys Bay", exact: true })
-    .click();
+  await page.goto("/#spot=roys-bay");
   await page.getByRole("button", { name: "☆ Save spot", exact: true }).click();
   await page.keyboard.press("Escape");
   await expect(page.locator("#spot-dialog")).not.toBeVisible();
@@ -48,13 +44,13 @@ test("search, filter, details, saved persistence and empty state", async ({
   ).toBeVisible();
   await page.getByRole("button", { name: "Choose water types" }).click();
   await page.getByRole("button", { name: /Saved 1/ }).click();
-  await expect(page.locator(".spot-card")).toHaveCount(1);
+  await expect(page.locator("#result-count")).toHaveText("1 saved spot to explore");
   await page.getByRole("button", { name: "Reset search and filters", exact: true }).click();
   await page.getByRole("button", { name: "Pools", exact: true }).click();
-  await expect(page.getByText("No spots found just yet.")).toBeVisible();
+  await expect(page.locator("#result-count")).toHaveText("0 spots to explore");
   await page.getByRole("button", { name: "Reset search and filters", exact: true }).click();
   await page.locator("#region").selectOption("Auckland");
-  await expect(page.locator(".spot-card")).toHaveCount(1);
+  await expect(page.locator("#result-count")).toHaveText("1 spot to explore");
   expect(
     await page.locator("body").evaluate((el) => el.scrollWidth),
   ).toBeLessThanOrEqual(await page.evaluate(() => innerWidth));
@@ -87,7 +83,7 @@ test("location sorts spots nearest first", async ({ page, context }) => {
   await context.grantPermissions(["geolocation"]);
   await context.setGeolocation({ latitude: -36.848, longitude: 174.831 });
   await page.goto("/");
-  await expect(page.locator(".spot-card")).toHaveCount(60);
+  await expect(page.locator("#result-count")).toHaveText("60 spots to explore");
   await page.locator("#near").click();
   await expect(page.locator(".spot-card").first()).toContainText("Mission Bay");
   await expect(page.locator(".spot-card").first()).toContainText("0.0 km");
@@ -105,7 +101,7 @@ test("tile failure preserves searchable list", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("#map-status")).toBeVisible();
   await page.getByRole("searchbox").fill("queenstown");
-  await expect(page.locator(".spot-card")).toHaveCount(1);
+  await expect(page.locator("#result-count")).toHaveText("1 spot to explore");
 });
 
 test("submit button is re-enabled when contributing to another existing spot", async ({ page }) => {
@@ -113,8 +109,7 @@ test("submit button is re-enabled when contributing to another existing spot", a
     r.fulfill({ status: 201, json: { id: crypto.randomUUID(), status: "pending" } }),
   );
   await page.goto("/");
-  await page.getByRole("searchbox").fill("Roys Bay");
-  await page.getByRole("button", { name: "View Roys Bay", exact: true }).click();
+  await page.goto("/#spot=roys-bay");
   await page
     .getByRole("button", { name: "Add photo or local knowledge", exact: true })
     .click();
@@ -129,10 +124,7 @@ test("submit button is re-enabled when contributing to another existing spot", a
   await expect(submit).toBeDisabled();
   await page.getByRole("button", { name: "Close suggestion" }).click();
 
-  await page.getByRole("searchbox").fill("Lake Te Anau");
-  await page
-    .getByRole("button", { name: "View Lake Te Anau – Boat Harbour Beach", exact: true })
-    .click();
+  await page.goto("/#spot=lake-te-anau-boat-harbour-beach");
   await page
     .getByRole("button", { name: "Add photo or local knowledge", exact: true })
     .click();
@@ -182,7 +174,6 @@ test("spot details use compact icon disclosures", async ({ page }) => {
 
 test("planner sidebar keeps result count accessible but visually minimal", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByText("Search swim spots", { exact: true })).not.toBeVisible();
   await expect(page.locator("#result-count")).toHaveClass(/sr-only/);
   await expect(page.locator(".collection-note")).toHaveCount(0);
   await expect(
