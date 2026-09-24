@@ -160,15 +160,15 @@ test("planner layout is full width on wide screens", async ({ page }) => {
   expect(metrics.sidebarLeft).toBeGreaterThan(0);
 });
 
-test("spot details use compact icon disclosures", async ({ page }) => {
+test("spot details show description and practical information without disclosures", async ({ page }) => {
   await page.goto("/#spot=queenstown-bay");
-  await expect(page.getByText("Access", { exact: true })).toBeVisible();
-  await expect(page.getByText("Parking", { exact: true })).toBeVisible();
-  await expect(page.getByText("Facilities", { exact: true })).toBeVisible();
-  await expect(page.getByText("Hazards", { exact: true })).toBeVisible();
-  await expect(page.locator(".spot-quick-grid details[open]")).toHaveCount(0);
-  await page.getByText("Access", { exact: true }).click();
-  await expect(page.locator(".spot-quick-grid details[open]")).toHaveCount(1);
+  await expect(page.locator(".spot-summary-grid")).toBeVisible();
+  await expect(page.locator(".spot-description")).toBeVisible();
+  await expect(page.locator(".spot-facts")).toBeVisible();
+  for (const label of ["Access", "Parking", "Facilities", "Hazards", "Location"]) {
+    await expect(page.locator(".spot-facts").getByText(label, { exact: true })).toBeVisible();
+  }
+  await expect(page.locator(".spot-facts details")).toHaveCount(0);
   await expect(page.getByText("More about this spot", { exact: true })).toBeVisible();
 });
 
@@ -276,4 +276,19 @@ test("bottom bar includes Facebook link", async ({ page }) => {
   await expect(facebook).toBeVisible();
   await expect(facebook).toHaveAttribute("href", "https://www.facebook.com/swimspots.nz");
   await expect(facebook).toHaveAttribute("target", "_blank");
+});
+
+test("spot summary is two columns on desktop and stacks on mobile", async ({ page }) => {
+  await page.setViewportSize({ width: 1200, height: 900 });
+  await page.goto("/#spot=porpoise-bay");
+  const desktopColumns = await page.locator(".spot-summary-grid").evaluate((el) =>
+    getComputedStyle(el).gridTemplateColumns,
+  );
+  expect(desktopColumns.split(" ").length).toBeGreaterThanOrEqual(2);
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  const mobileColumns = await page.locator(".spot-summary-grid").evaluate((el) =>
+    getComputedStyle(el).gridTemplateColumns,
+  );
+  expect(mobileColumns.split(" ").length).toBe(1);
 });
