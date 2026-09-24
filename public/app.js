@@ -127,8 +127,7 @@ function render() {
     state.saved.includes(s.id),
   ).length;
   $("#saved").setAttribute("aria-pressed", String(state.savedOnly));
-  $("#saved").classList.toggle("nav-active", state.savedOnly);
-  $("#explore").classList.toggle("nav-active", !state.savedOnly);
+  $("#saved").classList.toggle("is-active", state.savedOnly);
   markers?.clearLayers();
   if (!visible.length) {
     const empty = el("div", null, "empty");
@@ -341,11 +340,6 @@ document.querySelectorAll("[data-type]").forEach(
 $("#reset").onclick = reset;
 $("#saved").onclick = () => {
   state.savedOnly = !state.savedOnly;
-  render();
-  fit();
-};
-$("#explore").onclick = () => {
-  state.savedOnly = false;
   render();
   fit();
 };
