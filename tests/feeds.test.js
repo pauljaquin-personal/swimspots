@@ -6,6 +6,9 @@ import {
   getConditions,
   providerURL,
   fetchProvider,
+  normaliseTides,
+  tideURL,
+  fetchTides,
 } from "../src/feeds.js";
 import { handleRequest } from "../src/worker.js";
 const now = Date.parse("2026-09-21T00:15:00Z"),
@@ -275,4 +278,84 @@ test("worker serves assets and approved conditions; caches normalized results", 
   );
   await handleRequest(req, env, null, options);
   assert.equal(calls, 1);
+});
+
+test("tide adapter returns ordered high and low water predictions", () => {
+  const data = {
+    metadata: {
+      model_id: "tpxo9_glob_v9.4",
+      datum: "LAT",
+      units: { sea_surface_elevation: "m" },
+    },
+    locations: [
+      {
+        coordinates: { latitude: -45.9, longitude: 170.5 },
+        predictions: [
+          {
+            time: new Date(now + 2 * hour).toISOString(),
+            sea_surface_elevation: 1.8,
+            tidal_stage: "high",
+          },
+          {
+            time: new Date(now + 8 * hour).toISOString(),
+            sea_surface_elevation: 0.4,
+            tidal_stage: "low",
+          },
+        ],
+      },
+    ],
+  };
+  const tide = normaliseTides(data, now);
+  assert.equal(tide.status, "fresh");
+  assert.equal(tide.predictions.length, 2);
+  assert.equal(tide.predictions[0].stage, "high");
+  assert.equal(tide.predictions[0].height.value, 1.8);
+  assert.equal(tide.datum, "LAT");
+});
+
+test("tide URL uses known spot coordinates and global model", () => {
+  const url = tideURL({ ...spot, type: "sea" });
+  assert.equal(url.hostname, "api.marine.metservice.com");
+  assert.match(url.pathname, /tpxo9_glob_v9\.4\/tidetimes\/points$/);
+  assert.equal(url.searchParams.get("latitudes"), "-45");
+  assert.equal(url.searchParams.get("longitudes"), "168");
+});
+
+test("tide provider requires configured API access and never exposes the key", async () => {
+  const unavailable = await fetchTides({ ...spot, type: "sea" }, { now });
+  assert.equal(unavailable.status, "unavailable");
+
+  let auth = "";
+  const result = await fetchTides(
+    { ...spot, type: "sea" },
+    {
+      now,
+      apiKey: "tide-secret",
+      fetchImpl: async (_url, options) => {
+        auth = options.headers.Authorization;
+        return Response.json({
+          metadata: {
+            model_id: "tpxo9_glob_v9.4",
+            datum: "LAT",
+            units: { sea_surface_elevation: "m" },
+          },
+          locations: [
+            {
+              coordinates: { latitude: -45, longitude: 168 },
+              predictions: [
+                {
+                  time: new Date(now + hour).toISOString(),
+                  sea_surface_elevation: 1.2,
+                  tidal_stage: "high",
+                },
+              ],
+            },
+          ],
+        });
+      },
+    },
+  );
+  assert.equal(auth, "ApiKey tide-secret");
+  assert.equal(result.status, "fresh");
+  assert.ok(!JSON.stringify(result).includes("tide-secret"));
 });
