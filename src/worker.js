@@ -97,13 +97,14 @@ export async function handleRequest(
       now,
       fetchImpl,
       apiKey: env.OPEN_METEO_API_KEY || "",
+      tideApiKey: env.METSERVICE_TIDE_API_KEY || "",
     })
       .then(async (data) => {
         if (cache) {
           const result = new Response(JSON.stringify(data), {
             headers: {
               "Content-Type": "application/json",
-              "Cache-Control": `public, max-age=${RETAIN_MS / 1000}`,
+              "Cache-Control": "public, max-age=86400",
             },
           });
           const write = cache.put(cacheKey, result).catch(() => {});
