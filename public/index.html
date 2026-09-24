@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/vendor/leaflet.css" />
     <link rel="stylesheet" href="/styles.css" />
     <script defer src="/vendor/leaflet.js"></script>
+    <script defer src="/design.js"></script>
     <script type="module" src="/app.js"></script>
   </head>
   <body>
@@ -28,6 +29,19 @@
       <button id="contribute" class="outline">＋ Suggest a spot</button>
     </header>
     <main>
+      <section class="design-lab" aria-label="Design experiments">
+        <div>
+          <strong>Design lab</strong>
+          <span>Compare the same Swimspots experience in five visual directions.</span>
+        </div>
+        <div class="design-options" role="group" aria-label="Choose design theme">
+          <button data-design-theme="current" aria-pressed="true">Current</button>
+          <button data-design-theme="coastal" aria-pressed="false">Coastal</button>
+          <button data-design-theme="editorial" aria-pressed="false">Editorial</button>
+          <button data-design-theme="utility" aria-pressed="false">Map-first</button>
+          <button data-design-theme="planner" aria-pressed="false">Planner</button>
+        </div>
+      </section>
       <section class="intro">
         <div>
           <p class="eyebrow">AOTEAROA, ONE SWIM AT A TIME</p>

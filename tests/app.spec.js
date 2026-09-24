@@ -139,3 +139,54 @@ test("submit button is re-enabled when contributing to another existing spot", a
     page.getByRole("button", { name: "Submit update for review", exact: true }),
   ).toBeEnabled();
 });
+
+test("design lab switches themes and preserves the selected URL", async ({ page }) => {
+  await page.goto("/?theme=coastal");
+  await expect(page.locator("body")).toHaveAttribute("data-theme", "coastal");
+  await expect(
+    page.getByRole("button", { name: "Coastal", exact: true }),
+  ).toHaveAttribute("aria-pressed", "true");
+
+  await page.getByRole("button", { name: "Editorial", exact: true }).click();
+  await expect(page.locator("body")).toHaveAttribute("data-theme", "editorial");
+  await expect(page).toHaveURL(/theme=editorial/);
+
+  await page.getByRole("button", { name: "Map-first", exact: true }).click();
+  await expect(page.locator("body")).toHaveAttribute("data-theme", "utility");
+  await expect(page).toHaveURL(/theme=utility/);
+
+  await page.getByRole("button", { name: "Planner", exact: true }).click();
+  await expect(page.locator("body")).toHaveAttribute("data-theme", "planner");
+  await expect(page).toHaveURL(/theme=planner/);
+  await expect(page.locator(".sidebar")).toBeVisible();
+  await expect(page.locator("#map")).toBeVisible();
+
+  await page.getByRole("button", { name: "Current", exact: true }).click();
+  await expect(page.locator("body")).toHaveAttribute("data-theme", "current");
+  await expect(page).not.toHaveURL(/theme=/);
+});
+
+test("Planner spans the full browser width on wide screens", async ({ page }) => {
+  await page.setViewportSize({ width: 1900, height: 1000 });
+  await page.goto("/?theme=planner");
+  const metrics = await page.evaluate(() => {
+    const header = document.querySelector("header").getBoundingClientRect();
+    const main = document.querySelector("main").getBoundingClientRect();
+    const explorer = document.querySelector(".explorer").getBoundingClientRect();
+    return {
+      viewport: innerWidth,
+      headerWidth: header.width,
+      mainWidth: main.width,
+      explorerWidth: explorer.width,
+      headerLeft: header.left,
+      mainLeft: main.left,
+      explorerLeft: explorer.left,
+    };
+  });
+  expect(metrics.headerLeft).toBe(0);
+  expect(metrics.mainLeft).toBe(0);
+  expect(metrics.explorerLeft).toBe(0);
+  expect(metrics.headerWidth).toBeGreaterThanOrEqual(metrics.viewport - 1);
+  expect(metrics.mainWidth).toBeGreaterThanOrEqual(metrics.viewport - 1);
+  expect(metrics.explorerWidth).toBeGreaterThanOrEqual(metrics.viewport - 1);
+});
