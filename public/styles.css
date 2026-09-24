@@ -1899,3 +1899,20 @@ body.planner-layout .layers-panel .filters .layers-saved #saved-count {
   float: none;
   margin-left: 4px;
 }
+
+
+/* Surface loading errors even though normal result cards stay hidden. */
+body.planner-layout .results.results-error-visible {
+  display: block !important;
+  position: fixed;
+  left: 14px;
+  top: 74px;
+  z-index: 1450;
+  width: min(320px, calc(100vw - 28px));
+  padding: 10px;
+  border: 1px solid #d8e1dd;
+  border-radius: 12px;
+  background: #fffffff2;
+  box-shadow: 0 8px 24px #173d351b;
+  backdrop-filter: blur(12px);
+}
