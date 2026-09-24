@@ -13,8 +13,8 @@ const now = Date.parse("2026-09-21T00:15:00Z"),
 const spot = { id: "test", type: "lake", coordinates: [-45, 168] };
 function weather() {
   const times = Array.from(
-    { length: 49 },
-    (_, i) => (Math.floor(now / hour) * hour + (i - 24) * hour) / 1000,
+    { length: 73 },
+    (_, i) => (Math.floor(now / hour) * hour + (i - 48) * hour) / 1000,
   );
   return {
     latitude: -45,
@@ -63,13 +63,15 @@ const marine = () => ({
     wave_period: 5,
   },
 });
-test("preserves zero readings, model times, source, and a complete 24h precipitation sum", () => {
+test("preserves zero readings, model times, source, and a complete 48h precipitation sum", () => {
   const d = normaliseWeather(weather(), now);
   assert.equal(d.current.airTemperature.value, 0);
   assert.equal(d.current.windSpeed.value, 0);
   assert.equal(d.observedAt, null);
   assert.equal(d.validAt, new Date(now).toISOString());
-  assert.equal(d.rain24h.value, 24);
+  assert.equal(d.rain48h.value, 48);
+  assert.equal(d.rain48h.wetHours, 48);
+  assert.equal(d.rain48h.lastPrecipitationAt, new Date(Math.floor(now / hour) * hour).toISOString());
   assert.equal(d.forecast.length, 24);
   assert.equal(d.source.kind, "model");
 });
@@ -83,10 +85,10 @@ test("nulls, numeric strings and wrong units never become legitimate zeroes", ()
   assert.equal(r.current.windSpeed.value, null);
   assert.equal(r.current.windGusts.value, null);
 });
-test("incomplete precipitation window remains unavailable", () => {
+test("incomplete 48h precipitation window remains unavailable", () => {
   const d = weather();
   d.hourly.precipitation[10] = null;
-  assert.equal(normaliseWeather(d, now).rain24h.value, null);
+  assert.equal(normaliseWeather(d, now).rain48h.value, null);
 });
 test("stale or future model times are labelled", () => {
   const d = weather();
@@ -176,6 +178,10 @@ test("malformed provider response fails closed", async () => {
     }),
   );
 });
+test("weather provider requests 48 hours of past precipitation", () => {
+  assert.equal(providerURL(spot, "weather").searchParams.get("past_hours"), "48");
+});
+
 test("paid key selects customer endpoint, never enters returned model data", async () => {
   assert.equal(
     providerURL(spot, "weather", "secret").hostname,

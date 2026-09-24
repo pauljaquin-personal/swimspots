@@ -95,25 +95,32 @@ export function normaliseWeather(data, now = Date.now()) {
   const end = Math.floor(now / HOUR) * HOUR;
   const past = rows.filter(
     (r) =>
-      Date.parse(r.validAt) > end - 24 * HOUR && Date.parse(r.validAt) <= end,
+      Date.parse(r.validAt) > end - 48 * HOUR && Date.parse(r.validAt) <= end,
   );
   const complete =
-    past.length === 24 &&
+    past.length === 48 &&
     past.every(
       (r, i) =>
-        Date.parse(r.validAt) === end - (23 - i) * HOUR &&
+        Date.parse(r.validAt) === end - (47 - i) * HOUR &&
         r.precipitation.value !== null,
     );
-  const rain24h = {
+  const wetRows = complete
+    ? past.filter((r) => r.precipitation.value > 0)
+    : [];
+  const rain48h = {
     value: complete
       ? Math.round(
           past.reduce((sum, r) => sum + r.precipitation.value, 0) * 10,
         ) / 10
       : null,
     unit: "mm",
-    from: new Date(end - 24 * HOUR).toISOString(),
+    from: new Date(end - 48 * HOUR).toISOString(),
     to: new Date(end).toISOString(),
     kind: "model",
+    wetHours: complete ? wetRows.length : null,
+    lastPrecipitationAt: wetRows.length
+      ? wetRows[wetRows.length - 1].validAt
+      : null,
   };
   const forecast = rows.filter(
     (r) =>
@@ -130,7 +137,7 @@ export function normaliseWeather(data, now = Date.now()) {
     fetchedAt: new Date(now).toISOString(),
     grid: grid(data),
     current,
-    rain24h,
+    rain48h,
     forecast,
   };
 }
@@ -185,7 +192,7 @@ export function providerURL(spot, provider, apiKey = "") {
     Object.assign(params, {
       hourly: "temperature_2m,precipitation,wind_speed_10m,wind_gusts_10m",
       forecast_hours: 25,
-      past_hours: 24,
+      past_hours: 48,
       temperature_unit: "celsius",
       wind_speed_unit: "kmh",
       precipitation_unit: "mm",
