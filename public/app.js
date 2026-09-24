@@ -234,16 +234,11 @@ function showSpot(s) {
   facts.append(
     infoFact("Access", "↗", s.access),
     infoFact("Parking", "P", s.parking),
-    infoFact("Facilities", "⌂", s.facilities),
+    infoFact("Toilets", "⌂", s.facilities),
     infoFact("Hazards", "!", s.hazards, "hazard"),
-    infoFact(
-      "Location",
-      "⌖",
-      `${s.coordinates.join(", ")} · approximate, not a verified water-entry point`,
-    ),
   );
 
-  summary.append(description, facts);
+  summary.append(facts, description);
   content.append(detailArtwork(s), meta, title, summary);
   const feedPanel = el("div", null, "spot-feeds");
   content.append(feedPanel);
