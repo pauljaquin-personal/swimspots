@@ -257,5 +257,6 @@ test("initial map has no dip label and uses tighter desktop NZ framing", async (
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/");
   await expect(page.getByText("YOUR NEXT DIP STARTS HERE", { exact: true })).toHaveCount(0);
-  await expect(page.locator(".leaflet-map-pane")).toBeVisible();
+  await expect(page.locator("#map")).toBeVisible();
+  await expect(page.locator(".leaflet-map-pane")).toHaveCount(1);
 });
