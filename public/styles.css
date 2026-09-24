@@ -1841,3 +1841,46 @@ body.planner-layout .explorer {
 body.planner-layout .leaflet-bottom.leaflet-right {
   bottom: calc(64px + env(safe-area-inset-bottom));
 }
+
+
+/* Simplified header and saved control ------------------------------------- */
+body.planner-layout header {
+  justify-content: space-between;
+}
+body.planner-layout header nav {
+  display: none;
+}
+body.planner-layout header #contribute.icon-only {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  margin-left: auto;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  line-height: 1;
+}
+body.planner-layout header #contribute.icon-only::after,
+body.planner-layout header #contribute.icon-only::before {
+  content: none;
+}
+.layers-saved {
+  width: 100%;
+  margin-top: 10px;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+  text-align: left;
+  font-size: 12px;
+}
+.layers-saved.is-active {
+  background: var(--ink);
+  color: white;
+  border-color: var(--ink);
+}
+.layers-saved #saved-count {
+  float: right;
+  margin-left: 8px;
+}
