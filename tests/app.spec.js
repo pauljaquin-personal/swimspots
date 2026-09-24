@@ -48,10 +48,10 @@ test("search, filter, details, saved persistence and empty state", async ({
   ).toBeVisible();
   await page.getByRole("button", { name: /Saved 1/ }).click();
   await expect(page.locator(".spot-card")).toHaveCount(1);
-  await page.getByRole("button", { name: "Reset", exact: true }).click();
+  await page.getByRole("button", { name: "Reset search and filters", exact: true }).click();
   await page.getByRole("button", { name: "Pools", exact: true }).click();
   await expect(page.getByText("No spots found just yet.")).toBeVisible();
-  await page.getByRole("button", { name: "Reset", exact: true }).click();
+  await page.getByRole("button", { name: "Reset search and filters", exact: true }).click();
   await page.locator("#region").selectOption("Auckland");
   await expect(page.locator(".spot-card")).toHaveCount(1);
   expect(
@@ -177,4 +177,14 @@ test("spot details use compact icon disclosures", async ({ page }) => {
   await page.getByText("Access", { exact: true }).click();
   await expect(page.locator(".spot-quick-grid details[open]")).toHaveCount(1);
   await expect(page.getByText("More about this spot", { exact: true })).toBeVisible();
+});
+
+test("planner sidebar keeps result count accessible but visually minimal", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByText("Search swim spots", { exact: true })).not.toBeVisible();
+  await expect(page.locator("#result-count")).toHaveClass(/sr-only/);
+  await expect(page.locator(".collection-note")).toHaveCount(0);
+  await expect(
+    page.getByRole("button", { name: "Reset search and filters", exact: true }),
+  ).toBeVisible();
 });
