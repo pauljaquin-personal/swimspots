@@ -165,10 +165,11 @@ test("spot details show description and practical information without disclosure
   await expect(page.locator(".spot-summary-grid")).toBeVisible();
   await expect(page.locator(".spot-description")).toBeVisible();
   await expect(page.locator(".spot-facts")).toBeVisible();
-  for (const label of ["Access", "Parking", "Facilities", "Hazards", "Location"]) {
+  for (const label of ["Access", "Parking", "Toilets", "Hazards"]) {
     await expect(page.locator(".spot-fact-copy strong").filter({ hasText: label })).toBeVisible();
   }
   await expect(page.locator(".spot-facts details")).toHaveCount(0);
+  await expect(page.locator(".spot-facts").getByText("Location", { exact: true })).toHaveCount(0);
   await expect(page.getByText("More about this spot", { exact: true })).toBeVisible();
 });
 
