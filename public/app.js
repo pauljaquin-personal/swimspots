@@ -53,6 +53,13 @@ function infoDisclosure(label, glyph, value, className = "") {
   details.append(summary, el("p", value || "Not yet verified.", "disclosure-copy"));
   return details;
 }
+function infoFact(label, glyph, value, className = "") {
+  const row = el("div", null, `spot-fact ${className}`.trim());
+  const copy = el("div", null, "spot-fact-copy");
+  copy.append(el("strong", label), el("p", value || "Not yet verified."));
+  row.append(icon(label, glyph), copy);
+  return row;
+}
 function cardArtwork(s) {
   const art = el("span", spotGlyph(s.type), `spot-art ${s.type}`);
   art.setAttribute("aria-hidden", "true");
@@ -210,22 +217,32 @@ function showSpot(s) {
   );
   const title = el("h2", s.name);
   title.id = "spot-title";
-  const lede = el("p", s.description, "detail-lede");
-  const quick = el("section", null, "spot-quick-grid");
-  quick.setAttribute("aria-label", "Spot information");
-  quick.append(
-    infoDisclosure("Access", "↗", s.access),
-    infoDisclosure("Parking", "P", s.parking),
-    infoDisclosure("Facilities", "⌂", s.facilities),
-    infoDisclosure("Hazards", "!", s.hazards, "hazard"),
+
+  const summary = el("section", null, "spot-summary-grid");
+  summary.setAttribute("aria-label", "About this swim spot");
+
+  const description = el("div", null, "spot-description");
+  description.append(
+    el("h3", "About"),
+    el("p", s.description || "Local description coming soon."),
   );
-  const locationDetails = infoDisclosure(
-    "Location",
-    "⌖",
-    `${s.coordinates.join(", ")} · approximate, not a verified water-entry point`,
+
+  const facts = el("div", null, "spot-facts");
+  facts.setAttribute("aria-label", "Access and practical information");
+  facts.append(
+    infoFact("Access", "↗", s.access),
+    infoFact("Parking", "P", s.parking),
+    infoFact("Facilities", "⌂", s.facilities),
+    infoFact("Hazards", "!", s.hazards, "hazard"),
+    infoFact(
+      "Location",
+      "⌖",
+      `${s.coordinates.join(", ")} · approximate, not a verified water-entry point`,
+    ),
   );
-  quick.append(locationDetails);
-  content.append(detailArtwork(s), meta, title, lede, quick);
+
+  summary.append(description, facts);
+  content.append(detailArtwork(s), meta, title, summary);
   const feedPanel = el("div", null, "spot-feeds");
   content.append(feedPanel);
   disposeConditions = mountConditions(feedPanel, s);
