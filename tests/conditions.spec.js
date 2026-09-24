@@ -57,12 +57,18 @@ test("renders real feed contract, zeros, sources and lazy official LAWA report",
   await expect(
     page.getByText("No precipitation is shown by the model for the completed hours in the past 48 hours."),
   ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Weather" })).toBeVisible();
+  await expect(page.getByText("Rain 48h", { exact: true })).toBeVisible();
+  await page.getByText("Weather details & forecast", { exact: true }).click();
   await expect(
-    page.getByText("Model estimate · not a station observation"),
+    page.getByText("Model estimate, not a station observation."),
   ).toBeVisible();
   await expect(page.locator(".lawa-scroll iframe")).toHaveCount(0);
   await page
-    .getByText("Show official water-quality report", { exact: true })
+    .getByText("About this water-quality source", { exact: true })
+    .click();
+  await page
+    .getByText("Show embedded LAWA report", { exact: true })
     .click();
   await expect(page.locator(".lawa-scroll iframe")).toHaveAttribute(
     "src",
@@ -84,7 +90,7 @@ test("failed conditions can retry without hiding the water report", async ({
   await page.goto("/#spot=queenstown-bay");
   await expect(page.getByText(/Conditions could not refresh/)).toBeVisible();
   await expect(
-    page.getByRole("link", { name: "Open the LAWA report in a new tab ↗" }),
+    page.getByRole("link", { name: "Open ↗" }),
   ).toBeVisible();
   await page.getByRole("button", { name: "Refresh conditions" }).click();
   await expect(page.getByText("0.0 °C", { exact: true })).toBeVisible();
