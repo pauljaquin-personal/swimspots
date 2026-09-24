@@ -2014,3 +2014,37 @@ body.planner-layout .layers-panel .filters button[data-type="all"][aria-pressed=
     font-size: 13px;
   }
 }
+
+
+/* Two-column conditions section ------------------------------------------ */
+.conditions-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+  margin-top: 20px;
+}
+.conditions-column {
+  min-width: 0;
+}
+.conditions-layout .compact-feed {
+  margin-top: 0;
+}
+.conditions-column-weather .condition-strip {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.conditions-column-weather .condition-water-temp {
+  grid-column: 1 / -1;
+}
+.conditions-column-water .condition-strip {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.conditions-column-water .water-quality-card {
+  margin-top: 0;
+}
+@media (max-width: 700px) {
+  .conditions-layout {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
