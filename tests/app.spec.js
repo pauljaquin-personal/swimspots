@@ -139,3 +139,30 @@ test("submit button is re-enabled when contributing to another existing spot", a
     page.getByRole("button", { name: "Submit update for review", exact: true }),
   ).toBeEnabled();
 });
+
+test("planner layout is full width on wide screens", async ({ page }) => {
+  await page.setViewportSize({ width: 1900, height: 1000 });
+  await page.goto("/");
+  await expect(page.locator("body")).toHaveClass(/planner-layout/);
+  const metrics = await page.evaluate(() => {
+    const header = document.querySelector("header").getBoundingClientRect();
+    const main = document.querySelector("main").getBoundingClientRect();
+    const explorer = document.querySelector(".explorer").getBoundingClientRect();
+    const sidebar = document.querySelector(".sidebar").getBoundingClientRect();
+    return {
+      viewport: innerWidth,
+      headerWidth: header.width,
+      mainWidth: main.width,
+      explorerWidth: explorer.width,
+      headerLeft: header.left,
+      explorerLeft: explorer.left,
+      sidebarLeft: sidebar.left,
+    };
+  });
+  expect(metrics.headerLeft).toBe(0);
+  expect(metrics.explorerLeft).toBe(0);
+  expect(metrics.headerWidth).toBeGreaterThanOrEqual(metrics.viewport - 1);
+  expect(metrics.mainWidth).toBeGreaterThanOrEqual(metrics.viewport - 1);
+  expect(metrics.explorerWidth).toBeGreaterThanOrEqual(metrics.viewport - 1);
+  expect(metrics.sidebarLeft).toBeGreaterThan(0);
+});
