@@ -1835,3 +1835,9 @@ body.planner-layout #location-status:not(:empty) {
 body.planner-layout .explorer {
   padding-bottom: calc(55px + env(safe-area-inset-bottom));
 }
+
+
+/* Keep Leaflet zoom controls clear of bottom utility bar ------------------ */
+body.planner-layout .leaflet-bottom.leaflet-right {
+  bottom: calc(64px + env(safe-area-inset-bottom));
+}
