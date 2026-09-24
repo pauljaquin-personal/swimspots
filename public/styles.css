@@ -1001,3 +1001,14 @@ form select {
   margin: 14px 0;
   border: 1px solid var(--line);
 }
+
+
+.feed-rain-alert {
+  margin: 14px 0 4px;
+  padding: 10px 12px;
+  border-left: 3px solid #b18c45;
+  background: #fff7e4;
+  color: #5f4b2b;
+  font-size: 11px !important;
+  line-height: 1.55;
+}
