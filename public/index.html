@@ -45,7 +45,7 @@
       <section class="explorer" aria-label="Find swimming spots">
         <aside class="sidebar">
           <div class="search-area">
-            <label for="search">Where do you want to swim?</label>
+            <label class="sr-only" for="search">Search swim spots</label>
             <div class="search-row">
               <span aria-hidden="true">⌕</span
               ><input
@@ -54,6 +54,7 @@
                 placeholder="Try Wānaka, Auckland, a lake…"
                 autocomplete="off"
               />
+              <button id="reset" class="search-reset" aria-label="Reset search and filters" title="Reset">×</button>
             </div>
             <div class="filters" aria-label="Water type">
               <button data-type="all" aria-pressed="true">All spots</button
@@ -70,13 +71,7 @@
             </div>
             <p id="location-status" class="small" role="status"></p>
           </div>
-          <div class="results-heading">
-            <h2 id="result-count" aria-live="polite">Loading spots…</h2>
-            <button id="reset" class="text-button">Reset</button>
-          </div>
-          <p class="collection-note">
-            Starter collection · details still being verified
-          </p>
+          <h2 id="result-count" class="sr-only" aria-live="polite">Loading spots…</h2>
           <div id="results" class="results"></div>
         </aside>
         <div class="map-wrap">
