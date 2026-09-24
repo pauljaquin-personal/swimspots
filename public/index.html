@@ -45,29 +45,34 @@
       <section class="explorer" aria-label="Find swimming spots">
         <aside class="sidebar">
           <div class="search-area">
-            <label class="sr-only" for="search">Search swim spots</label>
-            <div class="search-row">
-              <span aria-hidden="true">⌕</span
-              ><input
-                id="search"
-                type="search"
-                placeholder="Where can I swim?"
-                autocomplete="off"
-              />
-              <button id="reset" class="search-reset" aria-label="Reset search and filters" title="Reset">×</button>
+            <div class="search-toolbar">
+              <label class="sr-only" for="search">Search swim spots</label>
+              <div class="search-row">
+                <span aria-hidden="true">⌕</span
+                ><input
+                  id="search"
+                  type="search"
+                  placeholder="Where can I swim?"
+                  autocomplete="off"
+                />
+                <button id="reset" class="search-reset" aria-label="Reset search and filters" title="Reset">×</button>
+              </div>
+              <button id="near" class="map-tool" aria-label="Centre map on my location" title="My location">◎</button>
+              <button id="layers-toggle" class="map-tool" aria-label="Choose water types" aria-expanded="false" title="Layers">▱</button>
             </div>
-            <div class="filters" aria-label="Water type">
-              <button data-type="all" aria-pressed="true">All spots</button
-              ><button data-type="lake" aria-pressed="false">Lakes</button
-              ><button data-type="river" aria-pressed="false">Rivers</button
-              ><button data-type="sea" aria-pressed="false">Sea</button
-              ><button data-type="pool" aria-pressed="false">Pools</button>
-            </div>
-            <div class="filter-row">
-              <label class="sr-only" for="region">Region</label
-              ><select id="region">
-                <option value="all">All New Zealand</option></select
-              ><button id="near" class="text-button">◎ Near me</button>
+            <div id="layers-panel" class="layers-panel" hidden>
+              <div class="filters" aria-label="Water type">
+                <button data-type="all" aria-pressed="true">All</button
+                ><button data-type="lake" aria-pressed="false">Lakes</button
+                ><button data-type="river" aria-pressed="false">Rivers</button
+                ><button data-type="sea" aria-pressed="false">Sea</button
+                ><button data-type="pool" aria-pressed="false">Pools</button>
+              </div>
+              <div class="filter-row">
+                <label class="sr-only" for="region">Region</label
+                ><select id="region">
+                  <option value="all">All New Zealand</option></select>
+              </div>
             </div>
             <p id="location-status" class="small" role="status"></p>
           </div>
