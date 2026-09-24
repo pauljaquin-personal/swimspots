@@ -24,7 +24,7 @@ Static files are served from `public/`; a small Cloudflare Worker handles `/api/
 - Shareable `#spot=<id>` links, saved submission drafts, a persisted review queue and approved community locations.
 - Separate route dataset and documented future provider interface.
 
-**This is an initial collection, not a complete national directory.** Most entries are in Otago, with Mission Bay in Auckland. Pools have no records yet. The map covers New Zealand. Weather/marine forecasts and LAWA reports are connected. Freshwater temperature/level/flow, local tides/currents and verified routes are not. Access points, parking, facilities and coordinates need local verification before the listings can be considered complete. Submissions and the reviewer dashboard work in the local preview. Public submissions require the D1 database and reviewer secret described in [submission setup](docs/submissions.md).
+**This is an initial collection, not a complete national directory.** Most entries are in Otago, with Mission Bay in Auckland. Pools have no records yet. The map covers New Zealand. Weather/marine forecasts, 48-hour modelled rainfall and LAWA reports are connected. Coastal tide times are supported when a MetService Tide API key is configured. Freshwater temperature/level/flow, local currents and verified routes are not. Access points, parking, facilities and coordinates need local verification before the listings can be considered complete. Submissions and the reviewer dashboard work in the local preview. Public submissions require the D1 database and reviewer secret described in [submission setup](docs/submissions.md).
 
 ## Test
 
@@ -35,6 +35,12 @@ npm run test:e2e
 ```
 
 The browser suite covers desktop and mobile search/filtering, saved persistence, spot deep links, submission/approval and draft recovery, location success/denial, data failure and map-tile failure. An optional `PLAYWRIGHT_EXECUTABLE_PATH` can select a local browser.
+
+## Tide API setup
+
+Coastal tide times use the MetService Tide API v4 with the global TPXO9 model as the prototype fallback. The API currently requires approved access and a server-side API key. Configure the Worker secret as `METSERVICE_TIDE_API_KEY`; never expose it in browser JavaScript. Tide responses are cached and reused for up to a day because astronomical predictions do not need frequent polling.
+
+Without this secret, coastal pages continue to work and show tides as unavailable.
 
 ## Data & providers
 

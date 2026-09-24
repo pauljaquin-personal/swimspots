@@ -141,3 +141,55 @@ test("recent modelled precipitation shows a 48-hour runoff reminder", async ({
   ).toBeVisible();
   await expect(page.getByText(/Recent rain can increase runoff/)).toBeVisible();
 });
+
+test("coastal spots show upcoming high and low tide predictions", async ({
+  page,
+}) => {
+  const now = Date.now();
+  const d = feed("st-clair");
+  d.marine = {
+    status: "fresh",
+    source: {
+      name: "Open-Meteo Marine",
+      url: "https://open-meteo.com/en/docs/marine-weather-api",
+      licence: "CC BY 4.0",
+    },
+    validAt: new Date(now).toISOString(),
+    fetchedAt: new Date(now).toISOString(),
+    current: {
+      seaTemperature: { value: 12, unit: "°C" },
+      waveHeight: { value: 0.8, unit: "m" },
+      wavePeriod: { value: 8, unit: "s" },
+    },
+  };
+  d.tide = {
+    status: "fresh",
+    source: {
+      name: "MetService Tide API",
+      url: "https://developer.metservice.com/docs/api-catalog/tide-api/",
+      licence: "Provider terms apply",
+    },
+    fetchedAt: new Date(now).toISOString(),
+    datum: "LAT",
+    grid: { latitude: -45.91, longitude: 170.51 },
+    predictions: [
+      {
+        time: new Date(now + 2 * 3600000).toISOString(),
+        stage: "high",
+        height: { value: 1.7, unit: "m" },
+      },
+      {
+        time: new Date(now + 8 * 3600000).toISOString(),
+        stage: "low",
+        height: { value: 0.4, unit: "m" },
+      },
+    ],
+  };
+  await page.route("**/api/conditions?*", (r) => r.fulfill({ json: d }));
+  await page.goto("/#spot=st-clair");
+  await expect(page.getByRole("heading", { name: "Tides" })).toBeVisible();
+  await expect(page.getByText("High tide", { exact: true })).toBeVisible();
+  await expect(page.getByText("Low tide", { exact: true })).toBeVisible();
+  await expect(page.getByText("1.70 m", { exact: true })).toBeVisible();
+  await expect(page.getByText("0.40 m", { exact: true })).toBeVisible();
+});

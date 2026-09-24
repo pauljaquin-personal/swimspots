@@ -1012,3 +1012,38 @@ form select {
   font-size: 11px !important;
   line-height: 1.55;
 }
+
+
+.tide-list {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 10px 0;
+  background: white;
+}
+.tide-row {
+  display: grid;
+  grid-template-columns: 90px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  font-size: 11px;
+}
+.tide-row:last-child {
+  border-bottom: 0;
+}
+.tide-row strong {
+  font-size: 11px;
+}
+.tide-row span:last-child {
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 480px) {
+  .tide-row {
+    grid-template-columns: 78px 1fr;
+  }
+  .tide-row span:last-child {
+    grid-column: 2;
+  }
+}

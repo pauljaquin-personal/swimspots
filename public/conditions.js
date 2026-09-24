@@ -146,6 +146,64 @@ function weatherView(feed) {
   section.append(credit(feed));
   return section;
 }
+
+function tideView(feed) {
+  const section = el("section", null, "feed-section tide-section");
+  section.append(el("h3", "Tides"));
+  if (!feed || feed.status === "not-applicable") return section;
+  if (feed.status === "unavailable") {
+    section.append(
+      el(
+        "p",
+        feed?.message || "Tide predictions are temporarily unavailable.",
+        "feed-error",
+      ),
+    );
+    return section;
+  }
+  section.append(
+    el(
+      "p",
+      "Astronomical tide prediction · modelled for this coastal location",
+      "feed-label",
+    ),
+  );
+  const list = el("div", null, "tide-list");
+  for (const prediction of feed.predictions || []) {
+    const row = el("div", null, "tide-row");
+    const stage = prediction.stage === "high" ? "High tide" : "Low tide";
+    row.append(
+      el("strong", stage),
+      el("span", date(prediction.time)),
+      el("span", number(prediction.height, 2)),
+    );
+    list.append(row);
+  }
+  section.append(list);
+  section.append(
+    el(
+      "p",
+      `Heights use ${feed.datum || "LAT"} datum. Predictions describe astronomical tide only; weather can alter actual water levels.`,
+      "small",
+    ),
+  );
+  if (feed.grid?.latitude != null && feed.grid?.longitude != null)
+    section.append(
+      el(
+        "p",
+        `Tide model point: ${Number(feed.grid.latitude).toFixed(3)}, ${Number(feed.grid.longitude).toFixed(3)}.`,
+        "feed-time",
+      ),
+    );
+  const attribution = el("p", null, "feed-credit");
+  attribution.append(
+    external(feed.source.name, feed.source.url),
+    document.createTextNode(" · Predicted high/low water times and heights."),
+  );
+  section.append(attribution);
+  return section;
+}
+
 function marineView(feed) {
   const section = el("section", null, "feed-section");
   section.append(el("h3", "Regional sea conditions"));
@@ -288,14 +346,17 @@ export function mountConditions(container, spot) {
     container.append(
       el(
         "p",
-        "Local tide predictions and currents are not connected.",
+        "Tide predictions are shown below when available. Local currents and surf behaviour are not modelled by this feature.",
         "small",
       ),
     );
   function render() {
     if (!payload) return;
     feeds.replaceChildren(weatherView(payload.weather));
-    if (spot.type === "sea") feeds.append(marineView(payload.marine));
+    if (spot.type === "sea") {
+      feeds.append(tideView(payload.tide));
+      feeds.append(marineView(payload.marine));
+    }
   }
   async function refresh() {
     if (loading || closed) return;
@@ -323,7 +384,7 @@ export function mountConditions(container, spot) {
     } catch {
       if (!closed) {
         if (payload) {
-          for (const key of ["weather", "marine"])
+          for (const key of ["weather", "marine", "tide"])
             if (payload[key]?.current) payload[key].status = "stale";
           render();
         }

@@ -15,6 +15,12 @@ export const SOURCES = {
     licence: "CC BY 4.0",
     kind: "model",
   },
+  tide: {
+    name: "MetService Tide API",
+    url: "https://developer.metservice.com/docs/api-catalog/tide-api/",
+    licence: "Provider terms apply",
+    kind: "astronomical-model",
+  },
 };
 const finite = (value) => typeof value === "number" && Number.isFinite(value);
 const timestamp = (value) =>
@@ -246,6 +252,7 @@ export async function getConditions(
     apiKey = "",
     cached = null,
     timeoutMs = 8000,
+    tideApiKey = "",
   } = {},
 ) {
   async function one(provider) {
@@ -282,11 +289,133 @@ export async function getConditions(
       };
     }
   }
-  const [weather, marine] = await Promise.all([
+  const [weather, marine, tide] = await Promise.all([
     one("weather"),
     spot.type === "sea"
       ? one("marine")
       : Promise.resolve({ status: "not-applicable" }),
+    spot.type === "sea"
+      ? usableTides(cached?.tide, now)
+        ? Promise.resolve(cached.tide)
+        : fetchTides(spot, {
+            fetchImpl,
+            now,
+            apiKey: tideApiKey,
+            timeoutMs,
+          }).catch(() =>
+            usableTides(cached?.tide, now)
+              ? cached.tide
+              : {
+                  status: "unavailable",
+                  source: SOURCES.tide,
+                  fetchedAt: null,
+                  datum: "LAT",
+                  predictions: [],
+                  message: "Tide predictions are temporarily unavailable.",
+                },
+          )
+      : Promise.resolve({ status: "not-applicable" }),
   ]);
-  return { schemaVersion: 1, spotId: spot.id, weather, marine };
+  return { schemaVersion: 1, spotId: spot.id, weather, marine, tide };
+}
+
+
+export const TIDE_REFRESH_MS = 24 * 60 * 60_000;
+const TIDE_MODEL_ID = "tpxo9_glob_v9.4";
+
+export function tideURL(spot) {
+  const url = new URL(
+    `https://api.marine.metservice.com/tide/v4/models/${TIDE_MODEL_ID}/tidetimes/points`,
+  );
+  url.searchParams.set("latitudes", String(spot.coordinates[0]));
+  url.searchParams.set("longitudes", String(spot.coordinates[1]));
+  url.searchParams.set("datum", "LAT");
+  return url;
+}
+
+export function normaliseTides(data, now = Date.now()) {
+  const location = Array.isArray(data?.locations) ? data.locations[0] : null;
+  const predictions = Array.isArray(location?.predictions)
+    ? location.predictions
+    : [];
+  const unit =
+    data?.metadata?.units?.sea_surface_elevation === "m" ? "m" : "m";
+  const rows = predictions
+    .map((p) => ({
+      time:
+        typeof p?.time === "string" && Number.isFinite(Date.parse(p.time))
+          ? new Date(p.time).toISOString()
+          : null,
+      stage: p?.tidal_stage === "high" || p?.tidal_stage === "low"
+        ? p.tidal_stage
+        : null,
+      height: finite(p?.sea_surface_elevation)
+        ? { value: p.sea_surface_elevation, unit }
+        : { value: null, unit },
+    }))
+    .filter((p) => p.time && p.stage)
+    .filter((p) => Date.parse(p.time) >= now - 2 * HOUR)
+    .sort((a, b) => Date.parse(a.time) - Date.parse(b.time))
+    .slice(0, 8);
+  return {
+    status: rows.length ? "fresh" : "unavailable",
+    source: SOURCES.tide,
+    fetchedAt: new Date(now).toISOString(),
+    datum: data?.metadata?.datum || "LAT",
+    modelId: data?.metadata?.model_id || TIDE_MODEL_ID,
+    grid: location?.coordinates || null,
+    predictions: rows,
+  };
+}
+
+export async function fetchTides(
+  spot,
+  {
+    fetchImpl = fetch,
+    now = Date.now(),
+    apiKey = "",
+    timeoutMs = 8000,
+  } = {},
+) {
+  if (!apiKey) {
+    return {
+      status: "unavailable",
+      source: SOURCES.tide,
+      fetchedAt: null,
+      datum: "LAT",
+      predictions: [],
+      message: "Tide predictions are not configured yet.",
+    };
+  }
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const response = await fetchImpl(tideURL(spot), {
+      signal: controller.signal,
+      headers: {
+        Accept: "application/json",
+        Authorization: `ApiKey ${apiKey}`,
+      },
+    });
+    if (!response.ok) throw new Error("Tide provider unavailable");
+    const data = await response.json();
+    const result = normaliseTides(data, now);
+    if (result.status === "unavailable")
+      throw new Error("No usable tide predictions");
+    return result;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+function usableTides(feed, now) {
+  return (
+    feed &&
+    feed.status === "fresh" &&
+    finite(Date.parse(feed.fetchedAt)) &&
+    now - Date.parse(feed.fetchedAt) >= 0 &&
+    now - Date.parse(feed.fetchedAt) < TIDE_REFRESH_MS &&
+    Array.isArray(feed.predictions) &&
+    feed.predictions.some((p) => Date.parse(p.time) > now)
+  );
 }
