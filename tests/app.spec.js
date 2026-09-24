@@ -166,3 +166,15 @@ test("planner layout is full width on wide screens", async ({ page }) => {
   expect(metrics.explorerWidth).toBeGreaterThanOrEqual(metrics.viewport - 1);
   expect(metrics.sidebarLeft).toBeGreaterThan(0);
 });
+
+test("spot details use compact icon disclosures", async ({ page }) => {
+  await page.goto("/#spot=queenstown-bay");
+  await expect(page.getByText("Access", { exact: true })).toBeVisible();
+  await expect(page.getByText("Parking", { exact: true })).toBeVisible();
+  await expect(page.getByText("Facilities", { exact: true })).toBeVisible();
+  await expect(page.getByText("Hazards", { exact: true })).toBeVisible();
+  await expect(page.locator(".spot-quick-grid details[open]")).toHaveCount(0);
+  await page.getByText("Access", { exact: true }).click();
+  await expect(page.locator(".spot-quick-grid details[open]")).toHaveCount(1);
+  await expect(page.getByText("More about this spot", { exact: true })).toBeVisible();
+});
