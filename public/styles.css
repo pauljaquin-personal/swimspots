@@ -1884,3 +1884,18 @@ body.planner-layout header #contribute.icon-only::before {
   float: right;
   margin-left: 8px;
 }
+
+
+/* Saved sits with water-type chips ---------------------------------------- */
+body.planner-layout .layers-panel .filters .layers-saved {
+  width: auto;
+  margin-top: 0;
+  padding: 8px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+  font-size: 12px;
+}
+body.planner-layout .layers-panel .filters .layers-saved #saved-count {
+  float: none;
+  margin-left: 4px;
+}
