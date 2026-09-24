@@ -1642,3 +1642,115 @@ body.planner-layout #location-status:empty {
     height: 100%;
   }
 }
+
+
+/* Map search toolbar ------------------------------------------------------- */
+body.planner-layout .sidebar {
+  top: 14px;
+  left: 14px;
+  bottom: auto;
+  width: min(430px, calc(100vw - 28px));
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  overflow: visible;
+}
+body.planner-layout .search-area {
+  padding: 0;
+}
+.search-toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 42px 42px;
+  gap: 8px;
+  align-items: center;
+}
+body.planner-layout .search-row,
+.map-tool,
+.layers-panel {
+  background: #fffffff2;
+  border: 1px solid #d8e1dd;
+  box-shadow: 0 8px 24px #173d351b;
+  backdrop-filter: blur(12px);
+}
+body.planner-layout .search-row {
+  height: 44px;
+  border-radius: 12px;
+}
+.map-tool {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 21px;
+  color: var(--ink);
+}
+.map-tool:hover,
+.map-tool[aria-expanded="true"] {
+  background: white;
+}
+.layers-panel {
+  margin-top: 8px;
+  padding: 10px;
+  border-radius: 12px;
+}
+.layers-panel[hidden] {
+  display: none !important;
+}
+body.planner-layout .layers-panel .filters {
+  display: flex !important;
+  margin: 0;
+  gap: 6px;
+  overflow-x: auto;
+}
+body.planner-layout .layers-panel .filter-row {
+  display: flex !important;
+  margin-top: 9px;
+}
+body.planner-layout .layers-panel .filter-row select {
+  width: 100%;
+  max-width: none;
+  padding: 8px 6px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+}
+body.planner-layout .results,
+body.planner-layout .collection-note,
+body.planner-layout .results-heading {
+  display: none !important;
+}
+body.planner-layout #location-status:not(:empty) {
+  margin: 7px 0 0;
+  padding: 7px 9px;
+  border-radius: 8px;
+  background: #fffffff0;
+  box-shadow: 0 5px 16px #173d3510;
+  width: fit-content;
+}
+
+@media (max-width: 780px) {
+  body.planner-layout .sidebar {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: auto;
+    width: auto;
+    height: auto;
+    min-height: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+  body.planner-layout .sidebar::before {
+    display: none;
+  }
+  .search-toolbar {
+    grid-template-columns: minmax(0, 1fr) 42px 42px;
+  }
+  body.planner-layout .search-area {
+    padding: 0;
+  }
+}
