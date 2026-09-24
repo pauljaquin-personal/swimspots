@@ -1392,3 +1392,301 @@ body[data-theme="utility"] .detail-banner {
     height: 380px;
   }
 }
+
+
+/* Planner: full-map canvas with floating search/results panel ---------------- */
+body[data-theme="planner"] {
+  --ink: #183f3c;
+  --teal: #246a60;
+  --muted: #667a76;
+  --paper: #f7faf8;
+  --line: #d7e0dc;
+  background: #eef4f2;
+  overflow-x: hidden;
+}
+body[data-theme="planner"] header {
+  position: sticky;
+  top: 0;
+  z-index: 1400;
+  height: 64px;
+  padding-inline: 22px;
+  gap: 34px;
+  background: #ffffffee;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 #173d3617, 0 5px 18px #173d360d;
+}
+body[data-theme="planner"] header .brand {
+  font-size: 23px;
+}
+body[data-theme="planner"] header .brand-icon {
+  font-size: 32px;
+}
+body[data-theme="planner"] header nav {
+  gap: 22px;
+}
+body[data-theme="planner"] header #contribute {
+  border-radius: 999px;
+  padding: 9px 14px;
+}
+body[data-theme="planner"] main {
+  position: relative;
+}
+body[data-theme="planner"] .design-lab {
+  position: fixed;
+  z-index: 1350;
+  top: 76px;
+  right: 16px;
+  margin: 0;
+  max-width: min(670px, calc(100vw - 32px));
+  padding: 8px 10px;
+  border-style: solid;
+  border-color: #d4dfda;
+  background: #fffffff0;
+  box-shadow: 0 8px 26px #143d3520;
+  backdrop-filter: blur(12px);
+}
+body[data-theme="planner"] .design-lab > div:first-child span {
+  display: none;
+}
+body[data-theme="planner"] .design-options button {
+  padding: 6px 9px;
+}
+body[data-theme="planner"] .intro,
+body[data-theme="planner"] .bottom-note,
+body[data-theme="planner"] footer {
+  display: none;
+}
+body[data-theme="planner"] .explorer {
+  position: relative;
+  display: block;
+  margin: 0;
+  height: calc(100svh - 64px);
+  min-height: 560px;
+  border: 0;
+  border-radius: 0;
+  overflow: hidden;
+  background: #dce9e7;
+}
+body[data-theme="planner"] .map-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+body[data-theme="planner"] #map {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+}
+body[data-theme="planner"] .sidebar {
+  position: absolute;
+  z-index: 700;
+  top: 18px;
+  left: 18px;
+  bottom: 18px;
+  width: min(365px, calc(100vw - 36px));
+  min-height: 0;
+  overflow: hidden;
+  background: #fffffff5;
+  border: 1px solid #d8e1dd;
+  border-radius: 16px;
+  box-shadow: 0 18px 48px #163d352d, 0 2px 8px #163d3518;
+  backdrop-filter: blur(12px);
+}
+body[data-theme="planner"] .search-area {
+  padding: 18px 16px 0;
+}
+body[data-theme="planner"] .search-area > label {
+  margin-bottom: 9px;
+  font-size: 11px;
+  letter-spacing: .02em;
+}
+body[data-theme="planner"] .search-row {
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0 1px 2px #183f3c0a;
+}
+body[data-theme="planner"] .search-row input {
+  padding: 12px 8px;
+  font-size: 13px;
+}
+body[data-theme="planner"] .filters {
+  margin: 12px 0;
+  gap: 5px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+body[data-theme="planner"] .filters::-webkit-scrollbar {
+  display: none;
+}
+body[data-theme="planner"] .filters button {
+  padding: 7px 9px;
+  background: white;
+}
+body[data-theme="planner"] .filter-row select {
+  max-width: 205px;
+}
+body[data-theme="planner"] .results-heading {
+  margin-top: 13px;
+  padding: 13px 16px 0;
+}
+body[data-theme="planner"] .collection-note {
+  padding: 0 16px;
+  margin: 5px 0 9px;
+}
+body[data-theme="planner"] .results {
+  padding: 0 8px 12px;
+}
+body[data-theme="planner"] .spot-card {
+  margin-bottom: 6px;
+  border-radius: 11px;
+  background: white;
+  border-color: #dde5e1;
+  box-shadow: 0 2px 7px #173d3608;
+}
+body[data-theme="planner"] .spot-card:hover {
+  background: #f4f8f5;
+}
+body[data-theme="planner"] .card-open {
+  gap: 10px;
+  padding: 9px 38px 9px 9px;
+}
+body[data-theme="planner"] .spot-art {
+  width: 58px;
+  height: 58px;
+  border-radius: 8px;
+}
+body[data-theme="planner"] .card-copy strong {
+  margin: 3px 0;
+}
+body[data-theme="planner"] .map-label {
+  top: 18px;
+  left: 401px;
+  border-radius: 999px;
+  background: #ffffffed;
+  backdrop-filter: blur(9px);
+}
+body[data-theme="planner"] .map-fit {
+  right: 18px;
+  top: 122px;
+  border-radius: 10px;
+  background: #ffffffed;
+  backdrop-filter: blur(9px);
+}
+body[data-theme="planner"] .map-note {
+  left: auto;
+  right: 18px;
+  bottom: 18px;
+  border-radius: 9px;
+  background: #ffffffed;
+  backdrop-filter: blur(9px);
+}
+body[data-theme="planner"] .map-status {
+  left: 401px;
+  right: 18px;
+  top: 70px;
+}
+body[data-theme="planner"] .leaflet-control-zoom {
+  margin-right: 18px !important;
+  margin-bottom: 18px !important;
+  border: 0 !important;
+  box-shadow: 0 7px 20px #173d3520 !important;
+}
+body[data-theme="planner"] .leaflet-control-zoom a {
+  border-radius: 7px !important;
+}
+body[data-theme="planner"] dialog {
+  box-shadow: 0 24px 70px #173d3540;
+}
+body[data-theme="planner"] #spot-dialog {
+  width: min(680px, calc(100% - 28px));
+}
+body[data-theme="planner"] .detail-banner {
+  height: 240px;
+}
+
+@media (max-width: 780px) {
+  body[data-theme="planner"] header {
+    height: 58px;
+    padding-inline: 12px;
+    gap: 14px;
+  }
+  body[data-theme="planner"] header .brand {
+    font-size: 20px;
+  }
+  body[data-theme="planner"] header .brand-icon {
+    font-size: 27px;
+  }
+  body[data-theme="planner"] header nav {
+    gap: 8px;
+    margin-left: auto;
+  }
+  body[data-theme="planner"] header nav button {
+    font-size: 12px;
+  }
+  body[data-theme="planner"] header #contribute {
+    padding: 8px 10px;
+    margin-left: 0;
+    font-size: 0;
+  }
+  body[data-theme="planner"] header #contribute::after {
+    content: "＋";
+    font-size: 19px;
+  }
+  body[data-theme="planner"] .design-lab {
+    top: 68px;
+    right: 8px;
+    left: 8px;
+    max-width: none;
+    overflow-x: auto;
+  }
+  body[data-theme="planner"] .design-lab > div:first-child {
+    display: none;
+  }
+  body[data-theme="planner"] .design-options {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+  }
+  body[data-theme="planner"] .explorer {
+    height: calc(100svh - 58px);
+    min-height: 620px;
+  }
+  body[data-theme="planner"] .sidebar {
+    top: auto;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    width: auto;
+    height: min(56svh, 510px);
+    border-radius: 18px;
+    box-shadow: 0 -12px 38px #173d3533;
+  }
+  body[data-theme="planner"] .sidebar::before {
+    content: "";
+    display: block;
+    width: 44px;
+    height: 4px;
+    margin: 8px auto -2px;
+    border-radius: 99px;
+    background: #b4c3bd;
+  }
+  body[data-theme="planner"] .search-area {
+    padding-top: 10px;
+  }
+  body[data-theme="planner"] .map-label {
+    left: 10px;
+    top: 64px;
+    max-width: 190px;
+  }
+  body[data-theme="planner"] .map-fit {
+    top: 64px;
+    right: 10px;
+  }
+  body[data-theme="planner"] .map-note {
+    display: none;
+  }
+  body[data-theme="planner"] .map-status {
+    left: 10px;
+    right: 10px;
+    top: 110px;
+  }
+}
