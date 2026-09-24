@@ -50,19 +50,20 @@ test("renders real feed contract, zeros, sources and lazy official LAWA report",
   );
   await page.goto("/#spot=queenstown-bay");
   await expect(page.getByText("0.0 °C", { exact: true })).toBeVisible();
-  await expect(page.locator(".condition").filter({ hasText: "Wind from" }).locator("strong")).toHaveText("S");
-  const headings = await page.locator("#spot-content h3").allTextContents();
-  expect(headings.indexOf("Access & local knowledge")).toBeLessThan(headings.indexOf("Weather at this spot"));
+  await expect(page.locator(".condition").filter({ hasText: "From" }).locator("strong")).toHaveText("S");
   await expect(page.getByText("0.0 mm", { exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Weather" })).toBeVisible();
+  await expect(page.getByText("Rain 48h", { exact: true })).toBeVisible();
+  await page.getByText("Weather details & forecast", { exact: true }).click();
   await expect(
-    page.getByText("No precipitation is shown by the model for the completed hours in the past 48 hours."),
-  ).toBeVisible();
-  await expect(
-    page.getByText("Model estimate · not a station observation"),
+    page.getByText("Model estimate, not a station observation."),
   ).toBeVisible();
   await expect(page.locator(".lawa-scroll iframe")).toHaveCount(0);
   await page
-    .getByText("Show official water-quality report", { exact: true })
+    .getByText("About this water-quality source", { exact: true })
+    .click();
+  await page
+    .getByText("Show embedded LAWA report", { exact: true })
     .click();
   await expect(page.locator(".lawa-scroll iframe")).toHaveAttribute(
     "src",
@@ -82,11 +83,11 @@ test("failed conditions can retry without hiding the water report", async ({
       : r.fulfill({ json: feed() }),
   );
   await page.goto("/#spot=queenstown-bay");
-  await expect(page.getByText(/Conditions could not refresh/)).toBeVisible();
+  await expect(page.getByText(/Conditions unavailable/)).toBeVisible();
   await expect(
-    page.getByRole("link", { name: "Open the LAWA report in a new tab ↗" }),
+    page.getByRole("link", { name: "Open ↗" }),
   ).toBeVisible();
-  await page.getByRole("button", { name: "Refresh conditions" }).click();
+  await page.getByRole("button", { name: /Refresh/ }).click();
   await expect(page.getByText("0.0 °C", { exact: true })).toBeVisible();
 });
 test("stale cache is labelled", async ({ page }) => {
@@ -94,8 +95,9 @@ test("stale cache is labelled", async ({ page }) => {
     r.fulfill({ json: feed("queenstown-bay", "stale") }),
   );
   await page.goto("/#spot=queenstown-bay");
+  await page.getByText("Weather details & forecast", { exact: true }).click();
   await expect(
-    page.getByText("Older model data — refresh needed"),
+    page.getByText("Older model data — refresh needed."),
   ).toBeVisible();
 });
 test("switching spots cannot show the previous feed response", async ({
@@ -115,9 +117,8 @@ test("switching spots cannot show the previous feed response", async ({
   await page.goto("/#spot=queenstown-bay");
   await page.getByRole("button", { name: "Close spot details" }).click();
   await expect(page.locator("#spot-dialog")).not.toBeVisible();
-  await page
-    .getByRole("button", { name: "View Roys Bay", exact: true })
-    .click();
+  await page.getByRole("searchbox").fill("Roys Bay");
+  await page.locator(".spot-card button").first().evaluate((el) => el.click());
   await expect(page.getByText("18.0 °C", { exact: true })).toBeVisible();
   await expect(page.locator("#spot-title")).toHaveText("Roys Bay");
 });
@@ -137,7 +138,7 @@ test("recent modelled precipitation shows a 48-hour runoff reminder", async ({
   await page.route("**/api/conditions?*", (r) => r.fulfill({ json: d }));
   await page.goto("/#spot=queenstown-bay");
   await expect(
-    page.getByText(/Modelled precipitation occurred within the past 48 hours/),
+    page.getByText(/Rain in the past 48 hours/),
   ).toBeVisible();
-  await expect(page.getByText(/Recent rain can increase runoff/)).toBeVisible();
+  await expect(page.getByText(/Check water-quality advice/)).toBeVisible();
 });

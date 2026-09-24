@@ -19,13 +19,7 @@
       <a class="brand" href="/" aria-label="Swim Spots home"
         ><span class="brand-icon">≋</span>swimspots<span class="nz">NZ</span></a
       >
-      <nav aria-label="Main">
-        <button id="explore" class="nav-active">Explore</button
-        ><button id="saved" aria-pressed="false">
-          Saved <span id="saved-count">0</span>
-        </button>
-      </nav>
-      <button id="contribute" class="outline">＋ Suggest a spot</button>
+      <button id="contribute" class="outline icon-only" aria-label="Suggest a spot" title="Suggest a spot">＋</button>
     </header>
     <main>
       <section class="intro">
@@ -45,38 +39,41 @@
       <section class="explorer" aria-label="Find swimming spots">
         <aside class="sidebar">
           <div class="search-area">
-            <label for="search">Where do you want to swim?</label>
-            <div class="search-row">
-              <span aria-hidden="true">⌕</span
-              ><input
-                id="search"
-                type="search"
-                placeholder="Try Wānaka, Auckland, a lake…"
-                autocomplete="off"
-              />
+            <div class="search-toolbar">
+              <label class="sr-only" for="search">Search swim spots</label>
+              <div class="search-row">
+                <span aria-hidden="true">⌕</span
+                ><input
+                  id="search"
+                  type="search"
+                  placeholder="Where can I swim?"
+                  autocomplete="off"
+                />
+                <button id="reset" class="search-reset" aria-label="Reset search and filters" title="Reset">×</button>
+              </div>
+              <button id="near" class="map-tool" aria-label="Centre map on my location" title="My location">◎</button>
+              <button id="layers-toggle" class="map-tool" aria-label="Choose water types" aria-expanded="false" title="Layers">▱</button>
             </div>
-            <div class="filters" aria-label="Water type">
-              <button data-type="all" aria-pressed="true">All spots</button
-              ><button data-type="lake" aria-pressed="false">Lakes</button
-              ><button data-type="river" aria-pressed="false">Rivers</button
-              ><button data-type="sea" aria-pressed="false">Sea</button
-              ><button data-type="pool" aria-pressed="false">Pools</button>
-            </div>
-            <div class="filter-row">
-              <label class="sr-only" for="region">Region</label
-              ><select id="region">
-                <option value="all">All New Zealand</option></select
-              ><button id="near" class="text-button">◎ Near me</button>
+            <div id="layers-panel" class="layers-panel" hidden>
+              <div class="filters" aria-label="Water type">
+                <button data-type="all" aria-pressed="true">All</button
+                ><button data-type="lake" aria-pressed="false">Lakes</button
+                ><button data-type="river" aria-pressed="false">Rivers</button
+                ><button data-type="sea" aria-pressed="false">Sea</button
+                ><button data-type="pool" aria-pressed="false">Pools</button
+                ><button id="saved" class="layers-saved" aria-pressed="false">
+                  ☆ Saved <span id="saved-count">0</span>
+                </button>
+              </div>
+              <div class="filter-row">
+                <label class="sr-only" for="region">Region</label
+                ><select id="region">
+                  <option value="all">All New Zealand</option></select>
+              </div>
             </div>
             <p id="location-status" class="small" role="status"></p>
           </div>
-          <div class="results-heading">
-            <h2 id="result-count" aria-live="polite">Loading spots…</h2>
-            <button id="reset" class="text-button">Reset</button>
-          </div>
-          <p class="collection-note">
-            Starter collection · details still being verified
-          </p>
+          <h2 id="result-count" class="sr-only" aria-live="polite">Loading spots…</h2>
           <div id="results" class="results"></div>
         </aside>
         <div class="map-wrap">
@@ -87,7 +84,6 @@
           <div class="map-label">
             <span class="live-dot"></span> YOUR NEXT DIP STARTS HERE
           </div>
-          <button id="fit-map" class="map-fit">↗ Show all results</button>
           <p id="map-status" class="map-status" role="status" hidden></p>
           <div class="map-note">
             Explore the spot. Check conditions before you swim.
@@ -111,6 +107,17 @@
         >
       </section>
     </main>
+    <nav class="bottom-tools" aria-label="Site links">
+      <button id="about-link" class="bottom-tool" aria-label="About Swimspots" title="About">i</button>
+      <button id="contact-link" class="bottom-tool" aria-label="Contact Swimspots" title="Contact">✉</button>
+      <button id="share-link" class="bottom-tool" aria-label="Share Swimspots" title="Share">↗</button>
+      <button id="social-link" class="bottom-tool" aria-label="Social links" title="Social links">⋯</button>
+    </nav>
+    <dialog id="site-info-dialog" aria-labelledby="site-info-title">
+      <button class="close" aria-label="Close site information">×</button>
+      <h2 id="site-info-title">Swimspots</h2>
+      <div id="site-info-content"></div>
+    </dialog>
     <footer>
       <span class="brand">≋ swimspots</span
       ><span>Made for the waters of Aotearoa.</span

@@ -36,8 +36,25 @@ function link(text, href) {
   a.rel = "noopener noreferrer";
   return a;
 }
+function spotGlyph(type) {
+  return { lake: "◉", river: "↝", sea: "≈", pool: "▣" }[type] || "●";
+}
+function icon(label, glyph) {
+  const span = el("span", glyph, "ui-icon");
+  span.setAttribute("aria-hidden", "true");
+  const wrap = el("span", null, "icon-label");
+  wrap.append(span, el("span", label));
+  return wrap;
+}
+function infoDisclosure(label, glyph, value, className = "") {
+  const details = el("details", null, `info-disclosure ${className}`.trim());
+  const summary = el("summary");
+  summary.append(icon(label, glyph), el("span", "›", "disclosure-chevron"));
+  details.append(summary, el("p", value || "Not yet verified.", "disclosure-copy"));
+  return details;
+}
 function cardArtwork(s) {
-  const art = el("span", "≋", `spot-art ${s.type}`);
+  const art = el("span", spotGlyph(s.type), `spot-art ${s.type}`);
   art.setAttribute("aria-hidden", "true");
   if (s.photo?.url) {
     const img = document.createElement("img");
@@ -110,8 +127,7 @@ function render() {
     state.saved.includes(s.id),
   ).length;
   $("#saved").setAttribute("aria-pressed", String(state.savedOnly));
-  $("#saved").classList.toggle("nav-active", state.savedOnly);
-  $("#explore").classList.toggle("nav-active", !state.savedOnly);
+  $("#saved").classList.toggle("is-active", state.savedOnly);
   markers?.clearLayers();
   if (!visible.length) {
     const empty = el("div", null, "empty");
@@ -138,13 +154,12 @@ function render() {
     const art = cardArtwork(s);
     const copy = el("span", null, "card-copy");
     copy.append(
-      el("span", s.type, "type-label"),
+      el("span", `${spotGlyph(s.type)} ${s.type}`, "type-label"),
       el("strong", s.name),
-      el("small", s.region),
       el(
         "small",
         state.location
-          ? `${distanceKm(state.location, s.coordinates).toFixed(1)} km away · straight line`
+          ? `${distanceKm(state.location, s.coordinates).toFixed(1)} km · straight line`
           : s.waterbody,
       ),
     );
@@ -195,23 +210,22 @@ function showSpot(s) {
   );
   const title = el("h2", s.name);
   title.id = "spot-title";
-  content.append(
-    detailArtwork(s),
-    meta,
-    title,
-    el("p", s.description),
+  const lede = el("p", s.description, "detail-lede");
+  const quick = el("section", null, "spot-quick-grid");
+  quick.setAttribute("aria-label", "Spot information");
+  quick.append(
+    infoDisclosure("Access", "↗", s.access),
+    infoDisclosure("Parking", "P", s.parking),
+    infoDisclosure("Facilities", "⌂", s.facilities),
+    infoDisclosure("Hazards", "!", s.hazards, "hazard"),
   );
-  content.append(el("h3", "Access & local knowledge"));
-  const details = el("dl");
-  for (const [label, value] of Object.entries({
-    Access: s.access,
-    Parking: s.parking,
-    Facilities: s.facilities,
-    "Hazards & local advice": s.hazards,
-    Location: `${s.coordinates.join(", ")} · approximate, not a verified water-entry point`,
-  }))
-    details.append(el("dt", label), el("dd", value));
-  content.append(details);
+  const locationDetails = infoDisclosure(
+    "Location",
+    "⌖",
+    `${s.coordinates.join(", ")} · approximate, not a verified water-entry point`,
+  );
+  quick.append(locationDetails);
+  content.append(detailArtwork(s), meta, title, lede, quick);
   const feedPanel = el("div", null, "spot-feeds");
   content.append(feedPanel);
   disposeConditions = mountConditions(feedPanel, s);
@@ -237,11 +251,15 @@ function showSpot(s) {
   };
   actions.append(source, bookmark, contribute);
   content.append(actions);
-  content.append(
+  const more = el("details", null, "detail-more");
+  const moreSummary = el("summary");
+  moreSummary.append(icon("More about this spot", "⋯"), el("span", "›", "disclosure-chevron"));
+  more.append(moreSummary);
+  more.append(
     el("h3", "Swim routes"),
     el("p", "No verified routes published for this spot yet."),
+    el("h3", "About this listing"),
   );
-  content.append(el("h3", "About this listing"));
   const provenance = el("p");
   provenance.append(
     s.source.url
@@ -251,7 +269,7 @@ function showSpot(s) {
       ` · Listing reviewed ${s.source.checkedAt}. ${s.listingStatus === "community-reviewed" ? "Community entry point reviewed for publication; conditions and access can change." : "Coordinates are editorial estimates; access and facilities await local review."} Weather model times and water-quality sample dates are shown separately above.`,
     ),
   );
-  content.append(provenance);
+  more.append(provenance);
   if (s.communitySourceUrl) {
     const communitySource = el("p");
     communitySource.append(
@@ -262,9 +280,10 @@ function showSpot(s) {
           : "",
       ),
     );
-    content.append(communitySource);
+    more.append(communitySource);
   }
-  const show = el("button", "Show this spot on the map", "primary");
+  content.append(more);
+  const show = el("button", "Show on map", "primary");
   show.onclick = () => {
     $("#spot-dialog").close();
     if (map) {
@@ -319,21 +338,15 @@ document.querySelectorAll("[data-type]").forEach(
     }),
 );
 $("#reset").onclick = reset;
-$("#fit-map").onclick = fit;
 $("#saved").onclick = () => {
   state.savedOnly = !state.savedOnly;
-  render();
-  fit();
-};
-$("#explore").onclick = () => {
-  state.savedOnly = false;
   render();
   fit();
 };
 $("#near").onclick = () => {
   if (!navigator.geolocation) {
     $("#location-status").textContent =
-      "Location is unavailable. Search by town or region instead.";
+      "Location is unavailable. Search by place instead.";
     return;
   }
   $("#near").disabled = true;
@@ -342,10 +355,9 @@ $("#near").onclick = () => {
     (position) => {
       state.location = [position.coords.latitude, position.coords.longitude];
       $("#near").disabled = false;
-      $("#location-status").textContent =
-        "Sorted by straight-line distance. Your location is used only on this device.";
+      $("#location-status").textContent = "Centred on your location";
       userMarker?.remove();
-      if (map)
+      if (map) {
         userMarker = L.circleMarker(state.location, {
           radius: 7,
           color: "#fff",
@@ -354,17 +366,79 @@ $("#near").onclick = () => {
         })
           .addTo(map)
           .bindTooltip("Your location");
+        map.setView(state.location, 12, { animate: false });
+      }
       render();
-      fit();
     },
     () => {
       $("#near").disabled = false;
       $("#location-status").textContent =
-        "Could not get your location. Allow location access or search by town instead.";
+        "Could not get your location. Allow location access or search by place instead.";
     },
     { timeout: 10000, maximumAge: 60000 },
   );
 };
+
+$("#layers-toggle").onclick = () => {
+  const panel = $("#layers-panel");
+  const open = panel.hidden;
+  panel.hidden = !open;
+  $("#layers-toggle").setAttribute("aria-expanded", String(open));
+};
+
+function openSiteInfo(title, body) {
+  const dialog = $("#site-info-dialog");
+  $("#site-info-title").textContent = title;
+  const content = $("#site-info-content");
+  content.replaceChildren();
+  if (Array.isArray(body)) {
+    for (const item of body) content.append(item);
+  } else {
+    content.append(el("p", body));
+  }
+  if (!dialog.open) dialog.showModal();
+}
+
+$("#about-link").onclick = () =>
+  openSiteInfo(
+    "About Swimspots",
+    "A simple map for discovering open-water swimming locations around Aotearoa New Zealand. Conditions, access and local information can change, so always check current official advice before swimming.",
+  );
+
+$("#contact-link").onclick = () =>
+  openSiteInfo(
+    "Contact",
+    "A contact form will be added here. For now, this keeps a clear place in the interface for feedback and corrections.",
+  );
+
+$("#social-link").onclick = () =>
+  openSiteInfo(
+    "Follow Swimspots",
+    "Social links will live here once the Swimspots channels are set up.",
+  );
+
+$("#share-link").onclick = async () => {
+  const shareData = {
+    title: "Swimspots NZ",
+    text: "Find open-water swimming spots around Aotearoa New Zealand.",
+    url: location.href,
+  };
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+      return;
+    }
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(location.href);
+      openSiteInfo("Share", "Link copied to your clipboard.");
+      return;
+    }
+  } catch {
+    return;
+  }
+  openSiteInfo("Share", location.href);
+};
+
 document
   .querySelectorAll("dialog .close")
   .forEach((b) => (b.onclick = () => b.closest("dialog").close()));
@@ -399,8 +473,10 @@ async function init() {
       }
       spots.push(...extra.spots);
     } catch {
-      document.querySelector(".collection-note").textContent =
-        "Community locations could not load. Showing the starter collection.";
+      const note = document.querySelector(".collection-note");
+      if (note)
+        note.textContent =
+          "Community locations could not load. Showing the starter collection.";
     }
     [...new Set(spots.map((s) => s.region))].sort().forEach((r) => {
       const o = el("option", r);
@@ -434,7 +510,10 @@ async function init() {
         "The map could not load. Browse spots in the list instead.";
     }
     render();
-    fit();
+    if (map) {
+      map.setView([-41.2, 173.8], 5, { animate: false });
+      requestAnimationFrame(() => map.invalidateSize(false));
+    }
     const id = new URLSearchParams(location.hash.slice(1)).get("spot");
     const spot = spots.find((s) => s.id === id);
     if (spot) showSpot(spot);
@@ -442,6 +521,7 @@ async function init() {
     $("#result-count").textContent = "Spots could not load";
     const retry = el("button", "Try again", "primary");
     retry.onclick = () => location.reload();
+    $("#results").classList.add("results-error-visible");
     $("#results").replaceChildren(
       el("p", "Check your connection and try again.", "empty"),
       retry,
