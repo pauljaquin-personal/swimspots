@@ -1987,12 +1987,6 @@ body.planner-layout .layers-panel .filters button[data-type="all"][aria-pressed=
   padding: 10px 0;
   border-bottom: 1px solid var(--line);
 }
-.spot-fact .icon-label {
-  display: contents;
-}
-.spot-fact .icon-label > span:last-child {
-  display: none;
-}
 .spot-fact-copy {
   min-width: 0;
 }
