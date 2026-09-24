@@ -1624,3 +1624,21 @@ body.planner-layout #location-status:empty {
     padding: 10px;
   }
 }
+
+
+/* Mobile map should fill the available viewport behind the search bar. */
+@media (max-width: 780px) {
+  body.planner-layout main,
+  body.planner-layout .explorer {
+    min-height: calc(100dvh - 58px);
+  }
+  body.planner-layout .explorer {
+    height: calc(100dvh - 58px);
+  }
+  body.planner-layout .map-wrap,
+  body.planner-layout #map {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
