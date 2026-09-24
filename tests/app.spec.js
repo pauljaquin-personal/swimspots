@@ -41,7 +41,7 @@ test("search, filter, details, saved persistence and empty state", async ({
   await page.reload();
   await expect(
     page.getByRole("button", { name: "Unsave Roys Bay" }),
-  ).toBeVisible();
+  ).toHaveCount(1);
   await page.getByRole("button", { name: "Choose water types" }).click();
   await page.getByRole("button", { name: /Saved 1/ }).click();
   await expect(page.locator("#result-count")).toHaveText("1 saved spot to explore");
