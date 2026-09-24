@@ -1,10 +1,12 @@
 import { compassPoint } from "./model.js";
+
 const el = (tag, text, className) => {
   const n = document.createElement(tag);
   if (text != null) n.textContent = text;
   if (className) n.className = className;
   return n;
 };
+
 const external = (label, url) => {
   const a = el("a", label);
   a.href = url;
@@ -12,10 +14,12 @@ const external = (label, url) => {
   a.rel = "noopener noreferrer";
   return a;
 };
+
 const number = (metric, digits = 1) =>
   typeof metric?.value === "number" && Number.isFinite(metric.value)
     ? `${metric.value.toFixed(digits)} ${metric.unit}`
-    : "Not available";
+    : "—";
+
 const date = (value) => {
   const parsed = Date.parse(value);
   return Number.isFinite(parsed)
@@ -29,6 +33,7 @@ const date = (value) => {
       }).format(parsed)
     : "Unavailable";
 };
+
 function stale(feed) {
   return (
     feed.status === "stale" ||
@@ -36,91 +41,102 @@ function stale(feed) {
     Date.now() - Date.parse(feed.validAt) > 3 * 3600_000
   );
 }
-function card(label, value) {
-  const c = el("div", null, "condition");
-  c.append(el("span", label), el("strong", value));
+
+function metricCard(glyph, label, value, tone = "") {
+  const c = el("div", null, `condition condition-compact ${tone}`.trim());
+  const icon = el("span", glyph, "condition-icon");
+  icon.setAttribute("aria-hidden", "true");
+  const copy = el("span", null, "condition-copy");
+  copy.append(el("span", label), el("strong", value));
+  c.append(icon, copy);
   return c;
 }
-function credit(feed) {
-  const p = el("p", null, "feed-credit");
-  p.append(
-    external(feed.source.name, feed.source.url),
-    document.createTextNode(
-      ` · ${feed.source.licence}. Values rounded; rainfall total calculated from hourly model data.`,
-    ),
-  );
-  return p;
+
+function detailsBlock(label, glyph) {
+  const details = el("details", null, "condition-details");
+  const summary = el("summary");
+  const icon = el("span", glyph, "condition-summary-icon");
+  icon.setAttribute("aria-hidden", "true");
+  summary.append(icon, el("span", label), el("span", "›", "condition-chevron"));
+  details.append(summary);
+  return details;
 }
+
 function weatherView(feed) {
-  const section = el("section", null, "feed-section");
-  section.append(el("h3", "Weather at this spot"));
+  const section = el("section", null, "feed-section compact-feed");
+  section.append(el("h3", "Weather"));
   if (!feed || feed.status === "unavailable") {
     section.append(
-      el(
-        "p",
-        "Weather is temporarily unavailable. Try again shortly.",
-        "feed-error",
-      ),
+      el("p", "Weather temporarily unavailable.", "feed-error"),
     );
     return section;
   }
-  section.append(
+
+  const current = el("div", null, "conditions condition-strip");
+  current.append(
+    metricCard("°", "Air", number(feed.current.airTemperature)),
+    metricCard("→", "Wind", number(feed.current.windSpeed)),
+    metricCard("↝", "Gusts", number(feed.current.windGusts)),
+    metricCard("⌁", "From", compassPoint(feed.current.windDirection?.value)),
+    metricCard(
+      "◌",
+      "Rain 48h",
+      number(feed.rain48h),
+      feed.rain48h?.value > 0 ? "condition-attention" : "",
+    ),
+  );
+  section.append(current);
+
+  if (feed.rain48h?.value > 0) {
+    section.append(
+      el(
+        "p",
+        `Rain in the past 48 hours${feed.rain48h.lastPrecipitationAt ? ` · last around ${date(feed.rain48h.lastPrecipitationAt)}` : ""}. Check water-quality advice.`,
+        "feed-rain-alert compact-alert",
+      ),
+    );
+  }
+
+  const more = detailsBlock("Weather details & forecast", "☼");
+  more.append(
     el(
       "p",
       stale(feed)
-        ? "Older model data — refresh needed"
-        : "Model estimate · not a station observation",
+        ? "Older model data — refresh needed."
+        : "Model estimate, not a station observation.",
       stale(feed) ? "feed-error" : "feed-label",
     ),
-  );
-  const current = el("div", null, "conditions");
-  current.append(
-    card("Air temperature", number(feed.current.airTemperature)),
-    card("Wind at 10 m", number(feed.current.windSpeed)),
-    card("Wind gusts", number(feed.current.windGusts)),
-    card("Wind from", compassPoint(feed.current.windDirection?.value)),
-    card("Past 48h precipitation · modelled", number(feed.rain48h)),
-  );
-  section.append(
-    current,
     el(
       "p",
       `Model time: ${date(feed.validAt)} · Fetched: ${date(feed.fetchedAt)}`,
       "feed-time",
     ),
   );
+
   if (feed.rain48h?.value !== null) {
-    const recent = feed.rain48h.value > 0;
-    section.append(
+    more.append(
       el(
         "p",
-        recent
-          ? `Modelled precipitation occurred within the past 48 hours${feed.rain48h.lastPrecipitationAt ? `; most recently around ${date(feed.rain48h.lastPrecipitationAt)}` : ""}. Recent rain can increase runoff, so check current water-quality information and local advice.`
-          : "No precipitation is shown by the model for the completed hours in the past 48 hours.",
-        recent ? "feed-rain-alert" : "feed-label",
-      ),
-      el(
-        "p",
-        `Precipitation period: ${date(feed.rain48h.from)} – ${date(feed.rain48h.to)}. This is modelled precipitation, not a rain-gauge measurement.`,
+        `Precipitation period: ${date(feed.rain48h.from)} – ${date(feed.rain48h.to)}. Modelled precipitation, not a rain-gauge measurement.`,
         "feed-time",
       ),
     );
   }
-  if (feed.message) section.append(el("p", feed.message, "feed-error"));
+
+  if (feed.message) more.append(el("p", feed.message, "feed-error"));
+
   const future = (feed.forecast || [])
     .filter((r) => Date.parse(r.validAt) > Date.now())
     .slice(0, 12);
   if (future.length) {
-    const forecastDetails = el("details", null, "forecast-details");
-    forecastDetails.append(el("summary", "Next 12 hours · forecast"));
     const wrap = el("div", null, "forecast-scroll");
     wrap.tabIndex = 0;
     wrap.setAttribute("role", "region");
     wrap.setAttribute("aria-label", "Hourly forecast table");
     const table = el("table", null, "forecast-table");
-    const head = el("thead"),
-      headRow = el("tr");
-    ["Time (NZ)", "Air", "Wind", "Gusts", "Precipitation"].forEach((t) => {
+    const head = el("thead");
+    const headRow = el("tr");
+    ["Time", "Air", "Wind", "Gusts", "Rain"].forEach((t) => {
       const th = el("th", t);
       th.scope = "col";
       headRow.append(th);
@@ -140,45 +156,46 @@ function weatherView(feed) {
     });
     table.append(head, body);
     wrap.append(table);
-    forecastDetails.append(wrap);
-    section.append(forecastDetails);
+    more.append(wrap);
   }
-  section.append(credit(feed));
+
+  const credit = el("p", null, "feed-credit");
+  credit.append(
+    external(feed.source.name, feed.source.url),
+    document.createTextNode(
+      ` · ${feed.source.licence}. Values rounded; rainfall total calculated from hourly model data.`,
+    ),
+  );
+  more.append(credit);
+  section.append(more);
   return section;
 }
+
 function marineView(feed) {
-  const section = el("section", null, "feed-section");
-  section.append(el("h3", "Regional sea conditions"));
+  const section = el("section", null, "feed-section compact-feed");
+  section.append(el("h3", "Sea conditions"));
   if (!feed || feed.status === "unavailable") {
     section.append(
-      el("p", "Marine forecasts are temporarily unavailable.", "feed-error"),
+      el("p", "Marine forecast temporarily unavailable.", "feed-error"),
     );
     return section;
   }
-  section.append(
-    el(
-      "p",
-      stale(feed)
-        ? "Older marine model data — refresh needed"
-        : "Offshore model estimate",
-      stale(feed) ? "feed-error" : "feed-label",
-    ),
-  );
-  const cards = el("div", null, "conditions");
+
+  const cards = el("div", null, "conditions condition-strip");
   cards.append(
-    card("Sea surface temperature", number(feed.current.seaTemperature)),
-    card("Significant wave height", number(feed.current.waveHeight, 2)),
-    card("Wave period", number(feed.current.wavePeriod)),
+    metricCard("≈", "Sea temp", number(feed.current.seaTemperature)),
+    metricCard("⌇", "Wave", number(feed.current.waveHeight, 2)),
+    metricCard("↔", "Period", number(feed.current.wavePeriod)),
   );
-  section.append(
-    cards,
+  section.append(cards);
+
+  const more = detailsBlock("About sea conditions", "≈");
+  more.append(
     el(
       "p",
-      "Regional ocean values may differ substantially inside a bay or at the shoreline. Wave height is not a prediction of breaking surf; these values do not describe local rip currents.",
+      "Regional ocean values can differ inside bays and at the shoreline. Wave height is not a breaking-surf or rip-current prediction.",
       "small",
     ),
-  );
-  section.append(
     el(
       "p",
       `Model time: ${date(feed.validAt)} · Fetched: ${date(feed.fetchedAt)}`,
@@ -186,10 +203,10 @@ function marineView(feed) {
     ),
   );
   if (feed.grid)
-    section.append(
+    more.append(
       el(
         "p",
-        `Model grid: ${feed.grid.latitude.toFixed(3)}, ${feed.grid.longitude.toFixed(3)}. This is not a sensor at this beach.`,
+        `Model grid: ${feed.grid.latitude.toFixed(3)}, ${feed.grid.longitude.toFixed(3)}.`,
         "feed-time",
       ),
     );
@@ -198,35 +215,45 @@ function marineView(feed) {
     external(feed.source.name, feed.source.url),
     document.createTextNode(` · ${feed.source.licence}. Values rounded.`),
   );
-  section.append(attribution);
+  more.append(attribution);
+  section.append(more);
   return section;
 }
-export function mountConditions(container, spot) {
-  let controller = null,
-    closed = false,
-    payload = null,
-    loading = false;
-  const feeds = el("div");
-  const status = el("p", "Loading weather…", "small");
-  status.setAttribute("role", "status");
-  const retry = el("button", "Refresh conditions", "outline feed-refresh");
-  container.append(feeds, status, retry);
-  const water = el("section", null, "feed-section");
-  water.append(el("h3", "Water quality · LAWA"));
-  water.append(
+
+function waterQualityView(spot) {
+  const section = el("section", null, "feed-section compact-feed water-quality-card");
+  const heading = el("h3", "Water quality · LAWA");
+  section.append(heading);
+
+  const action = el("div", null, "quality-action");
+  const icon = el("span", "●", "quality-icon");
+  icon.setAttribute("aria-hidden", "true");
+  const copy = el("div");
+  copy.append(
+    el("strong", "Check current water quality"),
+    el("span", "Official LAWA report"),
+  );
+  const href = spot.lawa?.embedUrl || spot.conditionsSource.url;
+  const button = external("Open ↗", href);
+  button.className = "outline compact-link";
+  action.append(icon, copy, button);
+  section.append(action);
+
+  const details = detailsBlock("About this water-quality source", "i");
+  details.append(
     el(
       "p",
-      "Open the official report for the latest available sample, warnings and seasonal guidance. Samples are not continuous readings; check the dates in the report.",
+      "Samples and warnings are not continuous readings. Check the report date and current local signs before swimming.",
       "small",
     ),
   );
   if (spot.lawa) {
-    const details = el("details", null, "lawa-report");
-    details.append(el("summary", "Show official water-quality report"));
+    const report = el("details", null, "lawa-report");
+    report.append(el("summary", "Show embedded LAWA report"));
     const wrap = el("div", null, "lawa-scroll");
-    details.append(wrap);
-    details.addEventListener("toggle", () => {
-      if (details.open && !wrap.children.length) {
+    report.append(wrap);
+    report.addEventListener("toggle", () => {
+      if (report.open && !wrap.children.length) {
         const iframe = el("iframe");
         iframe.title = `LAWA water quality for ${spot.name}`;
         iframe.src = spot.lawa.embedUrl;
@@ -237,66 +264,46 @@ export function mountConditions(container, spot) {
         wrap.append(iframe);
       }
     });
-    water.append(
-      details,
-      external("Open the LAWA report in a new tab ↗", spot.lawa.embedUrl),
-      el(
-        "p",
-        "If the report is blank or unavailable, use the link above. LAWA supplies and dates this report; Swimspots does not assign a safety rating.",
-        "feed-time",
-      ),
-    );
-  } else
-    water.append(
-      external(
-        "Find water-quality information on LAWA ↗",
-        spot.conditionsSource.url,
-      ),
-    );
-  container.append(water);
+    details.append(report);
+  }
+  details.append(
+    el(
+      "p",
+      "LAWA supplies and dates the report; Swimspots does not assign a safety rating.",
+      "feed-time",
+    ),
+  );
+  section.append(details);
+  return section;
+}
+
+export function mountConditions(container, spot) {
+  let controller = null,
+    closed = false,
+    payload = null,
+    loading = false;
+
+  const feeds = el("div");
+  const status = el("p", "Loading conditions…", "small condition-load-status");
+  status.setAttribute("role", "status");
+  const retry = el("button", "↻ Refresh", "outline feed-refresh compact-refresh");
+  container.append(feeds, status, retry, waterQualityView(spot));
+
   if (spot.council) {
-    const council = el("section", null, "feed-section council-links");
-    council.append(
-      el("h3", spot.council.name),
-      el(
-        "p",
-        "Official reports · readings open on the provider’s website",
-        "feed-label",
-      ),
-      el("p", spot.council.note, "small"),
-    );
+    const council = detailsBlock(spot.council.name, "i");
+    council.classList.add("council-links");
+    council.append(el("p", spot.council.note, "small"));
     for (const source of spot.council.links)
       council.append(external(source.name + " ↗", source.url));
-    council.append(
-      el(
-        "p",
-        "Direct readings are not imported into Swimspots yet.",
-        "feed-time",
-      ),
-    );
     container.append(council);
   }
-  if (spot.type !== "sea")
-    container.append(
-      el(
-        "p",
-        "Lake/river water temperature, level and flow are not connected. Air temperature is not water temperature.",
-        "small",
-      ),
-    );
-  else
-    container.append(
-      el(
-        "p",
-        "Local tide predictions and currents are not connected.",
-        "small",
-      ),
-    );
+
   function render() {
     if (!payload) return;
     feeds.replaceChildren(weatherView(payload.weather));
     if (spot.type === "sea") feeds.append(marineView(payload.marine));
   }
+
   async function refresh() {
     if (loading || closed) return;
     loading = true;
@@ -318,8 +325,8 @@ export function mountConditions(container, spot) {
       render();
       status.textContent =
         data.weather.status === "unavailable"
-          ? "Some conditions could not load. You can retry or open the official water-quality report."
-          : "Forecasts loaded. Times are shown in New Zealand local time.";
+          ? "Some conditions unavailable."
+          : "Updated";
     } catch {
       if (!closed) {
         if (payload) {
@@ -327,8 +334,7 @@ export function mountConditions(container, spot) {
             if (payload[key]?.current) payload[key].status = "stale";
           render();
         }
-        status.textContent =
-          "Conditions could not refresh. Try again; the LAWA report is available separately.";
+        status.textContent = "Conditions unavailable · retry";
       }
     } finally {
       clearTimeout(timer);
@@ -336,11 +342,13 @@ export function mountConditions(container, spot) {
       if (!closed) retry.disabled = false;
     }
   }
+
   retry.onclick = refresh;
   refresh();
   const tick = setInterval(() => {
     if (payload && !closed) render();
   }, 60_000);
+
   return () => {
     closed = true;
     controller?.abort();
