@@ -40,7 +40,7 @@ test("search, filter, details, saved persistence and empty state", async ({
   await expect(page).toHaveURL("http://127.0.0.1:4173/");
   await page.reload();
   await expect(
-    page.getByRole("button", { name: "Unsave Roys Bay" }),
+    page.locator('.spot-card .save[aria-label="Unsave Roys Bay"]'),
   ).toHaveCount(1);
   await page.getByRole("button", { name: "Choose water types" }).click();
   await page.getByRole("button", { name: /Saved 1/ }).click();
