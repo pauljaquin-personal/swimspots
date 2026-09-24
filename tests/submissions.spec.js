@@ -54,6 +54,7 @@ for (const sourceUrl of ["", "https://www.orc.govt.nz/"]) {
     await page.getByRole("searchbox").fill(name);
     await expect(page.locator("#result-count")).toHaveText("1 spot to explore");
     await page.locator(".spot-card button").first().evaluate((el) => el.click());
+    await page.getByText("More about this spot", { exact: true }).click();
     await expect(
       page.getByText("Community location · reviewed", { exact: true }),
     ).toBeVisible();
