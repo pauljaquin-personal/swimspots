@@ -1754,3 +1754,51 @@ body.planner-layout #location-status:not(:empty) {
     padding: 0;
   }
 }
+
+
+/* Minimal bottom utility bar ---------------------------------------------- */
+.bottom-tools {
+  position: fixed;
+  left: 50%;
+  bottom: max(12px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  z-index: 1450;
+  display: flex;
+  gap: 8px;
+  padding: 6px;
+  border: 1px solid #d8e1dd;
+  border-radius: 999px;
+  background: #fffffff0;
+  box-shadow: 0 10px 30px #173d3520;
+  backdrop-filter: blur(12px);
+}
+.bottom-tool {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+  font-size: 18px;
+}
+.bottom-tool:hover,
+.bottom-tool:focus-visible {
+  background: #eef4f1;
+}
+#site-info-dialog {
+  width: min(440px, calc(100% - 28px));
+}
+#site-info-dialog h2 {
+  margin-top: 0;
+}
+#site-info-content p {
+  color: var(--muted);
+  margin-bottom: 0;
+}
+@media (min-width: 900px) {
+  .bottom-tools {
+    left: auto;
+    right: 18px;
+    transform: none;
+  }
+}
