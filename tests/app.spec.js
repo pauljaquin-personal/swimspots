@@ -139,3 +139,23 @@ test("submit button is re-enabled when contributing to another existing spot", a
     page.getByRole("button", { name: "Submit update for review", exact: true }),
   ).toBeEnabled();
 });
+
+test("design lab switches themes and preserves the selected URL", async ({ page }) => {
+  await page.goto("/?theme=coastal");
+  await expect(page.locator("body")).toHaveAttribute("data-theme", "coastal");
+  await expect(
+    page.getByRole("button", { name: "Coastal", exact: true }),
+  ).toHaveAttribute("aria-pressed", "true");
+
+  await page.getByRole("button", { name: "Editorial", exact: true }).click();
+  await expect(page.locator("body")).toHaveAttribute("data-theme", "editorial");
+  await expect(page).toHaveURL(/theme=editorial/);
+
+  await page.getByRole("button", { name: "Map-first", exact: true }).click();
+  await expect(page.locator("body")).toHaveAttribute("data-theme", "utility");
+  await expect(page).toHaveURL(/theme=utility/);
+
+  await page.getByRole("button", { name: "Current", exact: true }).click();
+  await expect(page.locator("body")).toHaveAttribute("data-theme", "current");
+  await expect(page).not.toHaveURL(/theme=/);
+});
