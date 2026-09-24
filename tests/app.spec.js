@@ -263,7 +263,7 @@ test("layers menu uses map colours and has no region selector", async ({ page })
   await page.goto("/");
   await page.getByRole("button", { name: "Choose water types" }).click();
   await expect(page.locator("#region")).toHaveCount(0);
-  await expect(page.getByRole("button", { name: "Lakes", exact: true })).toHaveCSS("background-color", "rgb(31, 111, 104)");
+  await expect(page.getByRole("button", { name: "Lakes", exact: true })).toHaveCSS("background-color", "rgb(36, 106, 96)");
   await expect(page.getByRole("button", { name: "Rivers", exact: true })).toHaveCSS("background-color", "rgb(111, 136, 84)");
   await expect(page.getByRole("button", { name: "Sea", exact: true })).toHaveCSS("background-color", "rgb(51, 126, 150)");
   await page.getByRole("button", { name: "Sea", exact: true }).click();
