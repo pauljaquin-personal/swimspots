@@ -165,3 +165,28 @@ test("design lab switches themes and preserves the selected URL", async ({ page 
   await expect(page.locator("body")).toHaveAttribute("data-theme", "current");
   await expect(page).not.toHaveURL(/theme=/);
 });
+
+test("Planner spans the full browser width on wide screens", async ({ page }) => {
+  await page.setViewportSize({ width: 1900, height: 1000 });
+  await page.goto("/?theme=planner");
+  const metrics = await page.evaluate(() => {
+    const header = document.querySelector("header").getBoundingClientRect();
+    const main = document.querySelector("main").getBoundingClientRect();
+    const explorer = document.querySelector(".explorer").getBoundingClientRect();
+    return {
+      viewport: innerWidth,
+      headerWidth: header.width,
+      mainWidth: main.width,
+      explorerWidth: explorer.width,
+      headerLeft: header.left,
+      mainLeft: main.left,
+      explorerLeft: explorer.left,
+    };
+  });
+  expect(metrics.headerLeft).toBe(0);
+  expect(metrics.mainLeft).toBe(0);
+  expect(metrics.explorerLeft).toBe(0);
+  expect(metrics.headerWidth).toBeGreaterThanOrEqual(metrics.viewport - 1);
+  expect(metrics.mainWidth).toBeGreaterThanOrEqual(metrics.viewport - 1);
+  expect(metrics.explorerWidth).toBeGreaterThanOrEqual(metrics.viewport - 1);
+});
