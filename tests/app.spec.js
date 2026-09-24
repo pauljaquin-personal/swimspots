@@ -188,3 +188,12 @@ test("planner sidebar keeps result count accessible but visually minimal", async
     page.getByRole("button", { name: "Reset search and filters", exact: true }),
   ).toBeVisible();
 });
+
+test("planner panel shows only the search bar by default", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByPlaceholder("Where can I swim?")).toBeVisible();
+  await expect(page.locator(".filters")).not.toBeVisible();
+  await expect(page.locator(".filter-row")).not.toBeVisible();
+  await expect(page.locator(".results")).not.toBeVisible();
+  await expect(page.locator(".spot-card").first()).not.toBeVisible();
+});
