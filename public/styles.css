@@ -2033,9 +2033,6 @@ body.planner-layout .layers-panel .filters button[data-type="all"][aria-pressed=
 .conditions-column-weather .condition-strip {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
-.conditions-column-weather .condition-water-temp {
-  grid-column: 1 / -1;
-}
 .conditions-column-water .condition-strip {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -2167,4 +2164,22 @@ body.planner-layout .layers-panel .filters button[data-type="all"][aria-pressed=
   .spot-save-meta {
     margin-left: 0;
   }
+}
+
+
+/* Weather and rainfall card layout --------------------------------------- */
+.conditions-column-weather .condition-strip {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.water-quality-rain {
+  margin-bottom: 12px;
+}
+.water-quality-rain .condition {
+  width: 100%;
+}
+.water-quality-rain .compact-alert {
+  margin-top: 6px;
+}
+.condition-load-status:empty {
+  display: none;
 }
