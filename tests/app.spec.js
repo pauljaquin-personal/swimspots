@@ -319,3 +319,12 @@ test("spot description has no About heading and local knowledge action sits bene
   expect(children[0].tag).toBe("P");
   expect(children[1].tag).toBe("BUTTON");
 });
+
+test("save spot sits on the same metadata row as water type and region", async ({ page }) => {
+  await page.goto("/#spot=queenstown-bay");
+  const meta = page.locator(".detail-meta");
+  await expect(meta.getByText("LAKE", { exact: true })).toBeVisible();
+  await expect(meta.getByText("Otago", { exact: true })).toBeVisible();
+  await expect(meta.getByRole("button", { name: /Save/ })).toBeVisible();
+  await expect(page.locator(".spot-top-actions")).toHaveCount(0);
+});
