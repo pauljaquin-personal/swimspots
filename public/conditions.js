@@ -215,29 +215,26 @@ function marineView(feed) {
 
 function rainfallView(feed) {
   const section = el("section", null, "rainfall-quality");
+  const hadRain = Number(feed?.rain48h?.value) > 0;
+  const lastRain = feed?.rain48h?.lastPrecipitationAt
+    ? date(feed.rain48h.lastPrecipitationAt)
+    : hadRain
+      ? "Within the last 48 hours"
+      : "No rain in the last 48 hours";
+
   section.append(
     metricCard(
       "◌",
-      "Rain in last 48 hours",
-      number(feed?.rain48h),
-      feed?.rain48h?.value > 0 ? "condition-attention" : "",
+      "Last rain",
+      lastRain,
+      hadRain ? "condition-attention" : "",
     ),
   );
-  if (feed?.rain48h?.value > 0) {
-    section.append(
-      el(
-        "p",
-        `Rain in the past 48 hours${feed.rain48h.lastPrecipitationAt ? ` · last around ${date(feed.rain48h.lastPrecipitationAt)}` : ""}. Check water-quality advice.`,
-        "feed-rain-alert compact-alert",
-      ),
-    );
-  }
   return section;
 }
 
 function waterQualityView(spot) {
   const section = el("section", null, "feed-section compact-feed water-quality-card");
-  section.append(el("h3", "Water quality"));
 
   const summary = el("div", null, "lawa-summary");
   summary.append(
@@ -317,8 +314,9 @@ export function mountConditions(container, spot, listingDetails = null) {
   status.setAttribute("role", "status");
 
   left.append(feeds, status);
+  const waterQualityHeading = el("h3", "Water quality");
   const waterQuality = waterQualityView(spot);
-  right.append(rainSlot, waterQuality);
+  right.append(waterQualityHeading, rainSlot, waterQuality);
   loadLawaSummary(waterQuality, spot);
   grid.append(left, right, weatherDetailsSlot);
   container.append(grid);
