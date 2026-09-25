@@ -283,3 +283,25 @@ test("weather summary uses a clean two-by-two layout and rainfall sits with wate
   await expect(page.getByRole("button", { name: /Refresh/ })).toHaveCount(0);
   await expect(page.getByText("Updated", { exact: true })).toHaveCount(0);
 });
+
+test("water quality heading aligns first, followed by last-rain card then LAWA", async ({ page }) => {
+  const d = feed();
+  d.weather.rain48h.value = 8.5;
+  d.weather.rain48h.lastPrecipitationAt = "2026-09-25T08:00:00+12:00";
+  await page.route("**/api/conditions?*", (r) => r.fulfill({ json: d }));
+  await page.route("**/api/lawa?*", (r) =>
+    r.fulfill({ json: { status: "available", latest: "No recent data", longTerm: "Excellent" } }),
+  );
+  await page.goto("/#spot=queenstown-bay");
+
+  const right = page.locator(".conditions-column-water");
+  const labels = await right.locator(":scope > *").evaluateAll((els) =>
+    els.map((el) => (el.textContent || "").trim()),
+  );
+  expect(labels[0]).toBe("Water quality");
+  expect(labels[1]).toContain("Last rain");
+  expect(labels[2]).toContain("Latest result");
+  await expect(right.getByText("Rain in last 48 hours", { exact: true })).toHaveCount(0);
+  await expect(right.getByText("Last rain", { exact: true })).toBeVisible();
+  await expect(right.getByText("8.5 mm", { exact: true })).toHaveCount(0);
+});
