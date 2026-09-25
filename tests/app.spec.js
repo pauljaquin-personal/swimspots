@@ -299,3 +299,11 @@ test("spot detail actions omit duplicate water-quality and show-on-map buttons",
   await expect(page.getByRole("link", { name: "Check water quality ↗" })).toHaveCount(0);
   await expect(page.getByRole("button", { name: "Show on map" })).toHaveCount(0);
 });
+
+test("spot save control is under the photo and routes/listing are separate disclosures", async ({ page }) => {
+  await page.goto("/#spot=porpoise-bay");
+  await expect(page.locator(".spot-top-actions").getByRole("button", { name: /Save/ })).toBeVisible();
+  await expect(page.locator(".swim-routes").getByText("Swim routes", { exact: true })).toBeVisible();
+  await expect(page.locator(".listing-details").getByText("About this listing", { exact: true })).toBeVisible();
+  await expect(page.getByText("More about this spot", { exact: true })).toHaveCount(0);
+});
