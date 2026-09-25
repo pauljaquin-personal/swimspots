@@ -258,10 +258,10 @@ function showSpot(s) {
       ? "★ Saved"
       : "☆ Save spot";
   };
-  const topActions = el("div", null, "spot-top-actions");
-  topActions.append(bookmark);
+  bookmark.classList.add("spot-save-meta");
+  meta.append(bookmark);
 
-  content.append(detailArtwork(s), topActions, meta, title, summary);
+  content.append(detailArtwork(s), meta, title, summary);
 
   const listingExtras = el("div", null, "listing-extras");
   const feedPanel = el("div", null, "spot-feeds");
