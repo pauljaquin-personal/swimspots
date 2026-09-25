@@ -20,12 +20,12 @@
       "hazards": "LAWA notes that bacteria can rise after rain and advises avoiding swimming for 48 hours after rainfall. Check the current notice before swimming.",
       "source": {
         "name": "LAWA — Queenstown Bay",
-        "url": "https://www.lawa.org.nz/explore-data/otago-region/lakes/lake-whakatipu/lake-whakatipu-at-queenstown-bay",
+        "url": "https://www.lawa.org.nz/explore-data/otago-region/swimming/lake-whakatipu-wakatipu-at-queenstown-bay/swimsite",
         "checkedAt": "2026-09-21"
       },
       "conditionsSource": {
         "name": "LAWA — Queenstown Bay",
-        "url": "https://www.lawa.org.nz/explore-data/otago-region/lakes/lake-whakatipu/lake-whakatipu-at-queenstown-bay"
+        "url": "https://www.lawa.org.nz/explore-data/otago-region/swimming/lake-whakatipu-wakatipu-at-queenstown-bay/swimsite"
       },
       "conditions": {
         "waterQuality": {
@@ -97,7 +97,8 @@
         "siteId": 40722,
         "embedUrl": "https://embed.lawa.org.nz/swim/iframe/medium/550/500/40722/",
         "source": "https://embed.lawa.org.nz/setup",
-        "matchedAt": "2026-09-21"
+        "matchedAt": "2026-09-21",
+        "pageUrl": "https://www.lawa.org.nz/explore-data/otago-region/swimming/lake-whakatipu-wakatipu-at-queenstown-bay/swimsite"
       },
       "council": {
         "name": "Otago Regional Council",
