@@ -2048,3 +2048,17 @@ body.planner-layout .layers-panel .filters button[data-type="all"][aria-pressed=
     gap: 18px;
   }
 }
+
+
+/* Full-width weather details --------------------------------------------- */
+.weather-details-slot {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+.weather-details-slot:empty {
+  display: none;
+}
+.weather-details-full {
+  width: 100%;
+  margin-top: 0;
+}
