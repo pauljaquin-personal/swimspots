@@ -181,3 +181,24 @@ test("weather details span both condition columns", async ({ page }) => {
   expect(details).not.toBeNull();
   expect(Math.abs(details.width - grid.width)).toBeLessThan(3);
 });
+
+test("listing disclosure contains LAWA source information and sea conditions", async ({ page }) => {
+  const d = feed("porpoise-bay");
+  d.marine = {
+    status: "fresh",
+    source: { name: "Open-Meteo", url: "https://open-meteo.com/", licence: "CC BY 4.0" },
+    validAt: new Date().toISOString(),
+    fetchedAt: new Date().toISOString(),
+    current: {
+      seaTemperature: { value: 14.2, unit: "°C" },
+      waveHeight: { value: 0.8, unit: "m" },
+      wavePeriod: { value: 7, unit: "s" },
+    },
+  };
+  await page.route("**/api/conditions?*", (r) => r.fulfill({ json: d }));
+  await page.goto("/#spot=porpoise-bay");
+  await page.locator(".listing-details > summary").click();
+  await expect(page.locator(".listing-details").getByText("Water quality source", { exact: true })).toBeVisible();
+  await expect(page.locator(".listing-details").getByText("Sea conditions", { exact: true })).toBeVisible();
+  await expect(page.locator(".conditions-column-water").getByText("Sea conditions", { exact: true })).toHaveCount(0);
+});
