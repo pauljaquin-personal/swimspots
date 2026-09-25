@@ -2154,3 +2154,17 @@ body.planner-layout .layers-panel .filters button[data-type="all"][aria-pressed=
 .spot-local-knowledge {
   margin-top: 14px;
 }
+
+
+/* Save action inline with spot metadata ---------------------------------- */
+.detail-meta {
+  width: 100%;
+}
+.spot-save-meta {
+  margin-left: auto;
+}
+@media (max-width: 520px) {
+  .spot-save-meta {
+    margin-left: 0;
+  }
+}
