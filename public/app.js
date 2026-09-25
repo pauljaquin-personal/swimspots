@@ -223,10 +223,17 @@ function showSpot(s) {
   const summary = el("section", null, "spot-summary-grid");
   summary.setAttribute("aria-label", "About this swim spot");
 
+  const contribute = el("button", "Add photo or local knowledge", "outline spot-local-knowledge");
+  contribute.onclick = () => {
+    document.dispatchEvent(
+      new CustomEvent("swimspots:edit-spot", { detail: s }),
+    );
+  };
+
   const description = el("div", null, "spot-description");
   description.append(
-    el("h3", "About"),
     el("p", s.description || "Local description coming soon."),
+    contribute,
   );
 
   const facts = el("div", null, "spot-facts");
@@ -259,16 +266,6 @@ function showSpot(s) {
   const listingExtras = el("div", null, "listing-extras");
   const feedPanel = el("div", null, "spot-feeds");
   content.append(feedPanel);
-
-  const actions = el("div", null, "detail-actions");
-  const contribute = el("button", "Add photo or local knowledge", "outline");
-  contribute.onclick = () => {
-    document.dispatchEvent(
-      new CustomEvent("swimspots:edit-spot", { detail: s }),
-    );
-  };
-  actions.append(contribute);
-  content.append(actions);
 
   const routes = el("details", null, "detail-more swim-routes");
   const routesSummary = el("summary");
