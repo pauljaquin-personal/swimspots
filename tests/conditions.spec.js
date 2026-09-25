@@ -202,3 +202,21 @@ test("listing disclosure contains LAWA source information and sea conditions", a
   await expect(page.locator(".listing-details").getByText("Sea conditions", { exact: true })).toBeVisible();
   await expect(page.locator(".conditions-column-water").getByText("Sea conditions", { exact: true })).toHaveCount(0);
 });
+
+test("exact LAWA matches show the official site response directly", async ({ page }) => {
+  await page.route("**/api/conditions?*", (r) => r.fulfill({ json: feed() }));
+  await page.goto("/#spot=queenstown-bay");
+  const iframe = page.locator(".water-quality-card .lawa-direct iframe");
+  await expect(iframe).toHaveCount(1);
+  await expect(iframe).toHaveAttribute("src", /40722/);
+  await expect(page.locator(".water-quality-card").getByText("Source:")).toBeVisible();
+});
+
+test("unmapped LAWA locations show a restrained fallback", async ({ page }) => {
+  const d = feed("porpoise-bay");
+  d.marine = { status: "not-applicable" };
+  await page.route("**/api/conditions?*", (r) => r.fulfill({ json: d }));
+  await page.goto("/#spot=porpoise-bay");
+  await expect(page.getByText("LAWA site panel not yet connected", { exact: true })).toBeVisible();
+  await expect(page.locator(".water-quality-card .lawa-direct iframe")).toHaveCount(0);
+});
