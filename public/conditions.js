@@ -62,7 +62,7 @@ function detailsBlock(label, glyph) {
   return details;
 }
 
-function weatherView(feed, waterTemperature = null) {
+function weatherView(feed, waterTemperature = null, detailsTarget = null) {
   const section = el("section", null, "feed-section compact-feed");
   section.append(el("h3", "Weather"));
   if (!feed || feed.status === "unavailable") {
@@ -173,7 +173,12 @@ function weatherView(feed, waterTemperature = null) {
     ),
   );
   more.append(credit);
-  section.append(more);
+  if (detailsTarget) {
+    more.classList.add("weather-details-full");
+    detailsTarget.replaceChildren(more);
+  } else {
+    section.append(more);
+  }
   return section;
 }
 
@@ -293,13 +298,14 @@ export function mountConditions(container, spot) {
   const right = el("div", null, "conditions-column conditions-column-water");
   const feeds = el("div");
   const marineSlot = el("div");
+  const weatherDetailsSlot = el("div", null, "weather-details-slot");
   const status = el("p", "Loading conditions…", "small condition-load-status");
   status.setAttribute("role", "status");
   const retry = el("button", "↻ Refresh", "outline feed-refresh compact-refresh");
 
   left.append(feeds, status, retry);
   right.append(waterQualityView(spot), marineSlot);
-  grid.append(left, right);
+  grid.append(left, right, weatherDetailsSlot);
   container.append(grid);
 
   if (spot.council) {
@@ -317,7 +323,7 @@ export function mountConditions(container, spot) {
       spot.type === "sea" && payload.marine?.current?.seaTemperature
         ? payload.marine.current.seaTemperature
         : null;
-    feeds.replaceChildren(weatherView(payload.weather, waterTemperature));
+    feeds.replaceChildren(weatherView(payload.weather, waterTemperature, weatherDetailsSlot));
     marineSlot.replaceChildren();
     if (spot.type === "sea") marineSlot.append(marineView(payload.marine));
   }
