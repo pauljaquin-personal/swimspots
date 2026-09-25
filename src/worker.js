@@ -100,7 +100,21 @@ export async function handleRequest(
         source: "LAWA",
       });
     } catch {
-      return json({ status: "unavailable" });
+      const latest = spot.lawa?.latestResult || null;
+      const longTerm = spot.lawa?.longTermGrade || null;
+      const pageUrl =
+        spot.lawa?.pageUrl ||
+        spot.conditionsSource?.url ||
+        null;
+      if (!latest && !longTerm)
+        return json({ status: "unavailable", pageUrl });
+      return json({
+        status: "available",
+        latest,
+        longTerm,
+        pageUrl,
+        source: "LAWA",
+      });
     }
   }
 
