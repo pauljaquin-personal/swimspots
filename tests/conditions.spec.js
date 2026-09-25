@@ -50,6 +50,8 @@ test("renders real feed contract, zeros, sources and lazy official LAWA report",
   );
   await page.goto("/#spot=queenstown-bay");
   await expect(page.getByText("0.0 °C", { exact: true })).toBeVisible();
+  await expect(page.getByText("Water temp", { exact: true })).toBeVisible();
+  await expect(page.getByText("N/A", { exact: true })).toBeVisible();
   await expect(page.locator(".condition").filter({ hasText: "From" }).locator("strong")).toHaveText("S");
   await expect(page.getByText("0.0 mm", { exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Weather" })).toBeVisible();
@@ -141,4 +143,165 @@ test("recent modelled precipitation shows a 48-hour runoff reminder", async ({
     page.getByText(/Rain in the past 48 hours/),
   ).toBeVisible();
   await expect(page.getByText(/Check water-quality advice/)).toBeVisible();
+});
+
+test("conditions use two columns and coastal water temperature comes from marine feed", async ({ page }) => {
+  const d = feed("porpoise-bay");
+  d.marine = {
+    status: "fresh",
+    source: { name: "Open-Meteo", url: "https://open-meteo.com/", licence: "CC BY 4.0" },
+    validAt: new Date().toISOString(),
+    fetchedAt: new Date().toISOString(),
+    current: {
+      seaTemperature: { value: 14.2, unit: "°C" },
+      waveHeight: { value: 0.8, unit: "m" },
+      wavePeriod: { value: 7, unit: "s" },
+    },
+  };
+  await page.route("**/api/conditions?*", (r) => r.fulfill({ json: d }));
+  await page.goto("/#spot=porpoise-bay");
+
+  await expect(page.locator(".conditions-layout")).toBeVisible();
+  await expect(page.locator(".conditions-column-weather").getByText("Weather", { exact: true })).toBeVisible();
+  await expect(page.locator(".conditions-column-water").getByText("Water quality · LAWA", { exact: true })).toBeVisible();
+  await expect(page.getByText("14.2 °C", { exact: true })).toBeVisible();
+  await expect(page.locator(".conditions-column-water").getByText("Sea conditions", { exact: true })).toBeVisible();
+  await expect(page.getByText("Sea temp", { exact: true })).toHaveCount(0);
+});
+
+test("weather details span both condition columns", async ({ page }) => {
+  await page.route("**/api/conditions?*", (r) => r.fulfill({ json: feed() }));
+  await page.goto("/#spot=queenstown-bay");
+  await expect(page.locator(".weather-details-slot .weather-details-full")).toHaveCount(1);
+  const [grid, details] = await Promise.all([
+    page.locator(".conditions-layout").boundingBox(),
+    page.locator(".weather-details-slot").boundingBox(),
+  ]);
+  expect(grid).not.toBeNull();
+  expect(details).not.toBeNull();
+  expect(Math.abs(details.width - grid.width)).toBeLessThan(3);
+});
+
+test("listing disclosure contains LAWA source information and sea conditions", async ({ page }) => {
+  const d = feed("porpoise-bay");
+  d.marine = {
+    status: "fresh",
+    source: { name: "Open-Meteo", url: "https://open-meteo.com/", licence: "CC BY 4.0" },
+    validAt: new Date().toISOString(),
+    fetchedAt: new Date().toISOString(),
+    current: {
+      seaTemperature: { value: 14.2, unit: "°C" },
+      waveHeight: { value: 0.8, unit: "m" },
+      wavePeriod: { value: 7, unit: "s" },
+    },
+  };
+  await page.route("**/api/conditions?*", (r) => r.fulfill({ json: d }));
+  await page.goto("/#spot=porpoise-bay");
+  await page.locator(".listing-details > summary").click();
+  await expect(page.locator(".listing-details").getByText("Water quality source", { exact: true })).toBeVisible();
+  await expect(page.locator(".listing-details").getByText("Sea conditions", { exact: true })).toBeVisible();
+  await expect(page.locator(".conditions-column-water").getByText("Sea conditions", { exact: true })).toHaveCount(0);
+});
+
+test("exact LAWA matches show the official site response directly", async ({ page }) => {
+  await page.route("**/api/conditions?*", (r) => r.fulfill({ json: feed() }));
+  await page.goto("/#spot=queenstown-bay");
+  const iframe = page.locator(".water-quality-card .lawa-direct iframe");
+  await expect(iframe).toHaveCount(1);
+  await expect(iframe).toHaveAttribute("src", /40722/);
+  await expect(page.locator(".water-quality-card").getByText("Source:")).toBeVisible();
+});
+
+test("unmapped LAWA locations show a restrained fallback", async ({ page }) => {
+  const d = feed("porpoise-bay");
+  d.marine = { status: "not-applicable" };
+  await page.route("**/api/conditions?*", (r) => r.fulfill({ json: d }));
+  await page.goto("/#spot=porpoise-bay");
+  await expect(page.getByText("LAWA site panel not yet connected", { exact: true })).toBeVisible();
+  await expect(page.locator(".water-quality-card .lawa-direct iframe")).toHaveCount(0);
+});
+
+test("water quality shows compact LAWA latest result and long-term grade", async ({ page }) => {
+  await page.route("**/api/conditions?*", (r) => r.fulfill({ json: feed() }));
+  await page.route("**/api/lawa?*", (r) =>
+    r.fulfill({
+      json: {
+        status: "available",
+        latest: "No recent data",
+        longTerm: "Excellent",
+        pageUrl: "https://www.lawa.org.nz/explore-data/otago-region/swimming/lake-whakatipu-wakatipu-at-queenstown-bay/swimsite",
+      },
+    }),
+  );
+  await page.goto("/#spot=queenstown-bay");
+  await expect(page.locator(".lawa-latest").getByText("No recent data", { exact: true })).toBeVisible();
+  await expect(page.locator(".lawa-long-term").getByText("Excellent", { exact: true })).toBeVisible();
+  await expect(page.getByRole("link", { name: "View this site on LAWA ↗" })).toHaveAttribute(
+    "href",
+    /queenstown-bay\/swimsite$/,
+  );
+});
+
+test("Queenstown Bay has a verified LAWA fallback when live parsing is unavailable", async ({ page }) => {
+  await page.route("**/api/conditions?*", (r) => r.fulfill({ json: feed() }));
+  await page.route("**/api/lawa?*", (r) =>
+    r.fulfill({
+      json: {
+        status: "available",
+        latest: "No recent data",
+        longTerm: "Excellent",
+        pageUrl: "https://www.lawa.org.nz/explore-data/otago-region/swimming/lake-whakatipu-wakatipu-at-queenstown-bay/swimsite",
+        source: "LAWA",
+      },
+    }),
+  );
+  await page.goto("/#spot=queenstown-bay");
+  await expect(page.locator(".lawa-latest").getByText("No recent data", { exact: true })).toBeVisible();
+  await expect(page.locator(".lawa-long-term").getByText("Excellent", { exact: true })).toBeVisible();
+});
+
+test("Queenstown Bay shows stored LAWA values even if the summary API fails", async ({ page }) => {
+  await page.route("**/api/conditions?*", (r) => r.fulfill({ json: feed() }));
+  await page.route("**/api/lawa?*", (r) => r.abort());
+  await page.goto("/#spot=queenstown-bay");
+  await expect(page.locator(".lawa-latest").getByText("No recent data", { exact: true })).toBeVisible();
+  await expect(page.locator(".lawa-long-term").getByText("Excellent", { exact: true })).toBeVisible();
+});
+
+test("weather summary uses a clean two-by-two layout and rainfall sits with water quality", async ({ page }) => {
+  await page.route("**/api/conditions?*", (r) => r.fulfill({ json: feed() }));
+  await page.route("**/api/lawa?*", (r) =>
+    r.fulfill({ json: { status: "available", latest: "No recent data", longTerm: "Excellent" } }),
+  );
+  await page.goto("/#spot=queenstown-bay");
+
+  for (const label of ["Water temp", "Air temp", "Wind speed", "Wind direction"]) {
+    await expect(page.locator(".conditions-column-weather").getByText(label, { exact: true })).toBeVisible();
+  }
+  await expect(page.locator(".conditions-column-weather").getByText("Gusts", { exact: true })).toHaveCount(0);
+  await expect(page.locator(".conditions-column-water").getByText("Rain in last 48 hours", { exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: /Refresh/ })).toHaveCount(0);
+  await expect(page.getByText("Updated", { exact: true })).toHaveCount(0);
+});
+
+test("water quality heading aligns first, followed by last-rain card then LAWA", async ({ page }) => {
+  const d = feed();
+  d.weather.rain48h.value = 8.5;
+  d.weather.rain48h.lastPrecipitationAt = "2026-09-25T08:00:00+12:00";
+  await page.route("**/api/conditions?*", (r) => r.fulfill({ json: d }));
+  await page.route("**/api/lawa?*", (r) =>
+    r.fulfill({ json: { status: "available", latest: "No recent data", longTerm: "Excellent" } }),
+  );
+  await page.goto("/#spot=queenstown-bay");
+
+  const right = page.locator(".conditions-column-water");
+  const labels = await right.locator(":scope > *").evaluateAll((els) =>
+    els.map((el) => (el.textContent || "").trim()),
+  );
+  expect(labels[0]).toBe("Water quality");
+  expect(labels[1]).toContain("Last rain");
+  expect(labels[2]).toContain("Latest result");
+  await expect(right.getByText("Rain in last 48 hours", { exact: true })).toHaveCount(0);
+  await expect(right.getByText("Last rain", { exact: true })).toBeVisible();
+  await expect(right.getByText("8.5 mm", { exact: true })).toHaveCount(0);
 });

@@ -53,6 +53,15 @@ function infoDisclosure(label, glyph, value, className = "") {
   details.append(summary, el("p", value || "Not yet verified.", "disclosure-copy"));
   return details;
 }
+function infoFact(label, glyph, value, className = "") {
+  const row = el("div", null, `spot-fact ${className}`.trim());
+  const symbol = el("span", glyph, "ui-icon");
+  symbol.setAttribute("aria-hidden", "true");
+  const copy = el("div", null, "spot-fact-copy");
+  copy.append(el("strong", label), el("p", value || "Not yet verified."));
+  row.append(symbol, copy);
+  return row;
+}
 function cardArtwork(s) {
   const art = el("span", spotGlyph(s.type), `spot-art ${s.type}`);
   art.setAttribute("aria-hidden", "true");
@@ -210,32 +219,38 @@ function showSpot(s) {
   );
   const title = el("h2", s.name);
   title.id = "spot-title";
-  const lede = el("p", s.description, "detail-lede");
-  const quick = el("section", null, "spot-quick-grid");
-  quick.setAttribute("aria-label", "Spot information");
-  quick.append(
-    infoDisclosure("Access", "↗", s.access),
-    infoDisclosure("Parking", "P", s.parking),
-    infoDisclosure("Facilities", "⌂", s.facilities),
-    infoDisclosure("Hazards", "!", s.hazards, "hazard"),
+
+  const summary = el("section", null, "spot-summary-grid");
+  summary.setAttribute("aria-label", "About this swim spot");
+
+  const contribute = el("button", "Add photo or local knowledge", "outline spot-local-knowledge");
+  contribute.onclick = () => {
+    document.dispatchEvent(
+      new CustomEvent("swimspots:edit-spot", { detail: s }),
+    );
+  };
+
+  const description = el("div", null, "spot-description");
+  description.append(
+    el("p", s.description || "Local description coming soon."),
+    contribute,
   );
-  const locationDetails = infoDisclosure(
-    "Location",
-    "⌖",
-    `${s.coordinates.join(", ")} · approximate, not a verified water-entry point`,
+
+  const facts = el("div", null, "spot-facts");
+  facts.setAttribute("aria-label", "Access and practical information");
+  facts.append(
+    infoFact("Access", "↗", s.access),
+    infoFact("Parking", "P", s.parking),
+    infoFact("Toilets", "⌂", s.facilities),
+    infoFact("Hazards", "!", s.hazards, "hazard"),
   );
-  quick.append(locationDetails);
-  content.append(detailArtwork(s), meta, title, lede, quick);
-  const feedPanel = el("div", null, "spot-feeds");
-  content.append(feedPanel);
-  disposeConditions = mountConditions(feedPanel, s);
-  const actions = el("div", null, "detail-actions");
-  const source = link("Check water quality ↗", s.conditionsSource.url);
-  source.className = "primary";
+
+  summary.append(facts, description);
+
   const bookmark = el(
     "button",
     state.saved.includes(s.id) ? "★ Saved" : "☆ Save spot",
-    "outline",
+    "outline spot-save-top",
   );
   bookmark.onclick = () => {
     save(s.id);
@@ -243,23 +258,28 @@ function showSpot(s) {
       ? "★ Saved"
       : "☆ Save spot";
   };
-  const contribute = el("button", "Add photo or local knowledge", "outline");
-  contribute.onclick = () => {
-    document.dispatchEvent(
-      new CustomEvent("swimspots:edit-spot", { detail: s }),
-    );
-  };
-  actions.append(source, bookmark, contribute);
-  content.append(actions);
-  const more = el("details", null, "detail-more");
-  const moreSummary = el("summary");
-  moreSummary.append(icon("More about this spot", "⋯"), el("span", "›", "disclosure-chevron"));
-  more.append(moreSummary);
-  more.append(
-    el("h3", "Swim routes"),
+  bookmark.classList.add("spot-save-meta");
+  meta.append(bookmark);
+
+  content.append(detailArtwork(s), meta, title, summary);
+
+  const listingExtras = el("div", null, "listing-extras");
+  const feedPanel = el("div", null, "spot-feeds");
+  content.append(feedPanel);
+
+  const routes = el("details", null, "detail-more swim-routes");
+  const routesSummary = el("summary");
+  routesSummary.append(icon("Swim routes", "↝"), el("span", "›", "disclosure-chevron"));
+  routes.append(
+    routesSummary,
     el("p", "No verified routes published for this spot yet."),
-    el("h3", "About this listing"),
   );
+  content.append(routes);
+
+  const more = el("details", null, "detail-more listing-details");
+  const moreSummary = el("summary");
+  moreSummary.append(icon("About this listing", "i"), el("span", "›", "disclosure-chevron"));
+  more.append(moreSummary);
   const provenance = el("p");
   provenance.append(
     s.source.url
@@ -269,7 +289,7 @@ function showSpot(s) {
       ` · Listing reviewed ${s.source.checkedAt}. ${s.listingStatus === "community-reviewed" ? "Community entry point reviewed for publication; conditions and access can change." : "Coordinates are editorial estimates; access and facilities await local review."} Weather model times and water-quality sample dates are shown separately above.`,
     ),
   );
-  more.append(provenance);
+  more.append(provenance, listingExtras);
   if (s.communitySourceUrl) {
     const communitySource = el("p");
     communitySource.append(
@@ -283,15 +303,7 @@ function showSpot(s) {
     more.append(communitySource);
   }
   content.append(more);
-  const show = el("button", "Show on map", "primary");
-  show.onclick = () => {
-    $("#spot-dialog").close();
-    if (map) {
-      map.setView(s.coordinates, 13, { animate: false });
-      $("#map").scrollIntoView({ block: "center", behavior: "instant" });
-    }
-  };
-  if (map) content.append(show);
+  disposeConditions = mountConditions(feedPanel, s, listingExtras);
   if (!$("#spot-dialog").open) $("#spot-dialog").showModal();
   $("#spot-dialog").scrollTop = 0;
   history.replaceState(null, "", `#spot=${encodeURIComponent(s.id)}`);

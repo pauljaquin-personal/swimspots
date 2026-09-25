@@ -1947,3 +1947,254 @@ body.planner-layout .layers-panel .filters button[data-type="all"][aria-pressed=
   color: var(--ink);
   background: #fff;
 }
+
+
+/* Clean two-column spot summary ------------------------------------------ */
+.spot-summary-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 1.05fr) minmax(0, 0.95fr);
+  gap: 28px;
+  align-items: start;
+  margin: 18px 0 10px;
+}
+.spot-description {
+  min-width: 0;
+}
+.spot-description h3 {
+  margin: 0 0 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--muted);
+}
+.spot-description p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--ink);
+}
+.spot-facts {
+  display: grid;
+  gap: 0;
+  min-width: 0;
+  border-top: 1px solid var(--line);
+}
+.spot-fact {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+.spot-fact-copy {
+  min-width: 0;
+}
+.spot-fact-copy strong {
+  display: block;
+  margin: 0 0 3px;
+  font-size: 11px;
+}
+.spot-fact-copy p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+.spot-fact.hazard .ui-icon {
+  background: #fff1cf;
+  color: #7d5b13;
+}
+@media (max-width: 700px) {
+  .spot-summary-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .spot-description p {
+    font-size: 13px;
+  }
+}
+
+
+/* Two-column conditions section ------------------------------------------ */
+.conditions-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+  margin-top: 20px;
+}
+.conditions-column {
+  min-width: 0;
+}
+.conditions-layout .compact-feed {
+  margin-top: 0;
+}
+.conditions-column-weather .condition-strip {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.conditions-column-water .condition-strip {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.conditions-column-water .water-quality-card {
+  margin-top: 0;
+}
+@media (max-width: 700px) {
+  .conditions-layout {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
+
+
+/* Full-width weather details --------------------------------------------- */
+.weather-details-slot {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+.weather-details-slot:empty {
+  display: none;
+}
+.weather-details-full {
+  width: 100%;
+  margin-top: 0;
+}
+
+
+/* Spot top controls and listing sections --------------------------------- */
+.spot-top-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin: 8px 0 4px;
+}
+.spot-save-top {
+  min-width: 0;
+}
+.swim-routes {
+  margin-top: 12px;
+}
+.listing-extras {
+  display: grid;
+  gap: 14px;
+  margin-top: 14px;
+}
+.listing-info-section {
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+.listing-info-section h3 {
+  margin: 0 0 8px;
+}
+.listing-sea-conditions {
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+
+/* Direct LAWA site response ---------------------------------------------- */
+.lawa-direct {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+.lawa-direct iframe {
+  display: block;
+  width: 100%;
+  min-width: 100%;
+  height: 500px;
+  border: 0;
+}
+.lawa-direct-credit {
+  margin-top: 7px;
+}
+.quality-unmapped {
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+.quality-unmapped strong {
+  display: block;
+  margin-bottom: 5px;
+}
+.quality-unmapped p {
+  margin: 0 0 10px;
+}
+
+
+/* Compact LAWA summary ---------------------------------------------------- */
+.lawa-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.lawa-summary .condition {
+  min-height: 72px;
+}
+.lawa-summary .lawa-latest .condition-icon {
+  color: var(--teal);
+}
+.lawa-summary .lawa-long-term .condition-icon {
+  color: #8b6720;
+}
+@media (max-width: 430px) {
+  .lawa-summary {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* Local knowledge action under description ------------------------------- */
+.spot-local-knowledge {
+  margin-top: 14px;
+}
+
+
+/* Save action inline with spot metadata ---------------------------------- */
+.detail-meta {
+  width: 100%;
+}
+.spot-save-meta {
+  margin-left: auto;
+}
+@media (max-width: 520px) {
+  .spot-save-meta {
+    margin-left: 0;
+  }
+}
+
+
+/* Weather and rainfall card layout --------------------------------------- */
+.conditions-column-weather .condition-strip {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.water-quality-rain {
+  margin-bottom: 12px;
+}
+.water-quality-rain .condition {
+  width: 100%;
+}
+.water-quality-rain .compact-alert {
+  margin-top: 6px;
+}
+.condition-load-status:empty {
+  display: none;
+}
+
+
+/* Align Water quality with Weather and stack rain before LAWA ------------ */
+.conditions-column-water > h3 {
+  margin: 0 0 10px;
+}
+.water-quality-rain {
+  margin: 0 0 12px;
+}
+.water-quality-rain .condition {
+  width: 100%;
+}
+.water-quality-card {
+  margin-top: 0;
+}

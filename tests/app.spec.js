@@ -160,15 +160,16 @@ test("planner layout is full width on wide screens", async ({ page }) => {
   expect(metrics.sidebarLeft).toBeGreaterThan(0);
 });
 
-test("spot details use compact icon disclosures", async ({ page }) => {
+test("spot details show description and practical information without disclosures", async ({ page }) => {
   await page.goto("/#spot=queenstown-bay");
-  await expect(page.getByText("Access", { exact: true })).toBeVisible();
-  await expect(page.getByText("Parking", { exact: true })).toBeVisible();
-  await expect(page.getByText("Facilities", { exact: true })).toBeVisible();
-  await expect(page.getByText("Hazards", { exact: true })).toBeVisible();
-  await expect(page.locator(".spot-quick-grid details[open]")).toHaveCount(0);
-  await page.getByText("Access", { exact: true }).click();
-  await expect(page.locator(".spot-quick-grid details[open]")).toHaveCount(1);
+  await expect(page.locator(".spot-summary-grid")).toBeVisible();
+  await expect(page.locator(".spot-description")).toBeVisible();
+  await expect(page.locator(".spot-facts")).toBeVisible();
+  for (const label of ["Access", "Parking", "Toilets", "Hazards"]) {
+    await expect(page.locator(".spot-fact-copy strong").filter({ hasText: label })).toBeVisible();
+  }
+  await expect(page.locator(".spot-facts details")).toHaveCount(0);
+  await expect(page.locator(".spot-facts").getByText("Location", { exact: true })).toHaveCount(0);
   await expect(page.getByText("More about this spot", { exact: true })).toBeVisible();
 });
 
@@ -276,4 +277,54 @@ test("bottom bar includes Facebook link", async ({ page }) => {
   await expect(facebook).toBeVisible();
   await expect(facebook).toHaveAttribute("href", "https://www.facebook.com/swimspots.nz");
   await expect(facebook).toHaveAttribute("target", "_blank");
+});
+
+test("spot summary is two columns on desktop and stacks on mobile", async ({ page }) => {
+  await page.setViewportSize({ width: 1200, height: 900 });
+  await page.goto("/#spot=porpoise-bay");
+  const desktopColumns = await page.locator(".spot-summary-grid").evaluate((el) =>
+    getComputedStyle(el).gridTemplateColumns,
+  );
+  expect(desktopColumns.split(" ").length).toBeGreaterThanOrEqual(2);
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  const mobileColumns = await page.locator(".spot-summary-grid").evaluate((el) =>
+    getComputedStyle(el).gridTemplateColumns,
+  );
+  expect(mobileColumns.split(" ").length).toBe(1);
+});
+
+test("spot detail actions omit duplicate water-quality and show-on-map buttons", async ({ page }) => {
+  await page.goto("/#spot=porpoise-bay");
+  await expect(page.getByRole("link", { name: "Check water quality ↗" })).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "Show on map" })).toHaveCount(0);
+});
+
+test("spot save control is under the photo and routes/listing are separate disclosures", async ({ page }) => {
+  await page.goto("/#spot=porpoise-bay");
+  await expect(page.locator(".spot-top-actions").getByRole("button", { name: /Save/ })).toBeVisible();
+  await expect(page.locator(".swim-routes").getByText("Swim routes", { exact: true })).toBeVisible();
+  await expect(page.locator(".listing-details").getByText("About this listing", { exact: true })).toBeVisible();
+  await expect(page.getByText("More about this spot", { exact: true })).toHaveCount(0);
+});
+
+test("spot description has no About heading and local knowledge action sits beneath text", async ({ page }) => {
+  await page.goto("/#spot=queenstown-bay");
+  const description = page.locator(".spot-description");
+  await expect(description.getByRole("heading", { name: "About", exact: true })).toHaveCount(0);
+  await expect(description.getByRole("button", { name: "Add photo or local knowledge" })).toBeVisible();
+  const children = await description.locator(":scope > *").evaluateAll((els) =>
+    els.map((el) => ({ tag: el.tagName, text: el.textContent?.trim() })),
+  );
+  expect(children[0].tag).toBe("P");
+  expect(children[1].tag).toBe("BUTTON");
+});
+
+test("save spot sits on the same metadata row as water type and region", async ({ page }) => {
+  await page.goto("/#spot=queenstown-bay");
+  const meta = page.locator(".detail-meta");
+  await expect(meta.getByText("LAKE", { exact: true })).toBeVisible();
+  await expect(meta.getByText("Otago", { exact: true })).toBeVisible();
+  await expect(meta.getByRole("button", { name: /Save/ })).toBeVisible();
+  await expect(page.locator(".spot-top-actions")).toHaveCount(0);
 });

@@ -62,7 +62,7 @@ function detailsBlock(label, glyph) {
   return details;
 }
 
-function weatherView(feed) {
+function weatherView(feed, waterTemperature = null, detailsTarget = null) {
   const section = el("section", null, "feed-section compact-feed");
   section.append(el("h3", "Weather"));
   if (!feed || feed.status === "unavailable") {
@@ -74,28 +74,17 @@ function weatherView(feed) {
 
   const current = el("div", null, "conditions condition-strip");
   current.append(
-    metricCard("°", "Air", number(feed.current.airTemperature)),
-    metricCard("→", "Wind", number(feed.current.windSpeed)),
-    metricCard("↝", "Gusts", number(feed.current.windGusts)),
-    metricCard("⌁", "From", compassPoint(feed.current.windDirection?.value)),
     metricCard(
-      "◌",
-      "Rain 48h",
-      number(feed.rain48h),
-      feed.rain48h?.value > 0 ? "condition-attention" : "",
+      "≈",
+      "Water temp",
+      waterTemperature ? number(waterTemperature) : "N/A",
+      "condition-water-temp",
     ),
+    metricCard("°", "Air temp", number(feed.current.airTemperature)),
+    metricCard("→", "Wind speed", number(feed.current.windSpeed)),
+    metricCard("⌁", "Wind direction", compassPoint(feed.current.windDirection?.value)),
   );
   section.append(current);
-
-  if (feed.rain48h?.value > 0) {
-    section.append(
-      el(
-        "p",
-        `Rain in the past 48 hours${feed.rain48h.lastPrecipitationAt ? ` · last around ${date(feed.rain48h.lastPrecipitationAt)}` : ""}. Check water-quality advice.`,
-        "feed-rain-alert compact-alert",
-      ),
-    );
-  }
 
   const more = detailsBlock("Weather details & forecast", "☼");
   more.append(
@@ -167,7 +156,12 @@ function weatherView(feed) {
     ),
   );
   more.append(credit);
-  section.append(more);
+  if (detailsTarget) {
+    more.classList.add("weather-details-full");
+    detailsTarget.replaceChildren(more);
+  } else {
+    section.append(more);
+  }
   return section;
 }
 
@@ -183,7 +177,6 @@ function marineView(feed) {
 
   const cards = el("div", null, "conditions condition-strip");
   cards.append(
-    metricCard("≈", "Sea temp", number(feed.current.seaTemperature)),
     metricCard("⌇", "Wave", number(feed.current.waveHeight, 2)),
     metricCard("↔", "Period", number(feed.current.wavePeriod)),
   );
@@ -220,74 +213,115 @@ function marineView(feed) {
   return section;
 }
 
+function rainfallView(feed) {
+  const section = el("section", null, "rainfall-quality");
+  const hadRain = Number(feed?.rain48h?.value) > 0;
+  const lastRain = feed?.rain48h?.lastPrecipitationAt
+    ? date(feed.rain48h.lastPrecipitationAt)
+    : hadRain
+      ? "Within the last 48 hours"
+      : "No rain in the last 48 hours";
+
+  section.append(
+    metricCard(
+      "◌",
+      "Last rain",
+      lastRain,
+      hadRain ? "condition-attention" : "",
+    ),
+  );
+  return section;
+}
+
 function waterQualityView(spot) {
   const section = el("section", null, "feed-section compact-feed water-quality-card");
-  const heading = el("h3", "Water quality · LAWA");
-  section.append(heading);
 
-  const action = el("div", null, "quality-action");
-  const icon = el("span", "●", "quality-icon");
-  icon.setAttribute("aria-hidden", "true");
-  const copy = el("div");
-  copy.append(
-    el("strong", "Check current water quality"),
-    el("span", "Official LAWA report"),
+  const summary = el("div", null, "lawa-summary");
+  summary.append(
+    metricCard(
+      "●",
+      "Latest result",
+      spot.lawa?.latestResult || "Loading…",
+      "lawa-latest",
+    ),
+    metricCard(
+      "★",
+      "Long-term grade",
+      spot.lawa?.longTermGrade || "Loading…",
+      "lawa-long-term",
+    ),
   );
-  const href = spot.lawa?.embedUrl || spot.conditionsSource.url;
-  const button = external("Open ↗", href);
-  button.className = "outline compact-link";
-  action.append(icon, copy, button);
-  section.append(action);
+  const source = external(
+    "View this site on LAWA ↗",
+    spot.lawa?.pageUrl || spot.conditionsSource?.url || "https://www.lawa.org.nz/explore-data/swimming",
+  );
+  source.className = "outline compact-link lawa-site-link";
+  section.append(summary, source);
+  return section;
+}
 
-  const details = detailsBlock("About this water-quality source", "i");
-  details.append(
+async function loadLawaSummary(root, spot) {
+  const latest = root.querySelector(".lawa-latest strong");
+  const longTerm = root.querySelector(".lawa-long-term strong");
+  const link = root.querySelector(".lawa-site-link");
+  try {
+    const response = await fetch(`/api/lawa?spot=${encodeURIComponent(spot.id)}`);
+    if (!response.ok) throw new Error("Unavailable");
+    const data = await response.json();
+    if (data.status !== "available") throw new Error("Unavailable");
+    latest.textContent = data.latest || "No recent data";
+    longTerm.textContent = data.longTerm || "Not available";
+    if (data.pageUrl) link.href = data.pageUrl;
+  } catch {
+    latest.textContent = spot.lawa?.latestResult || "Unavailable";
+    longTerm.textContent = spot.lawa?.longTermGrade || "Unavailable";
+  }
+}
+
+function waterQualityInfoView(spot) {
+  const section = el("section", null, "listing-info-section");
+  section.append(el("h3", "Water quality source"));
+  section.append(
     el(
       "p",
       "Samples and warnings are not continuous readings. Check the report date and current local signs before swimming.",
       "small",
     ),
   );
-  if (spot.lawa) {
-    const report = el("details", null, "lawa-report");
-    report.append(el("summary", "Show embedded LAWA report"));
-    const wrap = el("div", null, "lawa-scroll");
-    report.append(wrap);
-    report.addEventListener("toggle", () => {
-      if (report.open && !wrap.children.length) {
-        const iframe = el("iframe");
-        iframe.title = `LAWA water quality for ${spot.name}`;
-        iframe.src = spot.lawa.embedUrl;
-        iframe.loading = "lazy";
-        iframe.referrerPolicy = "strict-origin-when-cross-origin";
-        iframe.height = "550";
-        iframe.width = "500";
-        wrap.append(iframe);
-      }
-    });
-    details.append(report);
-  }
-  details.append(
+  section.append(
     el(
       "p",
       "LAWA supplies and dates the report; Swimspots does not assign a safety rating.",
       "feed-time",
     ),
   );
-  section.append(details);
   return section;
 }
 
-export function mountConditions(container, spot) {
+export function mountConditions(container, spot, listingDetails = null) {
   let controller = null,
     closed = false,
     payload = null,
     loading = false;
 
+  const grid = el("div", null, "conditions-layout");
+  const left = el("div", null, "conditions-column conditions-column-weather");
+  const right = el("div", null, "conditions-column conditions-column-water");
   const feeds = el("div");
+  const weatherDetailsSlot = el("div", null, "weather-details-slot");
+  const rainSlot = el("div", null, "water-quality-rain");
   const status = el("p", "Loading conditions…", "small condition-load-status");
   status.setAttribute("role", "status");
-  const retry = el("button", "↻ Refresh", "outline feed-refresh compact-refresh");
-  container.append(feeds, status, retry, waterQualityView(spot));
+
+  left.append(feeds, status);
+  const waterQualityHeading = el("h3", "Water quality");
+  const waterQuality = waterQualityView(spot);
+  right.append(waterQualityHeading, rainSlot, waterQuality);
+  loadLawaSummary(waterQuality, spot);
+  grid.append(left, right, weatherDetailsSlot);
+  container.append(grid);
+
+  if (listingDetails) listingDetails.append(waterQualityInfoView(spot));
 
   if (spot.council) {
     const council = detailsBlock(spot.council.name, "i");
@@ -295,19 +329,30 @@ export function mountConditions(container, spot) {
     council.append(el("p", spot.council.note, "small"));
     for (const source of spot.council.links)
       council.append(external(source.name + " ↗", source.url));
-    container.append(council);
+    (listingDetails || right).append(council);
   }
 
   function render() {
     if (!payload) return;
-    feeds.replaceChildren(weatherView(payload.weather));
-    if (spot.type === "sea") feeds.append(marineView(payload.marine));
+    const waterTemperature =
+      spot.type === "sea" && payload.marine?.current?.seaTemperature
+        ? payload.marine.current.seaTemperature
+        : null;
+    feeds.replaceChildren(weatherView(payload.weather, waterTemperature, weatherDetailsSlot));
+    rainSlot.replaceChildren(rainfallView(payload.weather));
+    if (listingDetails) {
+      listingDetails.querySelector(".listing-sea-conditions")?.remove();
+      if (spot.type === "sea") {
+        const marine = marineView(payload.marine);
+        marine.classList.add("listing-sea-conditions");
+        listingDetails.append(marine);
+      }
+    }
   }
 
   async function refresh() {
     if (loading || closed) return;
     loading = true;
-    retry.disabled = true;
     status.textContent = "Loading conditions…";
     controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 12_000);
@@ -326,7 +371,7 @@ export function mountConditions(container, spot) {
       status.textContent =
         data.weather.status === "unavailable"
           ? "Some conditions unavailable."
-          : "Updated";
+          : "";
     } catch {
       if (!closed) {
         if (payload) {
@@ -334,16 +379,14 @@ export function mountConditions(container, spot) {
             if (payload[key]?.current) payload[key].status = "stale";
           render();
         }
-        status.textContent = "Conditions unavailable · retry";
+        status.textContent = "Conditions unavailable.";
       }
     } finally {
       clearTimeout(timer);
       loading = false;
-      if (!closed) retry.disabled = false;
     }
   }
 
-  retry.onclick = refresh;
   refresh();
   const tick = setInterval(() => {
     if (payload && !closed) render();
