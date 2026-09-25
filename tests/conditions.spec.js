@@ -220,3 +220,24 @@ test("unmapped LAWA locations show a restrained fallback", async ({ page }) => {
   await expect(page.getByText("LAWA site panel not yet connected", { exact: true })).toBeVisible();
   await expect(page.locator(".water-quality-card .lawa-direct iframe")).toHaveCount(0);
 });
+
+test("water quality shows compact LAWA latest result and long-term grade", async ({ page }) => {
+  await page.route("**/api/conditions?*", (r) => r.fulfill({ json: feed() }));
+  await page.route("**/api/lawa?*", (r) =>
+    r.fulfill({
+      json: {
+        status: "available",
+        latest: "No recent data",
+        longTerm: "Excellent",
+        pageUrl: "https://www.lawa.org.nz/explore-data/otago-region/swimming/lake-whakatipu-wakatipu-at-queenstown-bay/swimsite",
+      },
+    }),
+  );
+  await page.goto("/#spot=queenstown-bay");
+  await expect(page.locator(".lawa-latest").getByText("No recent data", { exact: true })).toBeVisible();
+  await expect(page.locator(".lawa-long-term").getByText("Excellent", { exact: true })).toBeVisible();
+  await expect(page.getByRole("link", { name: "View this site on LAWA ↗" })).toHaveAttribute(
+    "href",
+    /queenstown-bay\/swimsite$/,
+  );
+});
