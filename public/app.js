@@ -239,15 +239,11 @@ function showSpot(s) {
   );
 
   summary.append(facts, description);
-  content.append(detailArtwork(s), meta, title, summary);
-  const feedPanel = el("div", null, "spot-feeds");
-  content.append(feedPanel);
-  disposeConditions = mountConditions(feedPanel, s);
-  const actions = el("div", null, "detail-actions");
+
   const bookmark = el(
     "button",
     state.saved.includes(s.id) ? "★ Saved" : "☆ Save spot",
-    "outline",
+    "outline spot-save-top",
   );
   bookmark.onclick = () => {
     save(s.id);
@@ -255,23 +251,38 @@ function showSpot(s) {
       ? "★ Saved"
       : "☆ Save spot";
   };
+  const topActions = el("div", null, "spot-top-actions");
+  topActions.append(bookmark);
+
+  content.append(detailArtwork(s), topActions, meta, title, summary);
+
+  const listingExtras = el("div", null, "listing-extras");
+  const feedPanel = el("div", null, "spot-feeds");
+  content.append(feedPanel);
+
+  const actions = el("div", null, "detail-actions");
   const contribute = el("button", "Add photo or local knowledge", "outline");
   contribute.onclick = () => {
     document.dispatchEvent(
       new CustomEvent("swimspots:edit-spot", { detail: s }),
     );
   };
-  actions.append(bookmark, contribute);
+  actions.append(contribute);
   content.append(actions);
-  const more = el("details", null, "detail-more");
-  const moreSummary = el("summary");
-  moreSummary.append(icon("More about this spot", "⋯"), el("span", "›", "disclosure-chevron"));
-  more.append(moreSummary);
-  more.append(
-    el("h3", "Swim routes"),
+
+  const routes = el("details", null, "detail-more swim-routes");
+  const routesSummary = el("summary");
+  routesSummary.append(icon("Swim routes", "↝"), el("span", "›", "disclosure-chevron"));
+  routes.append(
+    routesSummary,
     el("p", "No verified routes published for this spot yet."),
-    el("h3", "About this listing"),
   );
+  content.append(routes);
+
+  const more = el("details", null, "detail-more listing-details");
+  const moreSummary = el("summary");
+  moreSummary.append(icon("About this listing", "i"), el("span", "›", "disclosure-chevron"));
+  more.append(moreSummary);
   const provenance = el("p");
   provenance.append(
     s.source.url
@@ -281,7 +292,7 @@ function showSpot(s) {
       ` · Listing reviewed ${s.source.checkedAt}. ${s.listingStatus === "community-reviewed" ? "Community entry point reviewed for publication; conditions and access can change." : "Coordinates are editorial estimates; access and facilities await local review."} Weather model times and water-quality sample dates are shown separately above.`,
     ),
   );
-  more.append(provenance);
+  more.append(provenance, listingExtras);
   if (s.communitySourceUrl) {
     const communitySource = el("p");
     communitySource.append(
@@ -295,6 +306,7 @@ function showSpot(s) {
     more.append(communitySource);
   }
   content.append(more);
+  disposeConditions = mountConditions(feedPanel, s, listingExtras);
   if (!$("#spot-dialog").open) $("#spot-dialog").showModal();
   $("#spot-dialog").scrollTop = 0;
   history.replaceState(null, "", `#spot=${encodeURIComponent(s.id)}`);
