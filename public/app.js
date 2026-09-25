@@ -244,8 +244,6 @@ function showSpot(s) {
   content.append(feedPanel);
   disposeConditions = mountConditions(feedPanel, s);
   const actions = el("div", null, "detail-actions");
-  const source = link("Check water quality ↗", s.conditionsSource.url);
-  source.className = "primary";
   const bookmark = el(
     "button",
     state.saved.includes(s.id) ? "★ Saved" : "☆ Save spot",
@@ -263,7 +261,7 @@ function showSpot(s) {
       new CustomEvent("swimspots:edit-spot", { detail: s }),
     );
   };
-  actions.append(source, bookmark, contribute);
+  actions.append(bookmark, contribute);
   content.append(actions);
   const more = el("details", null, "detail-more");
   const moreSummary = el("summary");
@@ -297,15 +295,6 @@ function showSpot(s) {
     more.append(communitySource);
   }
   content.append(more);
-  const show = el("button", "Show on map", "primary");
-  show.onclick = () => {
-    $("#spot-dialog").close();
-    if (map) {
-      map.setView(s.coordinates, 13, { animate: false });
-      $("#map").scrollIntoView({ block: "center", behavior: "instant" });
-    }
-  };
-  if (map) content.append(show);
   if (!$("#spot-dialog").open) $("#spot-dialog").showModal();
   $("#spot-dialog").scrollTop = 0;
   history.replaceState(null, "", `#spot=${encodeURIComponent(s.id)}`);
