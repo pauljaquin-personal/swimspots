@@ -249,8 +249,13 @@ function waterQualityView(spot) {
   action.append(icon, copy, button);
   section.append(action);
 
-  const details = detailsBlock("About this water-quality source", "i");
-  details.append(
+  return section;
+}
+
+function waterQualityInfoView(spot) {
+  const section = el("section", null, "listing-info-section");
+  section.append(el("h3", "Water quality source"));
+  section.append(
     el(
       "p",
       "Samples and warnings are not continuous readings. Check the report date and current local signs before swimming.",
@@ -274,20 +279,19 @@ function waterQualityView(spot) {
         wrap.append(iframe);
       }
     });
-    details.append(report);
+    section.append(report);
   }
-  details.append(
+  section.append(
     el(
       "p",
       "LAWA supplies and dates the report; Swimspots does not assign a safety rating.",
       "feed-time",
     ),
   );
-  section.append(details);
   return section;
 }
 
-export function mountConditions(container, spot) {
+export function mountConditions(container, spot, listingDetails = null) {
   let controller = null,
     closed = false,
     payload = null,
@@ -297,16 +301,17 @@ export function mountConditions(container, spot) {
   const left = el("div", null, "conditions-column conditions-column-weather");
   const right = el("div", null, "conditions-column conditions-column-water");
   const feeds = el("div");
-  const marineSlot = el("div");
   const weatherDetailsSlot = el("div", null, "weather-details-slot");
   const status = el("p", "Loading conditions…", "small condition-load-status");
   status.setAttribute("role", "status");
   const retry = el("button", "↻ Refresh", "outline feed-refresh compact-refresh");
 
   left.append(feeds, status, retry);
-  right.append(waterQualityView(spot), marineSlot);
+  right.append(waterQualityView(spot));
   grid.append(left, right, weatherDetailsSlot);
   container.append(grid);
+
+  if (listingDetails) listingDetails.append(waterQualityInfoView(spot));
 
   if (spot.council) {
     const council = detailsBlock(spot.council.name, "i");
@@ -314,7 +319,7 @@ export function mountConditions(container, spot) {
     council.append(el("p", spot.council.note, "small"));
     for (const source of spot.council.links)
       council.append(external(source.name + " ↗", source.url));
-    right.append(council);
+    (listingDetails || right).append(council);
   }
 
   function render() {
@@ -324,8 +329,14 @@ export function mountConditions(container, spot) {
         ? payload.marine.current.seaTemperature
         : null;
     feeds.replaceChildren(weatherView(payload.weather, waterTemperature, weatherDetailsSlot));
-    marineSlot.replaceChildren();
-    if (spot.type === "sea") marineSlot.append(marineView(payload.marine));
+    if (listingDetails) {
+      listingDetails.querySelector(".listing-sea-conditions")?.remove();
+      if (spot.type === "sea") {
+        const marine = marineView(payload.marine);
+        marine.classList.add("listing-sea-conditions");
+        listingDetails.append(marine);
+      }
+    }
   }
 
   async function refresh() {
