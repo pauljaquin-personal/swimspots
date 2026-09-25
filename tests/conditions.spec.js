@@ -259,3 +259,11 @@ test("Queenstown Bay has a verified LAWA fallback when live parsing is unavailab
   await expect(page.locator(".lawa-latest").getByText("No recent data", { exact: true })).toBeVisible();
   await expect(page.locator(".lawa-long-term").getByText("Excellent", { exact: true })).toBeVisible();
 });
+
+test("Queenstown Bay shows stored LAWA values even if the summary API fails", async ({ page }) => {
+  await page.route("**/api/conditions?*", (r) => r.fulfill({ json: feed() }));
+  await page.route("**/api/lawa?*", (r) => r.abort());
+  await page.goto("/#spot=queenstown-bay");
+  await expect(page.locator(".lawa-latest").getByText("No recent data", { exact: true })).toBeVisible();
+  await expect(page.locator(".lawa-long-term").getByText("Excellent", { exact: true })).toBeVisible();
+});
