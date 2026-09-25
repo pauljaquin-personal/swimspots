@@ -80,28 +80,11 @@ function weatherView(feed, waterTemperature = null, detailsTarget = null) {
       waterTemperature ? number(waterTemperature) : "N/A",
       "condition-water-temp",
     ),
-    metricCard("°", "Air", number(feed.current.airTemperature)),
-    metricCard("→", "Wind", number(feed.current.windSpeed)),
-    metricCard("↝", "Gusts", number(feed.current.windGusts)),
-    metricCard("⌁", "From", compassPoint(feed.current.windDirection?.value)),
-    metricCard(
-      "◌",
-      "Rain 48h",
-      number(feed.rain48h),
-      feed.rain48h?.value > 0 ? "condition-attention" : "",
-    ),
+    metricCard("°", "Air temp", number(feed.current.airTemperature)),
+    metricCard("→", "Wind speed", number(feed.current.windSpeed)),
+    metricCard("⌁", "Wind direction", compassPoint(feed.current.windDirection?.value)),
   );
   section.append(current);
-
-  if (feed.rain48h?.value > 0) {
-    section.append(
-      el(
-        "p",
-        `Rain in the past 48 hours${feed.rain48h.lastPrecipitationAt ? ` · last around ${date(feed.rain48h.lastPrecipitationAt)}` : ""}. Check water-quality advice.`,
-        "feed-rain-alert compact-alert",
-      ),
-    );
-  }
 
   const more = detailsBlock("Weather details & forecast", "☼");
   more.append(
@@ -230,6 +213,28 @@ function marineView(feed) {
   return section;
 }
 
+function rainfallView(feed) {
+  const section = el("section", null, "rainfall-quality");
+  section.append(
+    metricCard(
+      "◌",
+      "Rain in last 48 hours",
+      number(feed?.rain48h),
+      feed?.rain48h?.value > 0 ? "condition-attention" : "",
+    ),
+  );
+  if (feed?.rain48h?.value > 0) {
+    section.append(
+      el(
+        "p",
+        `Rain in the past 48 hours${feed.rain48h.lastPrecipitationAt ? ` · last around ${date(feed.rain48h.lastPrecipitationAt)}` : ""}. Check water-quality advice.`,
+        "feed-rain-alert compact-alert",
+      ),
+    );
+  }
+  return section;
+}
+
 function waterQualityView(spot) {
   const section = el("section", null, "feed-section compact-feed water-quality-card");
   section.append(el("h3", "Water quality"));
@@ -307,13 +312,13 @@ export function mountConditions(container, spot, listingDetails = null) {
   const right = el("div", null, "conditions-column conditions-column-water");
   const feeds = el("div");
   const weatherDetailsSlot = el("div", null, "weather-details-slot");
+  const rainSlot = el("div", null, "water-quality-rain");
   const status = el("p", "Loading conditions…", "small condition-load-status");
   status.setAttribute("role", "status");
-  const retry = el("button", "↻ Refresh", "outline feed-refresh compact-refresh");
 
-  left.append(feeds, status, retry);
+  left.append(feeds, status);
   const waterQuality = waterQualityView(spot);
-  right.append(waterQuality);
+  right.append(rainSlot, waterQuality);
   loadLawaSummary(waterQuality, spot);
   grid.append(left, right, weatherDetailsSlot);
   container.append(grid);
@@ -336,6 +341,7 @@ export function mountConditions(container, spot, listingDetails = null) {
         ? payload.marine.current.seaTemperature
         : null;
     feeds.replaceChildren(weatherView(payload.weather, waterTemperature, weatherDetailsSlot));
+    rainSlot.replaceChildren(rainfallView(payload.weather));
     if (listingDetails) {
       listingDetails.querySelector(".listing-sea-conditions")?.remove();
       if (spot.type === "sea") {
@@ -349,7 +355,6 @@ export function mountConditions(container, spot, listingDetails = null) {
   async function refresh() {
     if (loading || closed) return;
     loading = true;
-    retry.disabled = true;
     status.textContent = "Loading conditions…";
     controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 12_000);
@@ -368,7 +373,7 @@ export function mountConditions(container, spot, listingDetails = null) {
       status.textContent =
         data.weather.status === "unavailable"
           ? "Some conditions unavailable."
-          : "Updated";
+          : "";
     } catch {
       if (!closed) {
         if (payload) {
@@ -376,16 +381,14 @@ export function mountConditions(container, spot, listingDetails = null) {
             if (payload[key]?.current) payload[key].status = "stale";
           render();
         }
-        status.textContent = "Conditions unavailable · retry";
+        status.textContent = "Conditions unavailable.";
       }
     } finally {
       clearTimeout(timer);
       loading = false;
-      if (!closed) retry.disabled = false;
     }
   }
 
-  retry.onclick = refresh;
   refresh();
   const tick = setInterval(() => {
     if (payload && !closed) render();
