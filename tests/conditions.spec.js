@@ -168,3 +168,16 @@ test("conditions use two columns and coastal water temperature comes from marine
   await expect(page.locator(".conditions-column-water").getByText("Sea conditions", { exact: true })).toBeVisible();
   await expect(page.getByText("Sea temp", { exact: true })).toHaveCount(0);
 });
+
+test("weather details span both condition columns", async ({ page }) => {
+  await page.route("**/api/conditions?*", (r) => r.fulfill({ json: feed() }));
+  await page.goto("/#spot=queenstown-bay");
+  await expect(page.locator(".weather-details-slot .weather-details-full")).toHaveCount(1);
+  const [grid, details] = await Promise.all([
+    page.locator(".conditions-layout").boundingBox(),
+    page.locator(".weather-details-slot").boundingBox(),
+  ]);
+  expect(grid).not.toBeNull();
+  expect(details).not.toBeNull();
+  expect(Math.abs(details.width - grid.width)).toBeLessThan(3);
+});
