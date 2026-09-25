@@ -236,8 +236,18 @@ function waterQualityView(spot) {
 
   const summary = el("div", null, "lawa-summary");
   summary.append(
-    metricCard("●", "Latest result", "Loading…", "lawa-latest"),
-    metricCard("★", "Long-term grade", "Loading…", "lawa-long-term"),
+    metricCard(
+      "●",
+      "Latest result",
+      spot.lawa?.latestResult || "Loading…",
+      "lawa-latest",
+    ),
+    metricCard(
+      "★",
+      "Long-term grade",
+      spot.lawa?.longTermGrade || "Loading…",
+      "lawa-long-term",
+    ),
   );
   const source = external(
     "View this site on LAWA ↗",
@@ -261,8 +271,8 @@ async function loadLawaSummary(root, spot) {
     longTerm.textContent = data.longTerm || "Not available";
     if (data.pageUrl) link.href = data.pageUrl;
   } catch {
-    latest.textContent = "Unavailable";
-    longTerm.textContent = "Unavailable";
+    latest.textContent = spot.lawa?.latestResult || "Unavailable";
+    longTerm.textContent = spot.lawa?.longTermGrade || "Unavailable";
   }
 }
 
