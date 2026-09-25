@@ -98,7 +98,10 @@
         "embedUrl": "https://embed.lawa.org.nz/swim/iframe/medium/550/500/40722/",
         "source": "https://embed.lawa.org.nz/setup",
         "matchedAt": "2026-09-21",
-        "pageUrl": "https://www.lawa.org.nz/explore-data/otago-region/swimming/lake-whakatipu-wakatipu-at-queenstown-bay/swimsite"
+        "pageUrl": "https://www.lawa.org.nz/explore-data/otago-region/swimming/lake-whakatipu-wakatipu-at-queenstown-bay/swimsite",
+        "latestResult": "No recent data",
+        "longTermGrade": "Excellent",
+        "checkedAt": "2026-09-25"
       },
       "council": {
         "name": "Otago Regional Council",
