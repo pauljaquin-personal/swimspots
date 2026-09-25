@@ -232,23 +232,44 @@ function marineView(feed) {
 
 function waterQualityView(spot) {
   const section = el("section", null, "feed-section compact-feed water-quality-card");
-  const heading = el("h3", "Water quality · LAWA");
-  section.append(heading);
+  section.append(el("h3", "Water quality"));
 
-  const action = el("div", null, "quality-action");
-  const icon = el("span", "●", "quality-icon");
-  icon.setAttribute("aria-hidden", "true");
-  const copy = el("div");
-  copy.append(
-    el("strong", "Check current water quality"),
-    el("span", "Official LAWA report"),
+  if (spot.lawa?.embedUrl) {
+    const wrap = el("div", null, "lawa-direct");
+    const iframe = el("iframe");
+    iframe.title = `LAWA water quality for ${spot.name}`;
+    iframe.src = spot.lawa.embedUrl;
+    iframe.loading = "lazy";
+    iframe.referrerPolicy = "strict-origin-when-cross-origin";
+    iframe.setAttribute("scrolling", "no");
+    wrap.append(iframe);
+    section.append(wrap);
+
+    const credit = el("p", null, "feed-credit lawa-direct-credit");
+    credit.append(
+      document.createTextNode("Source: "),
+      external("LAWA", spot.conditionsSource?.url || "https://www.lawa.org.nz/explore-data/swimming"),
+      document.createTextNode(" · official recreational water-quality information."),
+    );
+    section.append(credit);
+    return section;
+  }
+
+  const empty = el("div", null, "quality-unmapped");
+  empty.append(
+    el("strong", "LAWA site panel not yet connected"),
+    el(
+      "p",
+      "This Swimspots location is not yet mapped to a specific LAWA embed. Use the official source while we complete the site match.",
+      "small",
+    ),
   );
-  const href = spot.lawa?.embedUrl || spot.conditionsSource.url;
-  const button = external("Open ↗", href);
-  button.className = "outline compact-link";
-  action.append(icon, copy, button);
-  section.append(action);
-
+  if (spot.conditionsSource?.url) {
+    const source = external("Open LAWA source ↗", spot.conditionsSource.url);
+    source.className = "outline compact-link";
+    empty.append(source);
+  }
+  section.append(empty);
   return section;
 }
 
@@ -262,25 +283,6 @@ function waterQualityInfoView(spot) {
       "small",
     ),
   );
-  if (spot.lawa) {
-    const report = el("details", null, "lawa-report");
-    report.append(el("summary", "Show embedded LAWA report"));
-    const wrap = el("div", null, "lawa-scroll");
-    report.append(wrap);
-    report.addEventListener("toggle", () => {
-      if (report.open && !wrap.children.length) {
-        const iframe = el("iframe");
-        iframe.title = `LAWA water quality for ${spot.name}`;
-        iframe.src = spot.lawa.embedUrl;
-        iframe.loading = "lazy";
-        iframe.referrerPolicy = "strict-origin-when-cross-origin";
-        iframe.height = "550";
-        iframe.width = "500";
-        wrap.append(iframe);
-      }
-    });
-    section.append(report);
-  }
   section.append(
     el(
       "p",
