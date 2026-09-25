@@ -293,3 +293,9 @@ test("spot summary is two columns on desktop and stacks on mobile", async ({ pag
   );
   expect(mobileColumns.split(" ").length).toBe(1);
 });
+
+test("spot detail actions omit duplicate water-quality and show-on-map buttons", async ({ page }) => {
+  await page.goto("/#spot=porpoise-bay");
+  await expect(page.getByRole("link", { name: "Check water quality ↗" })).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "Show on map" })).toHaveCount(0);
+});
