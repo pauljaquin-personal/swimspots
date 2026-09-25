@@ -2183,3 +2183,18 @@ body.planner-layout .layers-panel .filters button[data-type="all"][aria-pressed=
 .condition-load-status:empty {
   display: none;
 }
+
+
+/* Align Water quality with Weather and stack rain before LAWA ------------ */
+.conditions-column-water > h3 {
+  margin: 0 0 10px;
+}
+.water-quality-rain {
+  margin: 0 0 12px;
+}
+.water-quality-rain .condition {
+  width: 100%;
+}
+.water-quality-card {
+  margin-top: 0;
+}
