@@ -307,3 +307,15 @@ test("spot save control is under the photo and routes/listing are separate discl
   await expect(page.locator(".listing-details").getByText("About this listing", { exact: true })).toBeVisible();
   await expect(page.getByText("More about this spot", { exact: true })).toHaveCount(0);
 });
+
+test("spot description has no About heading and local knowledge action sits beneath text", async ({ page }) => {
+  await page.goto("/#spot=queenstown-bay");
+  const description = page.locator(".spot-description");
+  await expect(description.getByRole("heading", { name: "About", exact: true })).toHaveCount(0);
+  await expect(description.getByRole("button", { name: "Add photo or local knowledge" })).toBeVisible();
+  const children = await description.locator(":scope > *").evaluateAll((els) =>
+    els.map((el) => ({ tag: el.tagName, text: el.textContent?.trim() })),
+  );
+  expect(children[0].tag).toBe("P");
+  expect(children[1].tag).toBe("BUTTON");
+});
