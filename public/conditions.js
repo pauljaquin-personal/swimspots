@@ -234,43 +234,36 @@ function waterQualityView(spot) {
   const section = el("section", null, "feed-section compact-feed water-quality-card");
   section.append(el("h3", "Water quality"));
 
-  if (spot.lawa?.embedUrl) {
-    const wrap = el("div", null, "lawa-direct");
-    const iframe = el("iframe");
-    iframe.title = `LAWA water quality for ${spot.name}`;
-    iframe.src = spot.lawa.embedUrl;
-    iframe.loading = "lazy";
-    iframe.referrerPolicy = "strict-origin-when-cross-origin";
-    iframe.setAttribute("scrolling", "no");
-    wrap.append(iframe);
-    section.append(wrap);
-
-    const credit = el("p", null, "feed-credit lawa-direct-credit");
-    credit.append(
-      document.createTextNode("Source: "),
-      external("LAWA", spot.conditionsSource?.url || "https://www.lawa.org.nz/explore-data/swimming"),
-      document.createTextNode(" · official recreational water-quality information."),
-    );
-    section.append(credit);
-    return section;
-  }
-
-  const empty = el("div", null, "quality-unmapped");
-  empty.append(
-    el("strong", "LAWA site panel not yet connected"),
-    el(
-      "p",
-      "This Swimspots location is not yet mapped to a specific LAWA embed. Use the official source while we complete the site match.",
-      "small",
-    ),
+  const summary = el("div", null, "lawa-summary");
+  summary.append(
+    metricCard("●", "Latest result", "Loading…", "lawa-latest"),
+    metricCard("★", "Long-term grade", "Loading…", "lawa-long-term"),
   );
-  if (spot.conditionsSource?.url) {
-    const source = external("Open LAWA source ↗", spot.conditionsSource.url);
-    source.className = "outline compact-link";
-    empty.append(source);
-  }
-  section.append(empty);
+  const source = external(
+    "View this site on LAWA ↗",
+    spot.lawa?.pageUrl || spot.conditionsSource?.url || "https://www.lawa.org.nz/explore-data/swimming",
+  );
+  source.className = "outline compact-link lawa-site-link";
+  section.append(summary, source);
   return section;
+}
+
+async function loadLawaSummary(root, spot) {
+  const latest = root.querySelector(".lawa-latest strong");
+  const longTerm = root.querySelector(".lawa-long-term strong");
+  const link = root.querySelector(".lawa-site-link");
+  try {
+    const response = await fetch(`/api/lawa?spot=${encodeURIComponent(spot.id)}`);
+    if (!response.ok) throw new Error("Unavailable");
+    const data = await response.json();
+    if (data.status !== "available") throw new Error("Unavailable");
+    latest.textContent = data.latest || "No recent data";
+    longTerm.textContent = data.longTerm || "Not available";
+    if (data.pageUrl) link.href = data.pageUrl;
+  } catch {
+    latest.textContent = "Unavailable";
+    longTerm.textContent = "Unavailable";
+  }
 }
 
 function waterQualityInfoView(spot) {
@@ -309,7 +302,9 @@ export function mountConditions(container, spot, listingDetails = null) {
   const retry = el("button", "↻ Refresh", "outline feed-refresh compact-refresh");
 
   left.append(feeds, status, retry);
-  right.append(waterQualityView(spot));
+  const waterQuality = waterQualityView(spot);
+  right.append(waterQuality);
+  loadLawaSummary(waterQuality, spot);
   grid.append(left, right, weatherDetailsSlot);
   container.append(grid);
 
