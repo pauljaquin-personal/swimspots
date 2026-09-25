@@ -2062,3 +2062,33 @@ body.planner-layout .layers-panel .filters button[data-type="all"][aria-pressed=
   width: 100%;
   margin-top: 0;
 }
+
+
+/* Spot top controls and listing sections --------------------------------- */
+.spot-top-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin: 8px 0 4px;
+}
+.spot-save-top {
+  min-width: 0;
+}
+.swim-routes {
+  margin-top: 12px;
+}
+.listing-extras {
+  display: grid;
+  gap: 14px;
+  margin-top: 14px;
+}
+.listing-info-section {
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+.listing-info-section h3 {
+  margin: 0 0 8px;
+}
+.listing-sea-conditions {
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
