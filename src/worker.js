@@ -84,8 +84,21 @@ export async function handleRequest(
   if (url.pathname === "/api/lawa") {
     try {
       const result = await fetchLawaSummary(spot, { fetchImpl });
-      if (!result) return json({ status: "unavailable" });
-      return json({ status: "available", ...result });
+      const latest = result?.latest || spot.lawa?.latestResult || null;
+      const longTerm = result?.longTerm || spot.lawa?.longTermGrade || null;
+      const pageUrl =
+        result?.pageUrl ||
+        spot.lawa?.pageUrl ||
+        spot.conditionsSource?.url ||
+        null;
+      if (!latest && !longTerm) return json({ status: "unavailable", pageUrl });
+      return json({
+        status: "available",
+        latest,
+        longTerm,
+        pageUrl,
+        source: "LAWA",
+      });
     } catch {
       return json({ status: "unavailable" });
     }
