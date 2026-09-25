@@ -2148,3 +2148,9 @@ body.planner-layout .layers-panel .filters button[data-type="all"][aria-pressed=
     grid-template-columns: 1fr;
   }
 }
+
+
+/* Local knowledge action under description ------------------------------- */
+.spot-local-knowledge {
+  margin-top: 14px;
+}
