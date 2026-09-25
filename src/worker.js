@@ -1,5 +1,6 @@
 import catalog from "../public/data/spots.json" with { type: "json" };
 import { getConditions, RETAIN_MS } from "./feeds.js";
+import { fetchLawaSummary } from "./lawa.js";
 import {
   D1Submissions,
   submissionRequest,
@@ -61,7 +62,7 @@ export async function handleRequest(
       status: 405,
       headers: { Allow: "GET" },
     });
-  if (url.pathname !== "/api/conditions")
+  if (!["/api/conditions", "/api/lawa"].includes(url.pathname))
     return json({ error: "Not found" }, 404);
   if (
     [...url.searchParams.keys()].some((k) => k !== "spot") ||
@@ -79,6 +80,17 @@ export async function handleRequest(
     }
   }
   if (!spot) return json({ error: "Unknown spot" }, 404);
+
+  if (url.pathname === "/api/lawa") {
+    try {
+      const result = await fetchLawaSummary(spot, { fetchImpl });
+      if (!result) return json({ status: "unavailable" });
+      return json({ status: "available", ...result });
+    } catch {
+      return json({ status: "unavailable" });
+    }
+  }
+
   // Only known catalog coordinates are accepted. This cannot proxy arbitrary URLs.
   const cacheKey = new Request(
     `${url.origin}/__feed-cache/v1/${env.OPEN_METEO_API_KEY ? "commercial" : "prototype"}/${spot.id}`,
