@@ -267,3 +267,19 @@ test("Queenstown Bay shows stored LAWA values even if the summary API fails", as
   await expect(page.locator(".lawa-latest").getByText("No recent data", { exact: true })).toBeVisible();
   await expect(page.locator(".lawa-long-term").getByText("Excellent", { exact: true })).toBeVisible();
 });
+
+test("weather summary uses a clean two-by-two layout and rainfall sits with water quality", async ({ page }) => {
+  await page.route("**/api/conditions?*", (r) => r.fulfill({ json: feed() }));
+  await page.route("**/api/lawa?*", (r) =>
+    r.fulfill({ json: { status: "available", latest: "No recent data", longTerm: "Excellent" } }),
+  );
+  await page.goto("/#spot=queenstown-bay");
+
+  for (const label of ["Water temp", "Air temp", "Wind speed", "Wind direction"]) {
+    await expect(page.locator(".conditions-column-weather").getByText(label, { exact: true })).toBeVisible();
+  }
+  await expect(page.locator(".conditions-column-weather").getByText("Gusts", { exact: true })).toHaveCount(0);
+  await expect(page.locator(".conditions-column-water").getByText("Rain in last 48 hours", { exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: /Refresh/ })).toHaveCount(0);
+  await expect(page.getByText("Updated", { exact: true })).toHaveCount(0);
+});
