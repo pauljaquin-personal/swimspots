@@ -2198,3 +2198,20 @@ body.planner-layout .layers-panel .filters button[data-type="all"][aria-pressed=
 .water-quality-card {
   margin-top: 0;
 }
+
+/* Border-free spot detail facts and section dividers. */
+#spot-content .spot-facts,
+#spot-content .spot-fact,
+#spot-content .feed-section,
+#spot-content .listing-info-section,
+#spot-content .listing-sea-conditions,
+#spot-content .forecast-table th,
+#spot-content .forecast-table td {
+  border-top: 0;
+  border-bottom: 0;
+}
+.weather-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 16px;
+}

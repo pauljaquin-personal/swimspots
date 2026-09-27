@@ -52,6 +52,16 @@ function metricCard(glyph, label, value, tone = "") {
   return c;
 }
 
+function weatherFact(glyph, label, value) {
+  const row = el("div", null, "spot-fact weather-fact");
+  const icon = el("span", glyph, "ui-icon");
+  icon.setAttribute("aria-hidden", "true");
+  const copy = el("div", null, "spot-fact-copy");
+  copy.append(el("strong", label), el("p", value));
+  row.append(icon, copy);
+  return row;
+}
+
 function detailsBlock(label, glyph) {
   const details = el("details", null, "condition-details");
   const summary = el("summary");
@@ -64,7 +74,6 @@ function detailsBlock(label, glyph) {
 
 function weatherView(feed, waterTemperature = null, detailsTarget = null) {
   const section = el("section", null, "feed-section compact-feed");
-  section.append(el("h3", "Weather"));
   if (!feed || feed.status === "unavailable") {
     section.append(
       el("p", "Weather temporarily unavailable.", "feed-error"),
@@ -72,17 +81,16 @@ function weatherView(feed, waterTemperature = null, detailsTarget = null) {
     return section;
   }
 
-  const current = el("div", null, "conditions condition-strip");
+  const current = el("div", null, "weather-facts");
   current.append(
-    metricCard(
+    weatherFact(
       "≈",
       "Water temp",
       waterTemperature ? number(waterTemperature) : "N/A",
-      "condition-water-temp",
     ),
-    metricCard("°", "Air temp", number(feed.current.airTemperature)),
-    metricCard("→", "Wind speed", number(feed.current.windSpeed)),
-    metricCard("⌁", "Wind direction", compassPoint(feed.current.windDirection?.value)),
+    weatherFact("°", "Air temp", number(feed.current.airTemperature)),
+    weatherFact("→", "Wind speed", number(feed.current.windSpeed)),
+    weatherFact("⌁", "Wind direction", compassPoint(feed.current.windDirection?.value)),
   );
   section.append(current);
 

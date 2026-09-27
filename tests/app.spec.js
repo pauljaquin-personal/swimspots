@@ -19,7 +19,7 @@ test("search, filter, details, saved persistence and empty state", async ({
     page.getByRole("heading", { name: "Roys Bay", exact: true }),
   ).toBeVisible();
   await expect(
-    page.getByRole("heading", { name: "Water quality · LAWA" }),
+    page.getByRole("heading", { name: "Water quality" }),
   ).toBeVisible();
   await page
     .getByRole("button", { name: "Add photo or local knowledge", exact: true })
@@ -170,7 +170,7 @@ test("spot details show description and practical information without disclosure
   }
   await expect(page.locator(".spot-facts details")).toHaveCount(0);
   await expect(page.locator(".spot-facts").getByText("Location", { exact: true })).toHaveCount(0);
-  await expect(page.getByText("More about this spot", { exact: true })).toBeVisible();
+  await expect(page.getByText("About this listing", { exact: true })).toBeVisible();
 });
 
 test("planner sidebar keeps result count accessible but visually minimal", async ({ page }) => {
@@ -300,9 +300,9 @@ test("spot detail actions omit duplicate water-quality and show-on-map buttons",
   await expect(page.getByRole("button", { name: "Show on map" })).toHaveCount(0);
 });
 
-test("spot save control is under the photo and routes/listing are separate disclosures", async ({ page }) => {
+test("spot save control is in metadata and routes/listing are separate disclosures", async ({ page }) => {
   await page.goto("/#spot=porpoise-bay");
-  await expect(page.locator(".spot-top-actions").getByRole("button", { name: /Save/ })).toBeVisible();
+  await expect(page.locator(".detail-meta").getByRole("button", { name: /Save/ })).toBeVisible();
   await expect(page.locator(".swim-routes").getByText("Swim routes", { exact: true })).toBeVisible();
   await expect(page.locator(".listing-details").getByText("About this listing", { exact: true })).toBeVisible();
   await expect(page.getByText("More about this spot", { exact: true })).toHaveCount(0);
