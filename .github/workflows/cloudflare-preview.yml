@@ -33,4 +33,4 @@ jobs:
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Show preview URL
-        run: echo "Preview URL: ${{ steps.preview.outputs.preview-url }}"
+        run: echo "Preview URL: ${{ steps.preview.outputs['preview-url'] }}"
