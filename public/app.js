@@ -53,6 +53,26 @@ function infoDisclosure(label, glyph, value, className = "") {
   details.append(summary, el("p", value || "Not yet verified.", "disclosure-copy"));
   return details;
 }
+function shortResult(value, yesLabel = "Yes") {
+  const v = String(value || "").trim();
+  if (!v) return "—";
+  if (/^(yes|available|provided|toilet|toilets|parking)/i.test(v)) return yesLabel;
+  if (/^(no|none|not available|unavailable)/i.test(v)) return "No";
+  const first = v.split(/[.;]/)[0].trim();
+  return first.length <= 18 ? first : first.slice(0, 16).trimEnd() + "…";
+}
+function statCard(glyph, label, result, detail = "") {
+  const card = el("div", null, "spot-stat");
+  const iconNode = el("span", glyph, "spot-stat-icon");
+  iconNode.setAttribute("aria-hidden", "true");
+  card.append(
+    iconNode,
+    el("span", label, "spot-stat-label"),
+    el("strong", result || "—", "spot-stat-result"),
+  );
+  if (detail) card.title = detail;
+  return card;
+}
 function cardArtwork(s) {
   const art = el("span", spotGlyph(s.type), `spot-art ${s.type}`);
   art.setAttribute("aria-hidden", "true");
@@ -211,45 +231,92 @@ function showSpot(s) {
   const title = el("h2", s.name);
   title.id = "spot-title";
   const lede = el("p", s.description, "detail-lede");
-  const quick = el("section", null, "spot-quick-grid");
+  const quick = el("section", null, "spot-quick-grid spot-stat-grid");
   quick.setAttribute("aria-label", "Spot information");
   quick.append(
+    statCard("🚻", "Toilets", shortResult(s.facilities), s.facilities),
+    statCard("↗", "Access", shortResult(s.access), s.access),
+    statCard("P", "Parking", shortResult(s.parking), s.parking),
+    statCard("!", "Hazards", shortResult(s.hazards, "Check"), s.hazards),
+    statCard("⌖", "Location", s.region, s.coordinates.join(", ")),
+  );
+  const essentials = el("section", null, "spot-essentials");
+  essentials.append(
+    el("h3", "Know before you go"),
     infoDisclosure("Access", "↗", s.access),
     infoDisclosure("Parking", "P", s.parking),
     infoDisclosure("Facilities", "⌂", s.facilities),
     infoDisclosure("Hazards", "!", s.hazards, "hazard"),
+    infoDisclosure(
+      "Location",
+      "⌖",
+      `${s.coordinates.join(", ")} · approximate, not a verified water-entry point`,
+    ),
   );
-  const locationDetails = infoDisclosure(
-    "Location",
-    "⌖",
-    `${s.coordinates.join(", ")} · approximate, not a verified water-entry point`,
-  );
-  quick.append(locationDetails);
-  content.append(detailArtwork(s), meta, title, lede, quick);
+  content.append(detailArtwork(s), meta, title, lede, quick, essentials);
   const feedPanel = el("div", null, "spot-feeds");
   content.append(feedPanel);
   disposeConditions = mountConditions(feedPanel, s);
-  const actions = el("div", null, "detail-actions");
-  const source = link("Check water quality ↗", s.conditionsSource.url);
-  source.className = "primary";
-  const bookmark = el(
-    "button",
-    state.saved.includes(s.id) ? "★ Saved" : "☆ Save spot",
-    "outline",
-  );
+  const actions = el("div", null, "detail-actions icon-actions");
+  const source = link("Water quality", s.conditionsSource.url);
+  source.className = "spot-action";
+  source.prepend(el("span", "💧", "spot-action-icon"));
+
+  const bookmark = el("button", null, "spot-action");
+  const setBookmarkLabel = () => {
+    bookmark.replaceChildren(
+      el("span", state.saved.includes(s.id) ? "★" : "☆", "spot-action-icon"),
+      el("span", state.saved.includes(s.id) ? "Saved" : "Save"),
+    );
+  };
+  setBookmarkLabel();
   bookmark.onclick = () => {
     save(s.id);
-    bookmark.textContent = state.saved.includes(s.id)
-      ? "★ Saved"
-      : "☆ Save spot";
+    setBookmarkLabel();
   };
-  const contribute = el("button", "Add photo or local knowledge", "outline");
+
+  const share = el("button", null, "spot-action");
+  share.append(el("span", "↗", "spot-action-icon"), el("span", "Share"));
+  share.onclick = async () => {
+    const url = new URL(location.href);
+    url.hash = `spot=${encodeURIComponent(s.id)}`;
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: s.name, text: `Swim spot: ${s.name}`, url: url.href });
+      } else if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(url.href);
+        openSiteInfo("Share", "Spot link copied to your clipboard.");
+      } else {
+        openSiteInfo("Share", url.href);
+      }
+    } catch {}
+  };
+
+  const contribute = el("button", null, "spot-action");
+  contribute.append(el("span", "＋", "spot-action-icon"), el("span", "Contribute"));
   contribute.onclick = () => {
     document.dispatchEvent(
       new CustomEvent("swimspots:edit-spot", { detail: s }),
     );
   };
-  actions.append(source, bookmark, contribute);
+
+  const report = el("button", null, "spot-action");
+  report.append(el("span", "⚑", "spot-action-icon"), el("span", "Report"));
+  report.onclick = () =>
+    openSiteInfo(
+      "Report an issue",
+      `Tell us what looks wrong with ${s.name}. A dedicated report form is planned; for now use Contact so we know which listing needs attention.`,
+    );
+
+  const premium = el("button", null, "spot-action premium-action");
+  premium.append(el("span", "♛", "spot-action-icon"), el("span", "Pro"));
+  premium.onclick = () =>
+    openSiteInfo(
+      "Swimspots Pro",
+      "Premium condition tools are planned. Core safety information and source limitations will remain visible to everyone.",
+    );
+
+  actions.append(source, bookmark, share, report, premium, contribute);
   content.append(actions);
   const more = el("details", null, "detail-more");
   const moreSummary = el("summary");
@@ -292,8 +359,15 @@ function showSpot(s) {
     }
   };
   if (map) content.append(show);
-  if (!$("#spot-dialog").open) $("#spot-dialog").showModal();
-  $("#spot-dialog").scrollTop = 0;
+  const dialog = $("#spot-dialog");
+  dialog.classList.remove("is-collapsed");
+  $("#spot-sheet-handle")?.setAttribute("aria-expanded", "true");
+  if ($("#spot-sheet-toggle")) {
+    $("#spot-sheet-toggle").textContent = "⌄";
+    $("#spot-sheet-toggle").setAttribute("aria-label", "Collapse spot details");
+  }
+  if (!dialog.open) dialog.showModal();
+  dialog.scrollTop = 0;
   history.replaceState(null, "", `#spot=${encodeURIComponent(s.id)}`);
 }
 function reset() {
@@ -440,6 +514,46 @@ $("#spot-dialog").addEventListener("close", () => {
   disposeConditions();
   history.replaceState(null, "", location.pathname + location.search);
 });
+
+function setSpotSheetCollapsed(collapsed) {
+  const dialog = $("#spot-dialog");
+  dialog.classList.toggle("is-collapsed", collapsed);
+  $("#spot-sheet-handle")?.setAttribute("aria-expanded", String(!collapsed));
+  const toggle = $("#spot-sheet-toggle");
+  if (toggle) {
+    toggle.textContent = collapsed ? "⌃" : "⌄";
+    toggle.setAttribute("aria-label", collapsed ? "Expand spot details" : "Collapse spot details");
+  }
+  if (collapsed) dialog.scrollTop = 0;
+}
+$("#spot-sheet-handle")?.addEventListener("click", () =>
+  setSpotSheetCollapsed(!$("#spot-dialog").classList.contains("is-collapsed")),
+);
+$("#spot-sheet-toggle")?.addEventListener("click", () =>
+  setSpotSheetCollapsed(!$("#spot-dialog").classList.contains("is-collapsed")),
+);
+
+let sheetTouchStart = null;
+$("#spot-sheet-handle")?.addEventListener(
+  "touchstart",
+  (event) => {
+    sheetTouchStart = event.touches[0]?.clientY ?? null;
+  },
+  { passive: true },
+);
+$("#spot-sheet-handle")?.addEventListener(
+  "touchend",
+  (event) => {
+    if (sheetTouchStart == null) return;
+    const end = event.changedTouches[0]?.clientY ?? sheetTouchStart;
+    const delta = end - sheetTouchStart;
+    if (delta > 36) setSpotSheetCollapsed(true);
+    if (delta < -36) setSpotSheetCollapsed(false);
+    sheetTouchStart = null;
+  },
+  { passive: true },
+);
+
 mountSubmission();
 async function init() {
   try {
