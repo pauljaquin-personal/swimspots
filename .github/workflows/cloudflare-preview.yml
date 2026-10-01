@@ -1,3 +1,4 @@
+# Preview deployment for UI review only; production is unchanged.
 name: Cloudflare PR Preview
 
 on:
