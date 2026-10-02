@@ -2538,3 +2538,68 @@ body.planner-layout > #contribute.floating-contribute {
 }
 
 /* Worker Preview trigger */
+
+
+/* Mobile thumb-reach refinement ------------------------------------------------
+   Keep primary search/actions low, move Add Spot high, and pin attribution to
+   the true map edge. Desktop layout is unchanged.
+------------------------------------------------------------------------------- */
+@media (max-width: 780px) {
+  /* Add spot: top-right, paired visually with the brand rather than the bottom UI. */
+  body.planner-layout > #contribute.floating-contribute {
+    top: calc(10px + env(safe-area-inset-top));
+    right: 10px;
+    bottom: auto;
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+  }
+
+  /* Search/location/layers: thumb zone at the bottom, above attribution. */
+  body.planner-layout .sidebar {
+    inset: auto 10px calc(30px + env(safe-area-inset-bottom)) 10px;
+  }
+
+  body.planner-layout .search-toolbar {
+    align-items: end;
+  }
+
+  body.planner-layout .search-row,
+  body.planner-layout .map-tool {
+    box-shadow: 0 8px 28px rgba(18,54,62,.18);
+  }
+
+  /* Layers opens upward from the bottom search controls. */
+  body.planner-layout .layers-panel {
+    top: auto;
+    bottom: calc(92px + env(safe-area-inset-bottom));
+  }
+
+  /* Keep geolocation feedback immediately above the search controls. */
+  body.planner-layout #location-status {
+    position: absolute;
+    left: 0;
+    bottom: 56px;
+    margin: 0;
+  }
+
+  /* Leaflet attribution belongs on the literal map edge. */
+  .leaflet-control-attribution {
+    position: fixed !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    margin: 0 !important;
+    padding: 2px 5px !important;
+    z-index: 1200 !important;
+    max-width: calc(100vw - 8px);
+    line-height: 1.2 !important;
+    border-radius: 5px 0 0 0;
+    background: rgba(255,255,255,.88) !important;
+  }
+
+  /* Zoom controls clear the bottom search bar and attribution. */
+  .leaflet-control-zoom {
+    margin-bottom: calc(112px + env(safe-area-inset-bottom)) !important;
+  }
+}
+
