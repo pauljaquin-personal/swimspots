@@ -2603,3 +2603,31 @@ body.planner-layout > #contribute.floating-contribute {
   }
 }
 
+
+
+/* Spot type is now communicated by subtle colour, not text labels. */
+#spot-content .detail-meta {
+  min-height: 10px;
+  margin: 2px 0 0;
+}
+#spot-content .detail-meta .listing-status {
+  font-size: 10px;
+  padding: 4px 7px;
+}
+.spot-stat-grid.water-type-lake .spot-stat {
+  background: #f4fbfd;
+  border-color: #cfe7ec;
+}
+.spot-stat-grid.water-type-river .spot-stat {
+  background: #f4faf7;
+  border-color: #d3e7dc;
+}
+.spot-stat-grid.water-type-sea .spot-stat {
+  background: #f3f8fc;
+  border-color: #cfdfea;
+}
+.spot-stat-grid.water-type-pool .spot-stat {
+  background: #f7f6fb;
+  border-color: #dfd9ec;
+}
+
