@@ -216,29 +216,26 @@ function showSpot(s) {
   disposeConditions();
   const content = $("#spot-content");
   content.replaceChildren();
-  const meta = el("div", null, "detail-meta");
+  const meta = el("div", null, `detail-meta water-type-${s.type}`);
   meta.append(
-    el("span", s.type.toUpperCase(), "badge"),
-    el("span", s.region, "badge"),
     el(
       "span",
       s.listingStatus === "community-reviewed"
-        ? "Community location · reviewed"
-        : "Starter listing · verification pending",
-      "badge",
+        ? "Reviewed"
+        : "Verification pending",
+      "badge listing-status",
     ),
   );
   const title = el("h2", s.name);
   title.id = "spot-title";
   const lede = el("p", s.description, "detail-lede");
-  const quick = el("section", null, "spot-quick-grid spot-stat-grid");
+  const quick = el("section", null, `spot-quick-grid spot-stat-grid water-type-${s.type}`);
   quick.setAttribute("aria-label", "Spot information");
   quick.append(
     statCard("🚻", "Toilets", shortResult(s.facilities), s.facilities),
     statCard("↗", "Access", shortResult(s.access), s.access),
     statCard("P", "Parking", shortResult(s.parking), s.parking),
     statCard("!", "Hazards", shortResult(s.hazards, "Check"), s.hazards),
-    statCard("⌖", "Location", s.region, s.coordinates.join(", ")),
   );
   const essentials = el("section", null, "spot-essentials");
   essentials.append(
@@ -247,11 +244,6 @@ function showSpot(s) {
     infoDisclosure("Parking", "P", s.parking),
     infoDisclosure("Facilities", "⌂", s.facilities),
     infoDisclosure("Hazards", "!", s.hazards, "hazard"),
-    infoDisclosure(
-      "Location",
-      "⌖",
-      `${s.coordinates.join(", ")} · approximate, not a verified water-entry point`,
-    ),
   );
   content.append(detailArtwork(s), meta, title, lede, quick, essentials);
   const feedPanel = el("div", null, "spot-feeds");
