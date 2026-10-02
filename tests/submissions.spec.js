@@ -57,7 +57,7 @@ for (const sourceUrl of ["", "https://www.orc.govt.nz/"]) {
     await expect(
       page.getByText("Community location · reviewed", { exact: true }),
     ).toHaveCount(1);
-    await page.getByText("More about this spot", { exact: true }).click();
+    await page.getByText("About this listing", { exact: true }).click();
     const credit = page.locator("#spot-content").getByRole("link", { name: "Community submission · reviewed" });
     await expect(credit).toHaveCount(sourceUrl ? 1 : 0);
     if (sourceUrl) await expect(credit).toHaveAttribute("href", sourceUrl);
