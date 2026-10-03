@@ -290,3 +290,102 @@ export async function getConditions(
   ]);
   return { schemaVersion: 1, spotId: spot.id, weather, marine };
 }
+
+
+const LAWA_GRADES = ["Excellent", "Good", "Fair", "Poor"];
+const LAWA_RESULTS = [
+  "Suitable for swimming",
+  "Unsuitable for swimming",
+  "Caution advised",
+  "Good",
+  "Fair",
+  "Poor",
+  "Excellent",
+];
+
+function decodeHtml(value) {
+  return String(value || "")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&#39;/gi, "'")
+    .replace(/&quot;/gi, '"');
+}
+
+export function parseLawaSwimHtml(html) {
+  const text = decodeHtml(
+    String(html || "")
+      .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ")
+      .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ")
+      .replace(/<[^>]+>/g, " "),
+  ).replace(/\s+/g, " ").trim();
+
+  let longTermGrade = null;
+  const gradeMatch = text.match(
+    new RegExp(`\\b(${LAWA_GRADES.join("|")})\\s+Long[- ]term grade\\b`, "i"),
+  );
+  if (gradeMatch) {
+    longTermGrade = LAWA_GRADES.find(
+      (g) => g.toLowerCase() === gradeMatch[1].toLowerCase(),
+    ) || gradeMatch[1];
+  }
+
+  let latestResult = null;
+  const labelledPatterns = [
+    /Latest\s+(?:water\s+quality\s+)?result\s*[:–-]?\s*(Suitable for swimming|Unsuitable for swimming|Caution advised|Excellent|Good|Fair|Poor)/i,
+    /(Suitable for swimming|Unsuitable for swimming|Caution advised)\s+(?:Latest\s+result|Issued:|Predicted water quality:)/i,
+  ];
+  for (const pattern of labelledPatterns) {
+    const match = text.match(pattern);
+    if (match) {
+      latestResult = LAWA_RESULTS.find(
+        (r) => r.toLowerCase() === match[1].toLowerCase(),
+      ) || match[1];
+      break;
+    }
+  }
+
+  return { longTermGrade, latestResult };
+}
+
+export async function fetchLawaSwim(
+  spot,
+  { fetchImpl = fetch, timeoutMs = 8000 } = {},
+) {
+  const siteId = Number(spot?.lawa?.siteId);
+  if (!Number.isInteger(siteId) || siteId <= 0)
+    return { status: "unavailable", longTermGrade: null, latestResult: null };
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  const sourceUrl =
+    spot.lawa?.embedUrl ||
+    `https://embed.lawa.org.nz/swim/iframe/medium/550/500/${siteId}/`;
+
+  try {
+    const response = await fetchImpl(sourceUrl, {
+      signal: controller.signal,
+      headers: { Accept: "text/html,application/xhtml+xml" },
+    });
+    if (!response.ok) throw new Error("LAWA unavailable");
+    const parsed = parseLawaSwimHtml(await response.text());
+    return {
+      status:
+        parsed.longTermGrade || parsed.latestResult ? "available" : "unavailable",
+      sourceUrl: spot.conditionsSource?.url || sourceUrl,
+      fetchedAt: new Date().toISOString(),
+      ...parsed,
+    };
+  } catch {
+    return {
+      status: "unavailable",
+      sourceUrl: spot.conditionsSource?.url || sourceUrl,
+      fetchedAt: null,
+      longTermGrade: null,
+      latestResult: null,
+    };
+  } finally {
+    clearTimeout(timer);
+  }
+}
