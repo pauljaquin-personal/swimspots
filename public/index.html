@@ -2,7 +2,7 @@
 <html lang="en-NZ">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, interactive-widget=resizes-content" />
     <title>Swim Spots — Find your next swim</title>
     <meta
       name="description"
@@ -52,19 +52,16 @@
                 <button id="reset" class="search-reset" aria-label="Reset search and filters" title="Reset">×</button>
               </div>
               <button id="near" class="map-tool" aria-label="Centre map on my location" title="My location">◎</button>
-              <button id="layers-toggle" class="map-tool" aria-label="Choose water types" aria-expanded="false" title="Layers">▱</button>
+              <button id="layers-toggle" class="map-tool" aria-label="Choose map layers" aria-expanded="false" title="Layers">▱</button>
             </div>
             <div id="layers-panel" class="layers-panel" hidden>
-              <div class="filters" aria-label="Water type">
-                <button data-type="all" aria-pressed="true">All</button
-                ><button data-type="lake" aria-pressed="false">Lakes</button
-                ><button data-type="river" aria-pressed="false">Rivers</button
-                ><button data-type="sea" aria-pressed="false">Sea</button
-                ><button data-type="pool" aria-pressed="false">Pools</button
-                ><button id="saved" class="layers-saved" aria-pressed="false">
-                  ☆ Saved <span id="saved-count">0</span>
-                </button>
+              <div class="base-layer-options" aria-label="Base map">
+                <button data-basemap="map" aria-pressed="true">Map</button>
+                <button data-basemap="satellite" aria-pressed="false">Satellite</button>
               </div>
+              <button id="saved" class="layers-saved" aria-pressed="false">
+                ☆ Saved <span id="saved-count">0</span>
+              </button>
             </div>
             <p id="location-status" class="small" role="status"></p>
           </div>

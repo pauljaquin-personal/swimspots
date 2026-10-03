@@ -3296,3 +3296,175 @@ button.community-icon-item {
   }
 }
 
+
+
+/* UI cleanup round 2: search keyboard, quiet rows, tooltips, base layers */
+.quiet-detail-row {
+  border-top: 0 !important;
+  margin: 4px 0 0;
+}
+.quiet-detail-row > summary,
+.quiet-text-link {
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--teal);
+  text-decoration: none;
+  list-style: none;
+  cursor: pointer;
+}
+.quiet-detail-row > summary::-webkit-details-marker { display: none; }
+.quiet-detail-row > summary::marker { content: ""; }
+.quiet-detail-row > summary .disclosure-chevron,
+.quiet-detail-row > summary .condition-chevron {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 14px;
+  transition: transform .15s ease;
+}
+.quiet-detail-row[open] > summary .disclosure-chevron,
+.quiet-detail-row[open] > summary .condition-chevron {
+  transform: rotate(90deg);
+}
+.lawa-source-link.quiet-text-link {
+  width: 100%;
+  border: 0;
+  margin-top: 2px;
+}
+.leaflet-tooltip.spot-tooltip {
+  border: 1px solid #dbe4dc;
+  border-radius: 11px;
+  background: rgba(255,255,252,.96);
+  color: var(--ink);
+  box-shadow: 0 3px 14px rgba(24,63,60,.13);
+  padding: 6px 9px;
+  font-size: 11px;
+  font-weight: 650;
+}
+.leaflet-tooltip-top.spot-tooltip::before {
+  border-top-color: #dbe4dc;
+}
+.base-layer-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.base-layer-options button,
+.layers-panel .layers-saved {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  padding: 9px 11px;
+  font-size: 11px;
+}
+.base-layer-options button[aria-pressed="true"],
+.layers-panel .layers-saved[aria-pressed="true"] {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
+@media (max-width: 780px) {
+  body.search-is-focused .search-area {
+    position: fixed !important;
+    z-index: 10050 !important;
+    left: 10px !important;
+    right: 10px !important;
+    top: var(--search-focus-top, 12px) !important;
+    bottom: auto !important;
+    width: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+  }
+  body.search-is-focused .search-toolbar {
+    width: 100%;
+    box-shadow: 0 8px 24px rgba(24,63,60,.18);
+  }
+  body.search-is-focused #layers-panel,
+  body.search-is-focused #location-status {
+    display: none !important;
+  }
+}
+
+
+/* Minor UI refinements ----------------------------------------------------- */
+/* Keep keyboard focus behavior, but remove the orange ring from the search field only. */
+#search:focus,
+#search:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Text-only disclosure rows: label immediately followed by a chevron. */
+.quiet-detail-row {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+.quiet-detail-row > summary {
+  min-height: 0;
+  display: inline-flex;
+  width: auto;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+  padding: 6px 0;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.quiet-detail-row > summary .disclosure-chevron,
+.quiet-detail-row > summary .condition-chevron {
+  margin-left: 0;
+  display: inline-block;
+  transform: none;
+  transition: none;
+  font-size: 13px;
+  line-height: 1;
+}
+.quiet-detail-row[open] > summary .disclosure-chevron,
+.quiet-detail-row[open] > summary .condition-chevron {
+  transform: rotate(90deg);
+}
+
+/* Remove any inherited container treatment around the four disclosure rows. */
+.condition-details.quiet-detail-row,
+.detail-more.quiet-detail-row {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+}
+
+/* Carry the same soft fade language from the primary condition summary into
+   weather, sea, water-quality and community icon/result strips. */
+.forecast-24h-strip,
+.sea-condition-strip,
+.lawa-results,
+.community-icon-strip {
+  background: linear-gradient(
+    180deg,
+    rgba(35, 138, 160, .07),
+    rgba(35, 138, 160, .025)
+  );
+  border-radius: 12px;
+}
+.forecast-24h-strip {
+  padding: 10px 6px 8px;
+}
+.sea-condition-strip {
+  padding: 4px 5px;
+}
+.lawa-results {
+  padding: 3px 8px;
+}
+.community-icon-strip {
+  padding: 3px 4px;
+}

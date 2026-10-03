@@ -52,12 +52,10 @@ function metricCard(glyph, label, value, tone = "") {
   return c;
 }
 
-function detailsBlock(label, glyph) {
-  const details = el("details", null, "condition-details");
+function detailsBlock(label) {
+  const details = el("details", null, "condition-details quiet-detail-row");
   const summary = el("summary");
-  const icon = el("span", glyph, "condition-summary-icon");
-  icon.setAttribute("aria-hidden", "true");
-  summary.append(icon, el("span", label), el("span", "›", "condition-chevron"));
+  summary.append(el("span", label), el("span", "›", "condition-chevron"));
   details.append(summary);
   return details;
 }
@@ -107,7 +105,7 @@ function weatherView(feed) {
     return section;
   }
 
-  const more = detailsBlock("Weather details & forecast", "☼");
+  const more = detailsBlock("Weather details & forecast");
   more.append(
     el(
       "p",
@@ -210,7 +208,7 @@ function marineView(feed) {
   });
   section.append(seaStrip);
 
-  const more = detailsBlock("About sea conditions", "≈");
+  const more = detailsBlock("About sea conditions");
   more.append(
     el(
       "p",
@@ -260,13 +258,15 @@ function waterQualityView(spot) {
     resultItem("Latest result", "latestResult"),
   );
 
+  const lawaDetails = detailsBlock("LAWA");
   const source = external(
-    "LAWA ↗",
+    "Open LAWA ↗",
     spot.conditionsSource?.url || spot.lawa?.embedUrl || "https://www.lawa.org.nz/swim",
   );
   source.className = "lawa-source-link";
+  lawaDetails.append(source);
 
-  section.append(results, source);
+  section.append(results, lawaDetails);
 
   if (spot.lawa?.siteId) {
     fetch(`/api/lawa?spot=${encodeURIComponent(spot.id)}`)
@@ -302,7 +302,7 @@ export function mountConditions(container, spot, summaryContainer = null) {
   container.append(feeds, waterQualityView(spot));
 
   if (spot.council) {
-    const council = detailsBlock(spot.council.name, "i");
+    const council = detailsBlock(spot.council.name);
     council.classList.add("council-links");
     council.append(el("p", spot.council.note, "small"));
     for (const source of spot.council.links)

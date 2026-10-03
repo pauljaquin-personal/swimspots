@@ -13,7 +13,10 @@ const state = {
 let spots = [],
   map,
   markers,
-  userMarker;
+  userMarker,
+  mapTiles,
+  satelliteTiles,
+  activeBaseLayer = "map";
 let disposeConditions = () => {};
 try {
   const saved = JSON.parse(localStorage.getItem("swimspots:saved") || "[]");
@@ -209,7 +212,7 @@ function render() {
         }),
       })
         .addTo(markers)
-        .bindTooltip(el("span", s.name))
+        .bindTooltip(el("span", s.name), { className: "spot-tooltip", direction: "top", offset: [0, -12] })
         .on("click", () => showSpot(s));
       marker.getElement().setAttribute("aria-label", `View ${s.name} on map`);
     }
@@ -379,11 +382,10 @@ function showSpot(s) {
   community.append(communityActions);
   content.append(community);
 
-  const more = el("details", null, "detail-more");
+  const more = el("details", null, "detail-more quiet-detail-row");
   const moreSummary = el("summary");
-  moreSummary.append(icon("More about this spot", "⋯"), el("span", "›", "disclosure-chevron"));
+  moreSummary.append(el("span", "About this spot"), el("span", "›", "disclosure-chevron"));
   more.append(moreSummary);
-  more.append(el("h3", "About this listing"));
   const provenance = el("p");
   provenance.append(
     s.source.url
@@ -407,24 +409,7 @@ function showSpot(s) {
     more.append(communitySource);
   }
 
-  const premium = el("button", "Swimspots Pro · coming soon", "quiet-pro-action");
-  premium.onclick = () =>
-    openSiteInfo(
-      "Swimspots Pro",
-      "Premium condition tools are planned. Core safety information and source limitations will remain visible to everyone.",
-    );
-  more.append(premium);
-
   content.append(more);
-  const show = el("button", "Show on map", "primary");
-  show.onclick = () => {
-    $("#spot-dialog").close();
-    if (map) {
-      map.setView(s.coordinates, 13, { animate: false });
-      $("#map").scrollIntoView({ block: "center", behavior: "instant" });
-    }
-  };
-  if (map) content.append(show);
   const dialog = $("#spot-dialog");
   if (!dialog.open) dialog.showModal();
   dialog.scrollTop = 0;
@@ -453,11 +438,6 @@ function reset() {
   });
   $("#search").value = "";
   clearLocation({ refit: false });
-  document
-    .querySelectorAll("[data-type]")
-    .forEach((b) =>
-      b.setAttribute("aria-pressed", String(b.dataset.type === "all")),
-    );
   render();
   fit();
 }
@@ -466,17 +446,27 @@ $("#search").addEventListener("input", (e) => {
   render();
   fit();
 });
-document.querySelectorAll("[data-type]").forEach(
-  (b) =>
-    (b.onclick = () => {
-      state.type = b.dataset.type;
-      document
-        .querySelectorAll("[data-type]")
-        .forEach((t) => t.setAttribute("aria-pressed", String(t === b)));
-      render();
-      fit();
-    }),
-);
+
+function positionFocusedSearch() {
+  if (!window.matchMedia("(max-width: 780px)").matches) return;
+  const vv = window.visualViewport;
+  const toolbar = document.querySelector(".search-toolbar");
+  if (!vv || !toolbar) return;
+  const top = Math.max(8, vv.offsetTop + vv.height - toolbar.offsetHeight - 12);
+  document.documentElement.style.setProperty("--search-focus-top", `${Math.round(top)}px`);
+}
+$("#search").addEventListener("focus", () => {
+  document.body.classList.add("search-is-focused");
+  positionFocusedSearch();
+});
+$("#search").addEventListener("blur", () => {
+  setTimeout(() => {
+    document.body.classList.remove("search-is-focused");
+    document.documentElement.style.removeProperty("--search-focus-top");
+  }, 120);
+});
+window.visualViewport?.addEventListener("resize", positionFocusedSearch);
+window.visualViewport?.addEventListener("scroll", positionFocusedSearch);
 $("#reset").onclick = reset;
 $("#saved").onclick = () => {
   state.savedOnly = !state.savedOnly;
@@ -550,6 +540,21 @@ $("#layers-toggle").onclick = () => {
   panel.hidden = !open;
   $("#layers-toggle").setAttribute("aria-expanded", String(open));
 };
+
+document.querySelectorAll("[data-basemap]").forEach((button) => {
+  button.onclick = () => {
+    const requested = button.dataset.basemap;
+    if (!map || requested === activeBaseLayer) return;
+    if (activeBaseLayer === "map") map.removeLayer(mapTiles);
+    if (activeBaseLayer === "satellite") map.removeLayer(satelliteTiles);
+    activeBaseLayer = requested;
+    (requested === "satellite" ? satelliteTiles : mapTiles).addTo(map);
+    document.querySelectorAll("[data-basemap]").forEach((item) =>
+      item.setAttribute("aria-pressed", String(item === button)),
+    );
+    markers?.bringToFront?.();
+  };
+});
 
 function openSiteInfo(title, body) {
   const dialog = $("#site-info-dialog");
@@ -651,7 +656,7 @@ async function init() {
         maxZoom: 17,
       }).setView([-41, 173], 5);
       L.control.zoom({ position: "bottomright" }).addTo(map);
-      const tiles = L.tileLayer(
+      mapTiles = L.tileLayer(
         "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
         {
           maxZoom: 19,
@@ -659,11 +664,21 @@ async function init() {
             '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         },
       ).addTo(map);
-      tiles.on("tileerror", () => {
+      satelliteTiles = L.tileLayer(
+        "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        {
+          maxZoom: 19,
+          attribution:
+            'Tiles © <a href="https://www.esri.com/">Esri</a> and imagery contributors',
+        },
+      );
+      const handleTileError = () => {
         $("#map-status").hidden = false;
         $("#map-status").textContent =
           "Some map tiles could not load. You can still browse and search the spot list.";
-      });
+      };
+      mapTiles.on("tileerror", handleTileError);
+      satelliteTiles.on("tileerror", handleTileError);
       markers = L.layerGroup().addTo(map);
     } else {
       $("#map-status").hidden = false;
