@@ -330,7 +330,9 @@ test("nearest toilet lookup selects the closest OSM toilet", async () => {
   const result = await fetchNearestToilet(
     { coordinates: [-45.0347, 168.66] },
     {
-      fetchImpl: async (_url, init) => {
+      fetchImpl: async (url, init) => {
+        if (String(url).includes("gis.qldc.govt.nz"))
+          return Response.json({ features: [] });
         assert.equal(init.method, "POST");
         return Response.json({
           elements: [
@@ -366,6 +368,8 @@ test("nearest toilet lookup falls back to a second Overpass endpoint", async () 
     {
       endpoints: ["https://one.example/api", "https://two.example/api"],
       fetchImpl: async (url) => {
+        if (String(url).includes("gis.qldc.govt.nz"))
+          return Response.json({ features: [] });
         calls.push(String(url));
         if (calls.length === 1) return new Response("", { status: 503 });
         return Response.json({
@@ -393,7 +397,10 @@ test("nearest toilet lookup distinguishes none found from provider failure", asy
     { coordinates: [-45.0347, 168.66] },
     {
       endpoints: ["https://one.example/api"],
-      fetchImpl: async () => Response.json({ elements: [] }),
+      fetchImpl: async (url) =>
+        String(url).includes("gis.qldc.govt.nz")
+          ? Response.json({ features: [] })
+          : Response.json({ elements: [] }),
     },
   );
   assert.equal(none.status, "none-found");
