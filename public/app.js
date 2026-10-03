@@ -312,36 +312,40 @@ function showSpot(s) {
   const feedPanel = el("div", null, "spot-feeds");
   content.append(feedPanel);
   disposeConditions = mountConditions(feedPanel, s, conditionSummary);
-  const community = el("section", null, "spot-community");
+  const community = el("section", null, "feed-section compact-feed spot-community");
   community.append(el("h3", "Community"));
 
-  const communityActions = el("div", null, "detail-actions icon-actions community-actions");
+  const communityActions = el("div", null, "community-icon-strip");
 
-  const routes = el("button", null, "spot-action community-route-action");
-  routes.append(
-    el("span", "↝", "spot-action-icon"),
-    el("span", "Swim routes"),
-    el("small", "Coming soon"),
-  );
-  routes.disabled = true;
-  routes.setAttribute("aria-disabled", "true");
-
-  const bookmark = el("button", null, "spot-action");
-  const setBookmarkLabel = () => {
-    bookmark.replaceChildren(
-      el("span", state.saved.includes(s.id) ? "★" : "☆", "spot-action-icon"),
-      el("span", state.saved.includes(s.id) ? "Saved" : "Save"),
+  const communityItem = (glyph, label, note = "", onClick = null, disabled = false) => {
+    const item = el(onClick ? "button" : "div", null, "community-icon-item");
+    if (onClick) {
+      item.type = "button";
+      item.onclick = onClick;
+    }
+    if (disabled) {
+      item.setAttribute("aria-disabled", "true");
+      item.classList.add("is-disabled");
+    }
+    item.append(
+      el("span", glyph, "community-icon"),
+      el("span", label, "community-icon-label"),
     );
-  };
-  setBookmarkLabel();
-  bookmark.onclick = () => {
-    save(s.id);
-    setBookmarkLabel();
+    if (note) item.append(el("small", note, "community-icon-note"));
+    return item;
   };
 
-  const share = el("button", null, "spot-action");
-  share.append(el("span", "↗", "spot-action-icon"), el("span", "Share"));
-  share.onclick = async () => {
+  const bookmark = communityItem(
+    state.saved.includes(s.id) ? "★" : "☆",
+    state.saved.includes(s.id) ? "Saved" : "Save",
+    "",
+    () => {
+      save(s.id);
+      showSpot(s);
+    },
+  );
+
+  const share = communityItem("↗", "Share", "", async () => {
     const url = new URL(location.href);
     url.hash = `spot=${encodeURIComponent(s.id)}`;
     try {
@@ -354,23 +358,22 @@ function showSpot(s) {
         openSiteInfo("Share", url.href);
       }
     } catch {}
-  };
+  });
 
-  const contribute = el("button", null, "spot-action");
-  contribute.append(el("span", "＋", "spot-action-icon"), el("span", "Contribute"));
-  contribute.onclick = () => {
+  const contribute = communityItem("＋", "Contribute", "", () => {
     document.dispatchEvent(
       new CustomEvent("swimspots:edit-spot", { detail: s }),
     );
-  };
+  });
 
-  const report = el("button", null, "spot-action");
-  report.append(el("span", "⚑", "spot-action-icon"), el("span", "Report"));
-  report.onclick = () =>
+  const report = communityItem("⚑", "Report", "", () =>
     openSiteInfo(
       "Report an issue",
       `Tell us what looks wrong with ${s.name}. A dedicated report form is planned; for now use Contact so we know which listing needs attention.`,
-    );
+    ),
+  );
+
+  const routes = communityItem("↝", "Swim routes", "Coming soon", null, true);
 
   communityActions.append(routes, contribute, bookmark, share, report);
   community.append(communityActions);
