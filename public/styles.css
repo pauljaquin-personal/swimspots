@@ -3391,3 +3391,80 @@ button.community-icon-item {
     display: none !important;
   }
 }
+
+
+/* Minor UI refinements ----------------------------------------------------- */
+/* Keep keyboard focus behavior, but remove the orange ring from the search field only. */
+#search:focus,
+#search:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Text-only disclosure rows: label immediately followed by a chevron. */
+.quiet-detail-row {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+.quiet-detail-row > summary {
+  min-height: 0;
+  display: inline-flex;
+  width: auto;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+  padding: 6px 0;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.quiet-detail-row > summary .disclosure-chevron,
+.quiet-detail-row > summary .condition-chevron {
+  margin-left: 0;
+  display: inline-block;
+  transform: none;
+  transition: none;
+  font-size: 13px;
+  line-height: 1;
+}
+.quiet-detail-row[open] > summary .disclosure-chevron,
+.quiet-detail-row[open] > summary .condition-chevron {
+  transform: rotate(90deg);
+}
+
+/* Remove any inherited container treatment around the four disclosure rows. */
+.condition-details.quiet-detail-row,
+.detail-more.quiet-detail-row {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+}
+
+/* Carry the same soft fade language from the primary condition summary into
+   weather, sea, water-quality and community icon/result strips. */
+.forecast-24h-strip,
+.sea-condition-strip,
+.lawa-results,
+.community-icon-strip {
+  background: linear-gradient(
+    180deg,
+    rgba(35, 138, 160, .07),
+    rgba(35, 138, 160, .025)
+  );
+  border-radius: 12px;
+}
+.forecast-24h-strip {
+  padding: 10px 6px 8px;
+}
+.sea-condition-strip {
+  padding: 4px 5px;
+}
+.lawa-results {
+  padding: 3px 8px;
+}
+.community-icon-strip {
+  padding: 3px 4px;
+}
