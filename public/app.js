@@ -65,12 +65,13 @@ function statCard(glyph, label, result, detail = "") {
   const card = el("div", null, "spot-stat");
   const iconNode = el("span", glyph, "spot-stat-icon");
   iconNode.setAttribute("aria-hidden", "true");
-  card.append(
-    iconNode,
-    el("span", label, "spot-stat-label"),
-    el("strong", result || "—", "spot-stat-result"),
-  );
-  if (detail) card.title = detail;
+  const labelNode = el("span", label, "spot-stat-label");
+  const resultNode = el("strong", result || "—", "spot-stat-result");
+  card.append(iconNode, labelNode, resultNode);
+  if (detail) {
+    card.title = detail;
+    card.setAttribute("aria-label", `${label}: ${result || "Unavailable"}`);
+  }
   return card;
 }
 function cardArtwork(s) {
@@ -234,8 +235,8 @@ function showSpot(s) {
   quick.append(
     statCard("🚻", "Toilets", shortResult(s.facilities), s.facilities),
     statCard("↗", "Access", shortResult(s.access), s.access),
-    statCard("P", "Parking", shortResult(s.parking), s.parking),
-    statCard("!", "Hazards", shortResult(s.hazards, "Check"), s.hazards),
+    statCard("Ⓟ", "Parking", shortResult(s.parking), s.parking),
+    statCard("⚠", "Hazards", shortResult(s.hazards, "Check"), s.hazards),
   );
   const essentials = el("section", null, "spot-essentials");
   essentials.append(
