@@ -2605,61 +2605,96 @@ body.planner-layout > #contribute.floating-contribute {
 
 
 
-/* Spot type is communicated by colour, not repeated text labels. */
+/* Spot cards: filled water-type colour, icon-first layout. */
 #spot-content .detail-meta {
-  min-height: 10px;
-  margin: 2px 0 0;
+  min-height: 8px;
+  margin: 0;
 }
 #spot-content .detail-meta .listing-status {
   font-size: 10px;
   padding: 4px 7px;
 }
-.spot-stat-grid .spot-stat {
-  position: relative;
-  overflow: hidden;
-  border-width: 1px;
+
+.spot-stat-grid {
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 10px;
+  margin: 12px 0 16px;
 }
-.spot-stat-grid .spot-stat::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 5px;
-  border-radius: 17px 0 0 17px;
+.spot-stat {
+  min-height: 112px;
+  padding: 14px 8px 12px;
+  border: 0;
+  border-radius: 19px;
+  box-shadow: 0 6px 18px rgba(20,54,62,.10);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.spot-stat-icon {
+  min-height: 32px;
+  display: grid;
+  place-items: center;
+  font-size: 27px;
+  line-height: 1;
+  color: #fff;
+}
+.spot-stat-label {
+  margin-top: 8px;
+  font-size: 11px;
+  font-weight: 650;
+  color: rgba(255,255,255,.82);
+}
+.spot-stat-result {
+  width: 100%;
+  margin-top: 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 760;
+  color: #fff;
 }
 
-/* Lake = Swimspots teal */
+/* Fill the whole card with the same type colour used by the map vocabulary. */
 .spot-stat-grid.water-type-lake .spot-stat {
-  background: #e7f6f8;
-  border-color: #9fd4dd;
-}
-.spot-stat-grid.water-type-lake .spot-stat::before {
   background: #238aa0;
 }
-
-/* River = existing map-marker green */
 .spot-stat-grid.water-type-river .spot-stat {
-  background: #eef4e9;
-  border-color: #b9caa8;
-}
-.spot-stat-grid.water-type-river .spot-stat::before {
   background: #6f8854;
 }
-
-/* Sea = existing map-marker blue */
 .spot-stat-grid.water-type-sea .spot-stat {
-  background: #e8f1f5;
-  border-color: #a8c7d2;
-}
-.spot-stat-grid.water-type-sea .spot-stat::before {
   background: #337e96;
 }
-
-/* Pool = distinct but quiet violet */
 .spot-stat-grid.water-type-pool .spot-stat {
-  background: #f0edf7;
-  border-color: #c9bfdf;
-}
-.spot-stat-grid.water-type-pool .spot-stat::before {
   background: #7865a8;
 }
 
+/* Remove the old accent-strip treatment entirely. */
+.spot-stat-grid .spot-stat::before { content: none !important; }
+
+@media (max-width: 780px) {
+  .spot-stat-grid {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 9px;
+  }
+  .spot-stat {
+    min-height: 104px;
+    padding: 12px 8px 11px;
+  }
+  .spot-stat-icon { font-size: 26px; }
+  .spot-stat-label { font-size: 11px; }
+  .spot-stat-result { font-size: 14px; }
+}
+
+
+
+/* Authoritative icon-heavy card sizing override. */
+@media (max-width: 780px) {
+  .spot-stat-grid { grid-template-columns: repeat(2,minmax(0,1fr)) !important; }
+  .spot-stat, .spot-stat:nth-child(n+4) {
+    min-height: 104px !important;
+    padding: 12px 8px 11px !important;
+  }
+}
