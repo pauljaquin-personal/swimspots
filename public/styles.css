@@ -2698,3 +2698,99 @@ body.planner-layout > #contribute.floating-contribute {
     padding: 12px 8px 11px !important;
   }
 }
+
+
+/* Primary condition summary --------------------------------------------------
+   Inspired by Strava/Komoot: informational stats, not buttons.
+---------------------------------------------------------------------------- */
+.spot-condition-summary {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: 0;
+  margin: 16px 0 20px;
+  padding: 2px 0 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+.condition-summary-item {
+  position: relative;
+  min-width: 0;
+  padding: 6px 10px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.condition-summary-item + .condition-summary-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 16%;
+  bottom: 16%;
+  width: 1px;
+  background: rgba(21,56,59,.10);
+}
+.condition-summary-icon {
+  min-height: 28px;
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  line-height: 1;
+}
+.condition-summary-label {
+  margin-top: 7px;
+  color: var(--ss-muted);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.15;
+}
+.condition-summary-value {
+  margin-top: 4px;
+  color: var(--ss-ink);
+  font-size: 17px;
+  line-height: 1.05;
+  font-weight: 760;
+  letter-spacing: -.02em;
+}
+
+/* A very light type tint behind the whole summary, never individual buttons. */
+.spot-condition-summary.water-type-lake {
+  background: linear-gradient(180deg,rgba(35,138,160,.07),rgba(35,138,160,.025));
+  border-radius: 18px;
+}
+.spot-condition-summary.water-type-river {
+  background: linear-gradient(180deg,rgba(111,136,84,.07),rgba(111,136,84,.025));
+  border-radius: 18px;
+}
+.spot-condition-summary.water-type-sea {
+  background: linear-gradient(180deg,rgba(51,126,150,.07),rgba(51,126,150,.025));
+  border-radius: 18px;
+}
+.spot-condition-summary.water-type-pool {
+  background: linear-gradient(180deg,rgba(120,101,168,.07),rgba(120,101,168,.025));
+  border-radius: 18px;
+}
+
+/* Facilities now read as secondary content rather than top-level cards. */
+.spot-stat-grid { display: none !important; }
+
+@media (max-width: 780px) {
+  .spot-condition-summary {
+    grid-template-columns: repeat(4,minmax(0,1fr));
+    margin: 12px -2px 18px;
+  }
+  .condition-summary-item {
+    padding: 8px 5px 9px;
+  }
+  .condition-summary-icon {
+    font-size: 22px;
+  }
+  .condition-summary-label {
+    font-size: 9.5px;
+  }
+  .condition-summary-value {
+    font-size: 15px;
+  }
+}
+
