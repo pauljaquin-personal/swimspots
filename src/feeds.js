@@ -389,3 +389,111 @@ export async function fetchLawaSwim(
     clearTimeout(timer);
   }
 }
+
+
+const OVERPASS_URL = "https://overpass-api.de/api/interpreter";
+
+function radians(value) {
+  return (value * Math.PI) / 180;
+}
+
+export function distanceMetres(a, b) {
+  const R = 6371000;
+  const lat1 = radians(a[0]);
+  const lat2 = radians(b[0]);
+  const dLat = radians(b[0] - a[0]);
+  const dLon = radians(b[1] - a[1]);
+  const h =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
+  return 2 * R * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h));
+}
+
+function toiletName(tags = {}) {
+  return (
+    tags.name ||
+    tags["toilets:name"] ||
+    tags.operator ||
+    tags.location ||
+    "Public toilet"
+  );
+}
+
+export async function fetchNearestToilet(
+  spot,
+  { fetchImpl = fetch, timeoutMs = 8000, radius = 10000 } = {},
+) {
+  const [lat, lon] = spot.coordinates || [];
+  if (!finite(lat) || !finite(lon))
+    return { status: "unavailable", toilet: null };
+
+  const query = `
+[out:json][timeout:7];
+(
+  node["amenity"="toilets"](around:${radius},${lat},${lon});
+  way["amenity"="toilets"](around:${radius},${lat},${lon});
+  relation["amenity"="toilets"](around:${radius},${lat},${lon});
+);
+out center tags;
+`;
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const response = await fetchImpl(OVERPASS_URL, {
+      method: "POST",
+      signal: controller.signal,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+        Accept: "application/json",
+      },
+      body: new URLSearchParams({ data: query }),
+    });
+    if (!response.ok) throw new Error("Toilet provider unavailable");
+    const data = await response.json();
+    const candidates = (data?.elements || [])
+      .map((element) => {
+        const tLat = element.lat ?? element.center?.lat;
+        const tLon = element.lon ?? element.center?.lon;
+        if (!finite(tLat) || !finite(tLon)) return null;
+        const distance = distanceMetres([lat, lon], [tLat, tLon]);
+        return {
+          osmType: element.type,
+          osmId: element.id,
+          name: toiletName(element.tags),
+          coordinates: [tLat, tLon],
+          distanceMetres: Math.round(distance),
+          accessible:
+            element.tags?.wheelchair === "yes"
+              ? true
+              : element.tags?.wheelchair === "no"
+                ? false
+                : null,
+        };
+      })
+      .filter(Boolean)
+      .sort((a, b) => a.distanceMetres - b.distanceMetres);
+
+    return {
+      status: candidates.length ? "available" : "unavailable",
+      source: {
+        name: "OpenStreetMap",
+        url: "https://www.openstreetmap.org/",
+        licence: "ODbL",
+      },
+      toilet: candidates[0] || null,
+    };
+  } catch {
+    return {
+      status: "unavailable",
+      source: {
+        name: "OpenStreetMap",
+        url: "https://www.openstreetmap.org/",
+        licence: "ODbL",
+      },
+      toilet: null,
+    };
+  } finally {
+    clearTimeout(timer);
+  }
+}
