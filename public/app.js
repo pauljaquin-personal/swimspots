@@ -275,12 +275,36 @@ function showSpot(s) {
   rainNote.dataset.hazardRain = "";
   hazardsBlock.append(rainNote);
 
+  const facilitiesBlock = infoBlock("Facilities", "⌂", s.facilities);
+  const toiletNote = el("p", "Nearest public toilet: checking…", "spot-facility-nearest");
+  facilitiesBlock.append(toiletNote);
+
+  fetch(`/api/nearest-toilet?spot=${encodeURIComponent(s.id)}`)
+    .then((response) => (response.ok ? response.json() : Promise.reject()))
+    .then((data) => {
+      if (!data?.toilet) {
+        toiletNote.textContent = "Nearest public toilet: unavailable.";
+        return;
+      }
+      const metres = Number(data.toilet.distanceMetres);
+      const distance =
+        metres >= 1000
+          ? `${(metres / 1000).toFixed(metres >= 10000 ? 0 : 1)} km`
+          : `${Math.max(10, Math.round(metres / 10) * 10)} m`;
+      toiletNote.textContent =
+        `Nearest public toilet: ${data.toilet.name} · about ${distance} away.`;
+      toiletNote.title = "Approximate straight-line distance from this swim-spot coordinate. Source: OpenStreetMap.";
+    })
+    .catch(() => {
+      toiletNote.textContent = "Nearest public toilet: unavailable.";
+    });
+
   essentials.append(
     el("h3", "Know before you go"),
     hazardsBlock,
     infoBlock("Access", "↗", s.access),
     infoBlock("Parking", "Ⓟ", s.parking),
-    infoBlock("Facilities", "⌂", s.facilities),
+    facilitiesBlock,
   );
   const artwork = detailArtwork(s);
   if (artwork) content.append(artwork);
