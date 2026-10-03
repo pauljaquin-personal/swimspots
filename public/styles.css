@@ -2605,7 +2605,7 @@ body.planner-layout > #contribute.floating-contribute {
 
 
 
-/* Spot type is now communicated by subtle colour, not text labels. */
+/* Spot type is communicated by colour, not repeated text labels. */
 #spot-content .detail-meta {
   min-height: 10px;
   margin: 2px 0 0;
@@ -2614,20 +2614,52 @@ body.planner-layout > #contribute.floating-contribute {
   font-size: 10px;
   padding: 4px 7px;
 }
+.spot-stat-grid .spot-stat {
+  position: relative;
+  overflow: hidden;
+  border-width: 1px;
+}
+.spot-stat-grid .spot-stat::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 5px;
+  border-radius: 17px 0 0 17px;
+}
+
+/* Lake = Swimspots teal */
 .spot-stat-grid.water-type-lake .spot-stat {
-  background: #f4fbfd;
-  border-color: #cfe7ec;
+  background: #e7f6f8;
+  border-color: #9fd4dd;
 }
+.spot-stat-grid.water-type-lake .spot-stat::before {
+  background: #238aa0;
+}
+
+/* River = existing map-marker green */
 .spot-stat-grid.water-type-river .spot-stat {
-  background: #f4faf7;
-  border-color: #d3e7dc;
+  background: #eef4e9;
+  border-color: #b9caa8;
 }
+.spot-stat-grid.water-type-river .spot-stat::before {
+  background: #6f8854;
+}
+
+/* Sea = existing map-marker blue */
 .spot-stat-grid.water-type-sea .spot-stat {
-  background: #f3f8fc;
-  border-color: #cfdfea;
+  background: #e8f1f5;
+  border-color: #a8c7d2;
 }
+.spot-stat-grid.water-type-sea .spot-stat::before {
+  background: #337e96;
+}
+
+/* Pool = distinct but quiet violet */
 .spot-stat-grid.water-type-pool .spot-stat {
-  background: #f7f6fb;
-  border-color: #dfd9ec;
+  background: #f0edf7;
+  border-color: #c9bfdf;
+}
+.spot-stat-grid.water-type-pool .spot-stat::before {
+  background: #7865a8;
 }
 
