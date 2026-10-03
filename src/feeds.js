@@ -290,3 +290,210 @@ export async function getConditions(
   ]);
   return { schemaVersion: 1, spotId: spot.id, weather, marine };
 }
+
+
+const LAWA_GRADES = ["Excellent", "Good", "Fair", "Poor"];
+const LAWA_RESULTS = [
+  "Suitable for swimming",
+  "Unsuitable for swimming",
+  "Caution advised",
+  "Good",
+  "Fair",
+  "Poor",
+  "Excellent",
+];
+
+function decodeHtml(value) {
+  return String(value || "")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&#39;/gi, "'")
+    .replace(/&quot;/gi, '"');
+}
+
+export function parseLawaSwimHtml(html) {
+  const text = decodeHtml(
+    String(html || "")
+      .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ")
+      .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ")
+      .replace(/<[^>]+>/g, " "),
+  ).replace(/\s+/g, " ").trim();
+
+  let longTermGrade = null;
+  const gradeMatch = text.match(
+    new RegExp(`\\b(${LAWA_GRADES.join("|")})\\s+Long[- ]term grade\\b`, "i"),
+  );
+  if (gradeMatch) {
+    longTermGrade = LAWA_GRADES.find(
+      (g) => g.toLowerCase() === gradeMatch[1].toLowerCase(),
+    ) || gradeMatch[1];
+  }
+
+  let latestResult = null;
+  const labelledPatterns = [
+    /Latest\s+(?:water\s+quality\s+)?result\s*[:–-]?\s*(Suitable for swimming|Unsuitable for swimming|Caution advised|Excellent|Good|Fair|Poor)/i,
+    /(Suitable for swimming|Unsuitable for swimming|Caution advised)\s+(?:Latest\s+result|Issued:|Predicted water quality:)/i,
+  ];
+  for (const pattern of labelledPatterns) {
+    const match = text.match(pattern);
+    if (match) {
+      latestResult = LAWA_RESULTS.find(
+        (r) => r.toLowerCase() === match[1].toLowerCase(),
+      ) || match[1];
+      break;
+    }
+  }
+
+  return { longTermGrade, latestResult };
+}
+
+export async function fetchLawaSwim(
+  spot,
+  { fetchImpl = fetch, timeoutMs = 8000 } = {},
+) {
+  const siteId = Number(spot?.lawa?.siteId);
+  if (!Number.isInteger(siteId) || siteId <= 0)
+    return { status: "unavailable", longTermGrade: null, latestResult: null };
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  const sourceUrl =
+    spot.lawa?.embedUrl ||
+    `https://embed.lawa.org.nz/swim/iframe/medium/550/500/${siteId}/`;
+
+  try {
+    const response = await fetchImpl(sourceUrl, {
+      signal: controller.signal,
+      headers: { Accept: "text/html,application/xhtml+xml" },
+    });
+    if (!response.ok) throw new Error("LAWA unavailable");
+    const parsed = parseLawaSwimHtml(await response.text());
+    return {
+      status:
+        parsed.longTermGrade || parsed.latestResult ? "available" : "unavailable",
+      sourceUrl: spot.conditionsSource?.url || sourceUrl,
+      fetchedAt: new Date().toISOString(),
+      ...parsed,
+    };
+  } catch {
+    return {
+      status: "unavailable",
+      sourceUrl: spot.conditionsSource?.url || sourceUrl,
+      fetchedAt: null,
+      longTermGrade: null,
+      latestResult: null,
+    };
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+
+const OVERPASS_URL = "https://overpass-api.de/api/interpreter";
+
+function radians(value) {
+  return (value * Math.PI) / 180;
+}
+
+export function distanceMetres(a, b) {
+  const R = 6371000;
+  const lat1 = radians(a[0]);
+  const lat2 = radians(b[0]);
+  const dLat = radians(b[0] - a[0]);
+  const dLon = radians(b[1] - a[1]);
+  const h =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
+  return 2 * R * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h));
+}
+
+function toiletName(tags = {}) {
+  return (
+    tags.name ||
+    tags["toilets:name"] ||
+    tags.operator ||
+    tags.location ||
+    "Public toilet"
+  );
+}
+
+export async function fetchNearestToilet(
+  spot,
+  { fetchImpl = fetch, timeoutMs = 8000, radius = 10000 } = {},
+) {
+  const [lat, lon] = spot.coordinates || [];
+  if (!finite(lat) || !finite(lon))
+    return { status: "unavailable", toilet: null };
+
+  const query = `
+[out:json][timeout:7];
+(
+  node["amenity"="toilets"](around:${radius},${lat},${lon});
+  way["amenity"="toilets"](around:${radius},${lat},${lon});
+  relation["amenity"="toilets"](around:${radius},${lat},${lon});
+);
+out center tags;
+`;
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const response = await fetchImpl(OVERPASS_URL, {
+      method: "POST",
+      signal: controller.signal,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+        Accept: "application/json",
+      },
+      body: new URLSearchParams({ data: query }),
+    });
+    if (!response.ok) throw new Error("Toilet provider unavailable");
+    const data = await response.json();
+    const candidates = (data?.elements || [])
+      .map((element) => {
+        const tLat = element.lat ?? element.center?.lat;
+        const tLon = element.lon ?? element.center?.lon;
+        if (!finite(tLat) || !finite(tLon)) return null;
+        const distance = distanceMetres([lat, lon], [tLat, tLon]);
+        return {
+          osmType: element.type,
+          osmId: element.id,
+          name: toiletName(element.tags),
+          coordinates: [tLat, tLon],
+          distanceMetres: Math.round(distance),
+          accessible:
+            element.tags?.wheelchair === "yes"
+              ? true
+              : element.tags?.wheelchair === "no"
+                ? false
+                : null,
+        };
+      })
+      .filter(Boolean)
+      .sort((a, b) => a.distanceMetres - b.distanceMetres);
+
+    return {
+      status: candidates.length ? "available" : "unavailable",
+      source: {
+        name: "OpenStreetMap",
+        url: "https://www.openstreetmap.org/",
+        licence: "ODbL",
+      },
+      toilet: candidates[0] || null,
+    };
+  } catch {
+    return {
+      status: "unavailable",
+      source: {
+        name: "OpenStreetMap",
+        url: "https://www.openstreetmap.org/",
+        licence: "ODbL",
+      },
+      toilet: null,
+    };
+  } finally {
+    clearTimeout(timer);
+  }
+}

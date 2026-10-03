@@ -62,39 +62,49 @@ function detailsBlock(label, glyph) {
   return details;
 }
 
+function forecastGlyph(row) {
+  const rain = Number(row?.precipitation?.value ?? row?.precipitation ?? 0);
+  const wind = Number(row?.windSpeed?.value ?? row?.windSpeed ?? 0);
+  if (rain >= 1) return "🌧";
+  if (rain > 0) return "🌦";
+  if (wind >= 30) return "💨";
+  return "○";
+}
+
+function compactForecastView(feed) {
+  const future = (feed?.forecast || [])
+    .filter((r) => Date.parse(r.validAt) > Date.now())
+    .slice(0, 24);
+
+  if (!future.length) return null;
+
+  const section = el("section", null, "forecast-24h");
+  const strip = el("div", null, "forecast-24h-strip");
+  const sample = future.filter((_, i) => i % 4 === 0).slice(0, 6);
+  sample.forEach((r) => {
+    const item = el("div", null, "forecast-24h-item");
+    const timeText = new Date(r.validAt).toLocaleTimeString([], {
+      hour: "numeric",
+    });
+    item.append(
+      el("span", timeText, "forecast-24h-time"),
+      el("span", forecastGlyph(r), "forecast-24h-icon"),
+      el("strong", number(r.airTemperature), "forecast-24h-temp"),
+    );
+    strip.append(item);
+  });
+  section.append(strip);
+  return section;
+}
+
 function weatherView(feed) {
   const section = el("section", null, "feed-section compact-feed");
-  section.append(el("h3", "Weather"));
+  section.append(el("h3", "Weather forecast"));
   if (!feed || feed.status === "unavailable") {
     section.append(
       el("p", "Weather temporarily unavailable.", "feed-error"),
     );
     return section;
-  }
-
-  const current = el("div", null, "conditions condition-strip");
-  current.append(
-    metricCard("°", "Air", number(feed.current.airTemperature)),
-    metricCard("→", "Wind", number(feed.current.windSpeed)),
-    metricCard("↝", "Gusts", number(feed.current.windGusts)),
-    metricCard("⌁", "From", compassPoint(feed.current.windDirection?.value)),
-    metricCard(
-      "◌",
-      "Rain 48h",
-      number(feed.rain48h),
-      feed.rain48h?.value > 0 ? "condition-attention" : "",
-    ),
-  );
-  section.append(current);
-
-  if (feed.rain48h?.value > 0) {
-    section.append(
-      el(
-        "p",
-        `Rain in the past 48 hours${feed.rain48h.lastPrecipitationAt ? ` · last around ${date(feed.rain48h.lastPrecipitationAt)}` : ""}. Check water-quality advice.`,
-        "feed-rain-alert compact-alert",
-      ),
-    );
   }
 
   const more = detailsBlock("Weather details & forecast", "☼");
@@ -167,6 +177,9 @@ function weatherView(feed) {
     ),
   );
   more.append(credit);
+
+  const compactForecast = compactForecastView(feed);
+  if (compactForecast) section.append(compactForecast);
   section.append(more);
   return section;
 }
@@ -181,13 +194,21 @@ function marineView(feed) {
     return section;
   }
 
-  const cards = el("div", null, "conditions condition-strip");
-  cards.append(
-    metricCard("≈", "Sea temp", number(feed.current.seaTemperature)),
-    metricCard("⌇", "Wave", number(feed.current.waveHeight, 2)),
-    metricCard("↔", "Period", number(feed.current.wavePeriod)),
-  );
-  section.append(cards);
+  const seaStrip = el("div", null, "sea-condition-strip");
+  [
+    ["≈", "Sea temp", number(feed.current.seaTemperature)],
+    ["⌇", "Wave", number(feed.current.waveHeight, 2)],
+    ["↔", "Period", number(feed.current.wavePeriod)],
+  ].forEach(([glyph, label, value]) => {
+    const item = el("div", null, "sea-condition-item");
+    item.append(
+      el("span", glyph, "sea-condition-icon"),
+      el("span", label, "sea-condition-label"),
+      el("strong", value, "sea-condition-value"),
+    );
+    seaStrip.append(item);
+  });
+  section.append(seaStrip);
 
   const more = detailsBlock("About sea conditions", "≈");
   more.append(
@@ -222,72 +243,63 @@ function marineView(feed) {
 
 function waterQualityView(spot) {
   const section = el("section", null, "feed-section compact-feed water-quality-card");
-  const heading = el("h3", "Water quality · LAWA");
-  section.append(heading);
+  section.append(el("h3", "Water quality"));
 
-  const action = el("div", null, "quality-action");
-  const icon = el("span", "●", "quality-icon");
-  icon.setAttribute("aria-hidden", "true");
-  const copy = el("div");
-  copy.append(
-    el("strong", "Check current water quality"),
-    el("span", "Official LAWA report"),
+  const results = el("div", null, "lawa-results");
+  const resultItem = (label, key) => {
+    const item = el("div", null, "lawa-result-item");
+    item.append(
+      el("span", label, "lawa-result-label"),
+      el("strong", "Loading…", "lawa-result-value"),
+    );
+    item.dataset.lawaKey = key;
+    return item;
+  };
+  results.append(
+    resultItem("Long-term grade", "longTermGrade"),
+    resultItem("Latest result", "latestResult"),
   );
-  const href = spot.lawa?.embedUrl || spot.conditionsSource.url;
-  const button = external("Open ↗", href);
-  button.className = "outline compact-link";
-  action.append(icon, copy, button);
-  section.append(action);
 
-  const details = detailsBlock("About this water-quality source", "i");
-  details.append(
-    el(
-      "p",
-      "Samples and warnings are not continuous readings. Check the report date and current local signs before swimming.",
-      "small",
-    ),
+  const source = external(
+    "LAWA ↗",
+    spot.conditionsSource?.url || spot.lawa?.embedUrl || "https://www.lawa.org.nz/swim",
   );
-  if (spot.lawa) {
-    const report = el("details", null, "lawa-report");
-    report.append(el("summary", "Show embedded LAWA report"));
-    const wrap = el("div", null, "lawa-scroll");
-    report.append(wrap);
-    report.addEventListener("toggle", () => {
-      if (report.open && !wrap.children.length) {
-        const iframe = el("iframe");
-        iframe.title = `LAWA water quality for ${spot.name}`;
-        iframe.src = spot.lawa.embedUrl;
-        iframe.loading = "lazy";
-        iframe.referrerPolicy = "strict-origin-when-cross-origin";
-        iframe.height = "550";
-        iframe.width = "500";
-        wrap.append(iframe);
-      }
+  source.className = "lawa-source-link";
+
+  section.append(results, source);
+
+  if (spot.lawa?.siteId) {
+    fetch(`/api/lawa?spot=${encodeURIComponent(spot.id)}`)
+      .then((response) => (response.ok ? response.json() : Promise.reject()))
+      .then((data) => {
+        for (const key of ["longTermGrade", "latestResult"]) {
+          const item = results.querySelector(`[data-lawa-key="${key}"] .lawa-result-value`);
+          if (item) item.textContent = data?.[key] || "Unavailable";
+        }
+      })
+      .catch(() => {
+        results.querySelectorAll(".lawa-result-value").forEach((node) => {
+          node.textContent = "Unavailable";
+        });
+      });
+  } else {
+    results.querySelectorAll(".lawa-result-value").forEach((node) => {
+      node.textContent = "Unavailable";
     });
-    details.append(report);
   }
-  details.append(
-    el(
-      "p",
-      "LAWA supplies and dates the report; Swimspots does not assign a safety rating.",
-      "feed-time",
-    ),
-  );
-  section.append(details);
+
   return section;
 }
 
-export function mountConditions(container, spot) {
+
+export function mountConditions(container, spot, summaryContainer = null) {
   let controller = null,
     closed = false,
     payload = null,
     loading = false;
 
   const feeds = el("div");
-  const status = el("p", "Loading conditions…", "small condition-load-status");
-  status.setAttribute("role", "status");
-  const retry = el("button", "↻ Refresh", "outline feed-refresh compact-refresh");
-  container.append(feeds, status, retry, waterQualityView(spot));
+  container.append(feeds, waterQualityView(spot));
 
   if (spot.council) {
     const council = detailsBlock(spot.council.name, "i");
@@ -298,8 +310,41 @@ export function mountConditions(container, spot) {
     container.append(council);
   }
 
+  function renderSummary() {
+    if (!summaryContainer || !payload) return;
+    const set = (key, value) => {
+      const node = summaryContainer.querySelector(`[data-summary="${key}"]`);
+      if (node) node.textContent = value || "—";
+    };
+
+    const weather = payload.weather;
+    const marine = payload.marine;
+
+    set("water",
+      spot.type === "sea"
+        ? number(marine?.current?.seaTemperature)
+        : number(spot.waterTemperature)
+    );
+    set("air", number(weather?.current?.airTemperature));
+    set("wind", number(weather?.current?.windSpeed));
+    set("wind-direction", compassPoint(weather?.current?.windDirection?.value));
+
+    const hazardRain = document.querySelector("[data-hazard-rain]");
+    if (hazardRain) {
+      const rain = weather?.rain48h;
+      if (rain?.value === null || rain?.value === undefined) {
+        hazardRain.textContent = "Past rainfall unavailable.";
+      } else if (Number(rain.value) > 0) {
+        hazardRain.textContent = `Past 48h rain: ${number(rain)}${rain.lastPrecipitationAt ? ` · last around ${date(rain.lastPrecipitationAt)}` : ""}`;
+      } else {
+        hazardRain.textContent = "Past 48h rain: none modelled.";
+      }
+    }
+  }
+
   function render() {
     if (!payload) return;
+    renderSummary();
     feeds.replaceChildren(weatherView(payload.weather));
     if (spot.type === "sea") feeds.append(marineView(payload.marine));
   }
@@ -307,8 +352,6 @@ export function mountConditions(container, spot) {
   async function refresh() {
     if (loading || closed) return;
     loading = true;
-    retry.disabled = true;
-    status.textContent = "Loading conditions…";
     controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 12_000);
     try {
@@ -323,10 +366,6 @@ export function mountConditions(container, spot) {
       if (closed) return;
       payload = data;
       render();
-      status.textContent =
-        data.weather.status === "unavailable"
-          ? "Some conditions unavailable."
-          : "Updated";
     } catch {
       if (!closed) {
         if (payload) {
@@ -334,16 +373,12 @@ export function mountConditions(container, spot) {
             if (payload[key]?.current) payload[key].status = "stale";
           render();
         }
-        status.textContent = "Conditions unavailable · retry";
       }
     } finally {
       clearTimeout(timer);
       loading = false;
-      if (!closed) retry.disabled = false;
     }
   }
-
-  retry.onclick = refresh;
   refresh();
   const tick = setInterval(() => {
     if (payload && !closed) render();

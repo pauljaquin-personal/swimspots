@@ -6,6 +6,10 @@ import {
   getConditions,
   providerURL,
   fetchProvider,
+  parseLawaSwimHtml,
+  fetchLawaSwim,
+  fetchNearestToilet,
+  distanceMetres,
 } from "../src/feeds.js";
 import { handleRequest } from "../src/worker.js";
 const now = Date.parse("2026-09-21T00:15:00Z"),
@@ -275,4 +279,80 @@ test("worker serves assets and approved conditions; caches normalized results", 
   );
   await handleRequest(req, env, null, options);
   assert.equal(calls, 1);
+});
+
+
+test("LAWA parser extracts long-term grade and labelled latest result", () => {
+  const html = `
+    <div>Lake Whakatipu / Wakatipu - at Queenstown Bay</div>
+    <strong>Excellent</strong><span>Long-term grade</span>
+    <div>Latest result: Suitable for swimming</div>
+  `;
+  assert.deepEqual(parseLawaSwimHtml(html), {
+    longTermGrade: "Excellent",
+    latestResult: "Suitable for swimming",
+  });
+});
+
+test("LAWA parser fails cleanly when values are absent", () => {
+  assert.deepEqual(parseLawaSwimHtml("<p>No result published</p>"), {
+    longTermGrade: null,
+    latestResult: null,
+  });
+});
+
+test("LAWA fetch is restricted to a known site id and returns parsed values", async () => {
+  const result = await fetchLawaSwim(
+    {
+      lawa: { siteId: 40722, embedUrl: "https://embed.lawa.org.nz/test/40722/" },
+      conditionsSource: { url: "https://www.lawa.org.nz/example" },
+    },
+    {
+      fetchImpl: async (url) => {
+        assert.equal(String(url), "https://embed.lawa.org.nz/test/40722/");
+        return new Response("Good Long-term grade Latest result: Caution advised");
+      },
+    },
+  );
+  assert.equal(result.status, "available");
+  assert.equal(result.longTermGrade, "Good");
+  assert.equal(result.latestResult, "Caution advised");
+});
+
+
+test("distanceMetres returns a sensible straight-line distance", () => {
+  const d = distanceMetres([-45.0347, 168.66], [-45.0357, 168.66]);
+  assert.ok(d > 100 && d < 120);
+});
+
+test("nearest toilet lookup selects the closest OSM toilet", async () => {
+  const result = await fetchNearestToilet(
+    { coordinates: [-45.0347, 168.66] },
+    {
+      fetchImpl: async (_url, init) => {
+        assert.equal(init.method, "POST");
+        return Response.json({
+          elements: [
+            {
+              type: "node",
+              id: 1,
+              lat: -45.0400,
+              lon: 168.6600,
+              tags: { amenity: "toilets", name: "Far toilets" },
+            },
+            {
+              type: "node",
+              id: 2,
+              lat: -45.0350,
+              lon: 168.6600,
+              tags: { amenity: "toilets", name: "Near toilets" },
+            },
+          ],
+        });
+      },
+    },
+  );
+  assert.equal(result.status, "available");
+  assert.equal(result.toilet.name, "Near toilets");
+  assert.ok(result.toilet.distanceMetres < 100);
 });

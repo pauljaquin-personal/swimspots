@@ -1,5 +1,10 @@
 import catalog from "../public/data/spots.json" with { type: "json" };
-import { getConditions, RETAIN_MS } from "./feeds.js";
+import {
+  getConditions,
+  RETAIN_MS,
+  fetchLawaSwim,
+  fetchNearestToilet,
+} from "./feeds.js";
 import {
   D1Submissions,
   submissionRequest,
@@ -61,7 +66,7 @@ export async function handleRequest(
       status: 405,
       headers: { Allow: "GET" },
     });
-  if (url.pathname !== "/api/conditions")
+  if (!["/api/conditions", "/api/lawa", "/api/nearest-toilet"].includes(url.pathname))
     return json({ error: "Not found" }, 404);
   if (
     [...url.searchParams.keys()].some((k) => k !== "spot") ||
@@ -79,6 +84,41 @@ export async function handleRequest(
     }
   }
   if (!spot) return json({ error: "Unknown spot" }, 404);
+
+  if (url.pathname === "/api/lawa") {
+    if (!spot.lawa?.siteId)
+      return json({
+        status: "unavailable",
+        longTermGrade: null,
+        latestResult: null,
+        sourceUrl: spot.conditionsSource?.url || null,
+      });
+    return json(await fetchLawaSwim(spot, { fetchImpl }));
+  }
+
+  if (url.pathname === "/api/nearest-toilet") {
+    const toiletCacheKey = new Request(
+      `${url.origin}/__toilet-cache/v1/${spot.id}`,
+    );
+    try {
+      const hit = await cache?.match(toiletCacheKey);
+      if (hit) return json(await hit.json());
+    } catch {}
+
+    const result = await fetchNearestToilet(spot, { fetchImpl });
+    if (cache && result.status === "available") {
+      const response = new Response(JSON.stringify(result), {
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "public, max-age=86400",
+        },
+      });
+      const write = cache.put(toiletCacheKey, response).catch(() => {});
+      if (ctx?.waitUntil) ctx.waitUntil(write);
+    }
+    return json(result);
+  }
+
   // Only known catalog coordinates are accepted. This cannot proxy arbitrary URLs.
   const cacheKey = new Request(
     `${url.origin}/__feed-cache/v1/${env.OPEN_METEO_API_KEY ? "commercial" : "prototype"}/${spot.id}`,

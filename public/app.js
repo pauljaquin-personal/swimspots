@@ -53,6 +53,27 @@ function infoDisclosure(label, glyph, value, className = "") {
   details.append(summary, el("p", value || "Not yet verified.", "disclosure-copy"));
   return details;
 }
+function shortResult(value, yesLabel = "Yes") {
+  const v = String(value || "").trim();
+  if (!v) return "—";
+  if (/^(yes|available|provided|toilet|toilets|parking)/i.test(v)) return yesLabel;
+  if (/^(no|none|not available|unavailable)/i.test(v)) return "No";
+  const first = v.split(/[.;]/)[0].trim();
+  return first.length <= 18 ? first : first.slice(0, 16).trimEnd() + "…";
+}
+function statCard(glyph, label, result, detail = "") {
+  const card = el("div", null, "spot-stat");
+  const iconNode = el("span", glyph, "spot-stat-icon");
+  iconNode.setAttribute("aria-hidden", "true");
+  const labelNode = el("span", label, "spot-stat-label");
+  const resultNode = el("strong", result || "—", "spot-stat-result");
+  card.append(iconNode, labelNode, resultNode);
+  if (detail) {
+    card.title = detail;
+    card.setAttribute("aria-label", `${label}: ${result || "Unavailable"}`);
+  }
+  return card;
+}
 function cardArtwork(s) {
   const art = el("span", spotGlyph(s.type), `spot-art ${s.type}`);
   art.setAttribute("aria-hidden", "true");
@@ -68,16 +89,18 @@ function cardArtwork(s) {
   return art;
 }
 function detailArtwork(s) {
+  if (!s.photo?.url) return null;
+
   const banner = el("div", null, "detail-banner");
-  if (!s.photo?.url) return banner;
   const img = document.createElement("img");
   img.src = s.photo.url;
   img.alt = s.photo.alt || `${s.name} swimming spot`;
   img.decoding = "async";
+
   img.onerror = () => {
-    img.remove();
-    banner.querySelector(".photo-credit")?.remove();
+    banner.remove();
   };
+
   banner.append(img);
   if (s.photo.credit) {
     const credit = el("span", "Photo: ", "photo-credit");
@@ -196,70 +219,171 @@ function showSpot(s) {
   disposeConditions();
   const content = $("#spot-content");
   content.replaceChildren();
-  const meta = el("div", null, "detail-meta");
+  const meta = el("div", null, `detail-meta water-type-${s.type}`);
   meta.append(
-    el("span", s.type.toUpperCase(), "badge"),
-    el("span", s.region, "badge"),
     el(
       "span",
       s.listingStatus === "community-reviewed"
-        ? "Community location · reviewed"
-        : "Starter listing · verification pending",
-      "badge",
+        ? "Reviewed"
+        : "Verification pending",
+      "badge listing-status",
     ),
   );
   const title = el("h2", s.name);
   title.id = "spot-title";
   const lede = el("p", s.description, "detail-lede");
-  const quick = el("section", null, "spot-quick-grid");
-  quick.setAttribute("aria-label", "Spot information");
-  quick.append(
-    infoDisclosure("Access", "↗", s.access),
-    infoDisclosure("Parking", "P", s.parking),
-    infoDisclosure("Facilities", "⌂", s.facilities),
-    infoDisclosure("Hazards", "!", s.hazards, "hazard"),
+  const conditionSummary = el("section", null, `spot-condition-summary water-type-${s.type}`);
+  conditionSummary.setAttribute("aria-label", "Current swim conditions");
+  conditionSummary.innerHTML = `
+    <div class="condition-summary-item">
+      <span class="condition-summary-icon" aria-hidden="true">🌊</span>
+      <span class="condition-summary-label">Water temp</span>
+      <strong class="condition-summary-value" data-summary="water">—</strong>
+    </div>
+    <div class="condition-summary-item">
+      <span class="condition-summary-icon" aria-hidden="true">🌡</span>
+      <span class="condition-summary-label">Air temp</span>
+      <strong class="condition-summary-value" data-summary="air">—</strong>
+    </div>
+    <div class="condition-summary-item">
+      <span class="condition-summary-icon" aria-hidden="true">💨</span>
+      <span class="condition-summary-label">Wind</span>
+      <strong class="condition-summary-value" data-summary="wind">—</strong>
+    </div>
+    <div class="condition-summary-item">
+      <span class="condition-summary-icon" aria-hidden="true">🧭</span>
+      <span class="condition-summary-label">Wind dir</span>
+      <strong class="condition-summary-value" data-summary="wind-direction">—</strong>
+    </div>
+  `;
+  const essentials = el("section", null, "spot-essentials");
+  const infoBlock = (label, glyph, value, className = "") => {
+    const block = el("div", null, `spot-info-block ${className}`.trim());
+    block.append(
+      el("div", null, "spot-info-heading"),
+      el("p", value || "Not yet verified.", "spot-info-copy"),
+    );
+    block.querySelector(".spot-info-heading").append(
+      el("span", glyph, "spot-info-icon"),
+      el("strong", label),
+    );
+    return block;
+  };
+
+  const hazardsBlock = infoBlock("Hazards", "⚠", s.hazards, "hazard");
+  const rainNote = el("p", "Rainfall loading…", "spot-hazard-rain");
+  rainNote.dataset.hazardRain = "";
+  hazardsBlock.append(rainNote);
+
+  const facilitiesBlock = infoBlock("Facilities", "⌂", s.facilities);
+  const toiletNote = el("p", "Nearest public toilet: checking…", "spot-facility-nearest");
+  facilitiesBlock.append(toiletNote);
+
+  fetch(`/api/nearest-toilet?spot=${encodeURIComponent(s.id)}`)
+    .then((response) => (response.ok ? response.json() : Promise.reject()))
+    .then((data) => {
+      if (!data?.toilet) {
+        toiletNote.textContent = "Nearest public toilet: unavailable.";
+        return;
+      }
+      const metres = Number(data.toilet.distanceMetres);
+      const distance =
+        metres >= 1000
+          ? `${(metres / 1000).toFixed(metres >= 10000 ? 0 : 1)} km`
+          : `${Math.max(10, Math.round(metres / 10) * 10)} m`;
+      toiletNote.textContent =
+        `Nearest public toilet: ${data.toilet.name} · about ${distance} away.`;
+      toiletNote.title = "Approximate straight-line distance from this swim-spot coordinate. Source: OpenStreetMap.";
+    })
+    .catch(() => {
+      toiletNote.textContent = "Nearest public toilet: unavailable.";
+    });
+
+  essentials.append(
+    el("h3", "Know before you go"),
+    hazardsBlock,
+    infoBlock("Access", "↗", s.access),
+    infoBlock("Parking", "Ⓟ", s.parking),
+    facilitiesBlock,
   );
-  const locationDetails = infoDisclosure(
-    "Location",
-    "⌖",
-    `${s.coordinates.join(", ")} · approximate, not a verified water-entry point`,
-  );
-  quick.append(locationDetails);
-  content.append(detailArtwork(s), meta, title, lede, quick);
+  const artwork = detailArtwork(s);
+  if (artwork) content.append(artwork);
+  content.append(title, meta, lede, conditionSummary, essentials);
   const feedPanel = el("div", null, "spot-feeds");
   content.append(feedPanel);
-  disposeConditions = mountConditions(feedPanel, s);
-  const actions = el("div", null, "detail-actions");
-  const source = link("Check water quality ↗", s.conditionsSource.url);
-  source.className = "primary";
-  const bookmark = el(
-    "button",
-    state.saved.includes(s.id) ? "★ Saved" : "☆ Save spot",
-    "outline",
-  );
-  bookmark.onclick = () => {
-    save(s.id);
-    bookmark.textContent = state.saved.includes(s.id)
-      ? "★ Saved"
-      : "☆ Save spot";
+  disposeConditions = mountConditions(feedPanel, s, conditionSummary);
+  const community = el("section", null, "feed-section compact-feed spot-community");
+  community.append(el("h3", "Community"));
+
+  const communityActions = el("div", null, "community-icon-strip");
+
+  const communityItem = (glyph, label, note = "", onClick = null, disabled = false) => {
+    const item = el(onClick ? "button" : "div", null, "community-icon-item");
+    if (onClick) {
+      item.type = "button";
+      item.onclick = onClick;
+    }
+    if (disabled) {
+      item.setAttribute("aria-disabled", "true");
+      item.classList.add("is-disabled");
+    }
+    item.append(
+      el("span", glyph, "community-icon"),
+      el("span", label, "community-icon-label"),
+    );
+    if (note) item.append(el("small", note, "community-icon-note"));
+    return item;
   };
-  const contribute = el("button", "Add photo or local knowledge", "outline");
-  contribute.onclick = () => {
+
+  const bookmark = communityItem(
+    state.saved.includes(s.id) ? "★" : "☆",
+    state.saved.includes(s.id) ? "Saved" : "Save",
+    "",
+    () => {
+      save(s.id);
+      showSpot(s);
+    },
+  );
+
+  const share = communityItem("↗", "Share", "", async () => {
+    const url = new URL(location.href);
+    url.hash = `spot=${encodeURIComponent(s.id)}`;
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: s.name, text: `Swim spot: ${s.name}`, url: url.href });
+      } else if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(url.href);
+        openSiteInfo("Share", "Spot link copied to your clipboard.");
+      } else {
+        openSiteInfo("Share", url.href);
+      }
+    } catch {}
+  });
+
+  const contribute = communityItem("＋", "Contribute", "", () => {
     document.dispatchEvent(
       new CustomEvent("swimspots:edit-spot", { detail: s }),
     );
-  };
-  actions.append(source, bookmark, contribute);
-  content.append(actions);
+  });
+
+  const report = communityItem("⚑", "Report", "", () =>
+    openSiteInfo(
+      "Report an issue",
+      `Tell us what looks wrong with ${s.name}. A dedicated report form is planned; for now use Contact so we know which listing needs attention.`,
+    ),
+  );
+
+  const routes = communityItem("↝", "Swim routes", "Coming soon", null, true);
+
+  communityActions.append(routes, contribute, bookmark, share, report);
+  community.append(communityActions);
+  content.append(community);
+
   const more = el("details", null, "detail-more");
   const moreSummary = el("summary");
   moreSummary.append(icon("More about this spot", "⋯"), el("span", "›", "disclosure-chevron"));
   more.append(moreSummary);
-  more.append(
-    el("h3", "Swim routes"),
-    el("p", "No verified routes published for this spot yet."),
-    el("h3", "About this listing"),
-  );
+  more.append(el("h3", "About this listing"));
   const provenance = el("p");
   provenance.append(
     s.source.url
@@ -282,6 +406,15 @@ function showSpot(s) {
     );
     more.append(communitySource);
   }
+
+  const premium = el("button", "Swimspots Pro · coming soon", "quiet-pro-action");
+  premium.onclick = () =>
+    openSiteInfo(
+      "Swimspots Pro",
+      "Premium condition tools are planned. Core safety information and source limitations will remain visible to everyone.",
+    );
+  more.append(premium);
+
   content.append(more);
   const show = el("button", "Show on map", "primary");
   show.onclick = () => {
@@ -292,21 +425,34 @@ function showSpot(s) {
     }
   };
   if (map) content.append(show);
-  if (!$("#spot-dialog").open) $("#spot-dialog").showModal();
-  $("#spot-dialog").scrollTop = 0;
+  const dialog = $("#spot-dialog");
+  if (!dialog.open) dialog.showModal();
+  dialog.scrollTop = 0;
   history.replaceState(null, "", `#spot=${encodeURIComponent(s.id)}`);
 }
+function clearLocation({ refit = true } = {}) {
+  state.location = null;
+  userMarker?.remove();
+  userMarker = null;
+  const near = $("#near");
+  near.disabled = false;
+  near.setAttribute("aria-pressed", "false");
+  near.setAttribute("aria-label", "Centre map on my location");
+  near.title = "My location";
+  $("#location-status").textContent = "";
+  render();
+  if (refit) fit();
+}
+
 function reset() {
   Object.assign(state, {
     query: "",
     type: "all",
     region: "all",
     savedOnly: false,
-    location: null,
   });
   $("#search").value = "";
-  $("#location-status").textContent = "";
-  userMarker?.remove();
+  clearLocation({ refit: false });
   document
     .querySelectorAll("[data-type]")
     .forEach((b) =>
@@ -338,18 +484,31 @@ $("#saved").onclick = () => {
   fit();
 };
 $("#near").onclick = () => {
-  if (!navigator.geolocation) {
-    $("#location-status").textContent =
-      "Location is unavailable. Search by place instead.";
+  if (state.location) {
+    clearLocation();
+    $("#location-status").textContent = "Location cleared. Tap ◎ to locate again.";
     return;
   }
-  $("#near").disabled = true;
+
+  if (!navigator.geolocation) {
+    $("#location-status").textContent =
+      "Location is not supported by this browser. Search by place instead.";
+    return;
+  }
+
+  const near = $("#near");
+  near.disabled = true;
   $("#location-status").textContent = "Finding your location…";
+
   navigator.geolocation.getCurrentPosition(
     (position) => {
       state.location = [position.coords.latitude, position.coords.longitude];
-      $("#near").disabled = false;
-      $("#location-status").textContent = "Centred on your location";
+      near.disabled = false;
+      near.setAttribute("aria-pressed", "true");
+      near.setAttribute("aria-label", "Clear my location");
+      near.title = "Clear my location";
+      $("#location-status").textContent =
+        "Centred on your location · tap ◎ again to reset";
       userMarker?.remove();
       if (map) {
         userMarker = L.circleMarker(state.location, {
@@ -364,12 +523,24 @@ $("#near").onclick = () => {
       }
       render();
     },
-    () => {
-      $("#near").disabled = false;
-      $("#location-status").textContent =
-        "Could not get your location. Allow location access or search by place instead.";
+    (error) => {
+      near.disabled = false;
+      near.setAttribute("aria-pressed", "false");
+      if (error.code === error.PERMISSION_DENIED) {
+        $("#location-status").textContent =
+          "Location access was denied. Enable location for this site, then tap ◎ to retry.";
+      } else if (error.code === error.POSITION_UNAVAILABLE) {
+        $("#location-status").textContent =
+          "Your location is temporarily unavailable. Tap ◎ to retry or search by place.";
+      } else if (error.code === error.TIMEOUT) {
+        $("#location-status").textContent =
+          "Location request timed out. Tap ◎ to try again.";
+      } else {
+        $("#location-status").textContent =
+          "Could not get your location. Tap ◎ to retry or search by place.";
+      }
     },
-    { timeout: 10000, maximumAge: 60000 },
+    { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 },
   );
 };
 
@@ -440,6 +611,7 @@ $("#spot-dialog").addEventListener("close", () => {
   disposeConditions();
   history.replaceState(null, "", location.pathname + location.search);
 });
+
 mountSubmission();
 async function init() {
   try {

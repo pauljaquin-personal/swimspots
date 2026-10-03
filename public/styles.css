@@ -1947,3 +1947,1352 @@ body.planner-layout .layers-panel .filters button[data-type="all"][aria-pressed=
   color: var(--ink);
   background: #fff;
 }
+
+
+/* ==========================================================================
+   Swimspots map-first UX v2
+   Shared shell direction: full-screen map, floating search, icon/text/result
+   cards, and a responsive contextual spot sheet.
+   ========================================================================== */
+body.planner-layout {
+  --ss-ink: #15383b;
+  --ss-muted: #6d8085;
+  --ss-water: #1f8ca3;
+  --ss-water-2: #2ab7ca;
+  --ss-good: #2f9567;
+  --ss-warn: #c89420;
+  --ss-line: #d7e4e7;
+  --ss-panel: rgba(255,255,255,.96);
+  background: #dcecef;
+  color: var(--ss-ink);
+}
+
+body.planner-layout header {
+  position: absolute;
+  z-index: 1500;
+  top: 16px;
+  left: 16px;
+  width: auto;
+  min-width: 0;
+  height: 52px;
+  padding: 0 13px;
+  border: 1px solid rgba(255,255,255,.75);
+  border-radius: 18px;
+  box-shadow: 0 8px 28px rgba(18,54,62,.16);
+  background: rgba(255,255,255,.94);
+  backdrop-filter: blur(16px);
+}
+body.planner-layout header .brand { font-size: 20px; }
+body.planner-layout header .brand-icon { font-size: 28px; }
+body.planner-layout header .nz { margin-top: 5px; }
+body.planner-layout header #contribute {
+  position: fixed;
+  right: 18px;
+  bottom: 88px;
+  width: 50px;
+  height: 50px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,.7);
+  border-radius: 17px;
+  display: grid;
+  place-items: center;
+  font-size: 23px;
+  background: rgba(255,255,255,.96);
+  box-shadow: 0 9px 26px rgba(18,54,62,.18);
+}
+body.planner-layout .explorer {
+  height: 100svh;
+  min-height: 520px;
+}
+body.planner-layout .map-wrap { inset: 0; }
+body.planner-layout .map-note { display: none; }
+
+body.planner-layout .sidebar {
+  top: 80px;
+  left: 16px;
+  bottom: 16px;
+  width: min(360px, calc(100vw - 32px));
+  border: 0;
+  border-radius: 20px;
+  background: rgba(255,255,255,.95);
+  box-shadow: 0 14px 42px rgba(18,54,62,.17);
+  backdrop-filter: blur(18px);
+}
+body.planner-layout .search-area { padding: 12px; }
+body.planner-layout .search-toolbar {
+  display: grid;
+  grid-template-columns: 1fr 48px 48px;
+  gap: 8px;
+  align-items: center;
+}
+body.planner-layout .search-row {
+  height: 48px;
+  border: 1px solid var(--ss-line);
+  border-radius: 16px;
+  background: white;
+  box-shadow: none;
+}
+body.planner-layout .search-row input {
+  font-size: 15px;
+  padding: 12px 6px;
+}
+body.planner-layout .search-row span { font-size: 21px; }
+body.planner-layout .search-reset { min-width: 42px; min-height: 42px; }
+body.planner-layout .map-tool {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  border: 1px solid var(--ss-line);
+  border-radius: 16px;
+  background: white;
+  font-size: 20px;
+}
+body.planner-layout .layers-panel {
+  position: absolute;
+  top: 70px;
+  left: 12px;
+  right: 12px;
+  padding: 12px;
+  border: 1px solid var(--ss-line);
+  border-radius: 18px;
+  background: rgba(255,255,255,.98);
+  box-shadow: 0 14px 34px rgba(17,50,58,.16);
+}
+body.planner-layout .filters {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 8px;
+  margin: 0;
+}
+body.planner-layout .filters button {
+  min-height: 44px;
+  border-radius: 14px;
+  padding: 9px 10px;
+  text-align: left;
+  font-size: 12px;
+}
+body.planner-layout .results {
+  padding: 0 10px 12px;
+  scrollbar-width: thin;
+}
+body.planner-layout .spot-card {
+  border: 1px solid var(--ss-line);
+  border-radius: 16px;
+  background: white;
+  overflow: hidden;
+}
+body.planner-layout .spot-card:hover { background: #f3f9fa; }
+body.planner-layout .spot-art {
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
+}
+body.planner-layout .card-copy strong { font-size: 14px; }
+body.planner-layout .type-label { color: var(--ss-water); }
+body.planner-layout .pin {
+  width: 34px !important;
+  height: 34px !important;
+  border: 3px solid white;
+  background: var(--ss-water);
+  box-shadow: 0 5px 14px rgba(18,60,68,.28);
+}
+body.planner-layout .pin.sea { background: #287fa1; }
+body.planner-layout .pin.river { background: #4e8f7b; }
+
+body.planner-layout .bottom-tools {
+  right: 16px;
+  bottom: 20px;
+  z-index: 1350;
+  gap: 7px;
+  padding: 7px;
+  border-radius: 18px;
+  background: rgba(255,255,255,.92);
+  box-shadow: 0 8px 24px rgba(18,54,62,.16);
+  backdrop-filter: blur(14px);
+}
+body.planner-layout .bottom-tool {
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 13px;
+}
+
+/* Contextual detail surface ------------------------------------------------ */
+#spot-dialog {
+  overflow-x: hidden;
+  border: 1px solid rgba(215,228,231,.92);
+  background: var(--ss-panel);
+  box-shadow: 0 22px 64px rgba(15,45,54,.25);
+  backdrop-filter: blur(20px);
+}
+#spot-dialog .close,
+#spot-sheet-toggle {
+  top: 13px;
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  background: rgba(244,248,249,.96);
+  z-index: 4;
+}
+#spot-dialog .close { right: 14px; }
+#spot-sheet-toggle {
+  position: absolute;
+  right: 60px;
+  font-size: 20px;
+}
+.spot-sheet-handle { display: none; }
+#spot-content {
+  padding-bottom: max(18px, env(safe-area-inset-bottom));
+}
+#spot-content .detail-banner {
+  height: 220px;
+  margin: 0 0 16px;
+  border-radius: 18px;
+}
+#spot-content .detail-meta {
+  gap: 6px;
+  margin-top: 4px;
+}
+#spot-content .badge {
+  border: 1px solid var(--ss-line);
+  background: #f5f9fa;
+  color: var(--ss-muted);
+}
+#spot-content h2 {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size: clamp(25px,3vw,32px);
+  line-height: 1.08;
+  font-weight: 760;
+  letter-spacing: -.04em;
+  margin: 14px 0 7px;
+}
+#spot-content .detail-lede {
+  color: var(--ss-muted);
+  font-size: 13px;
+  margin: 0 0 15px;
+}
+.spot-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(5,minmax(0,1fr));
+  gap: 8px;
+  margin: 14px 0 18px;
+}
+.spot-stat {
+  min-width: 0;
+  min-height: 104px;
+  padding: 12px 8px;
+  border: 1px solid var(--ss-line);
+  border-radius: 17px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.spot-stat-icon {
+  min-height: 28px;
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  line-height: 1;
+}
+.spot-stat-label {
+  margin-top: 8px;
+  color: var(--ss-muted);
+  font-size: 11px;
+}
+.spot-stat-result {
+  width: 100%;
+  margin-top: 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 720;
+}
+.spot-essentials {
+  margin: 2px 0 14px;
+}
+.spot-essentials > h3,
+.compact-feed > h3 {
+  margin: 17px 0 9px;
+  color: var(--ss-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.spot-essentials .info-disclosure,
+.condition-details,
+.detail-more {
+  border: 1px solid var(--ss-line);
+  border-radius: 15px;
+  background: white;
+  margin: 8px 0;
+  overflow: hidden;
+}
+.spot-essentials summary,
+.condition-details summary,
+.detail-more summary {
+  min-height: 48px;
+  padding: 11px 13px;
+}
+.disclosure-copy,
+.condition-details > p,
+.detail-more > p,
+.detail-more > h3,
+.condition-details > .forecast-scroll,
+.condition-details > .lawa-report {
+  margin-left: 14px;
+  margin-right: 14px;
+}
+
+.icon-actions {
+  display: grid;
+  grid-template-columns: repeat(6,minmax(0,1fr));
+  gap: 8px;
+  margin: 16px 0 18px;
+}
+.spot-action {
+  min-width: 0;
+  min-height: 66px;
+  padding: 8px 5px;
+  border: 1px solid var(--ss-line);
+  border-radius: 15px;
+  background: #f6fafb;
+  color: var(--ss-ink);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 10px;
+  line-height: 1.15;
+}
+.spot-action:hover { background: #edf6f8; }
+.spot-action-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+.premium-action .spot-action-icon { color: #c89621; }
+
+/* Conditions: icon -> label -> result ------------------------------------- */
+.condition-strip {
+  display: grid !important;
+  grid-template-columns: repeat(5,minmax(0,1fr));
+  gap: 8px !important;
+  overflow: visible !important;
+}
+.condition-compact {
+  min-width: 0 !important;
+  min-height: 102px;
+  padding: 11px 7px !important;
+  border-radius: 17px !important;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.condition-icon {
+  font-size: 24px !important;
+  margin: 0 0 7px !important;
+}
+.condition-copy {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+}
+.condition-copy > span {
+  margin: 0 !important;
+  font-size: 11px !important;
+}
+.condition-copy strong {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px !important;
+  font-weight: 720 !important;
+}
+.condition-attention { background: #fff9e9; border-color: #ead9a5; }
+.quality-action {
+  border-radius: 17px !important;
+  border-color: var(--ss-line) !important;
+}
+.condition-load-status {
+  margin: 6px 0;
+  min-height: 16px;
+}
+.compact-refresh {
+  min-height: 42px;
+  border-radius: 13px;
+}
+
+/* Mobile ----------------------------------------------------------------- */
+@media (max-width: 780px) {
+  body.planner-layout { overflow: hidden; }
+  body.planner-layout header {
+    top: calc(10px + env(safe-area-inset-top));
+    left: 10px;
+    height: 48px;
+    padding-inline: 11px;
+    border-radius: 16px;
+  }
+  body.planner-layout header .brand { font-size: 18px; }
+  body.planner-layout header .brand-icon { font-size: 24px; }
+  body.planner-layout header #contribute {
+    right: 12px;
+    bottom: calc(78px + env(safe-area-inset-bottom));
+    width: 48px;
+    height: 48px;
+  }
+  body.planner-layout .explorer { height: 100dvh; }
+  body.planner-layout .sidebar {
+    pointer-events: none;
+    inset: calc(66px + env(safe-area-inset-top)) 10px auto 10px;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+  body.planner-layout .search-area {
+    pointer-events: auto;
+    padding: 0;
+    background: transparent;
+  }
+  body.planner-layout .search-toolbar {
+    grid-template-columns: 1fr 48px 48px;
+    gap: 7px;
+  }
+  body.planner-layout .search-row,
+  body.planner-layout .map-tool {
+    box-shadow: 0 8px 25px rgba(18,54,62,.15);
+  }
+  body.planner-layout .layers-panel {
+    position: fixed;
+    z-index: 1550;
+    top: auto;
+    left: 10px;
+    right: 10px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    padding: 16px;
+    border-radius: 24px;
+    box-shadow: 0 22px 60px rgba(15,45,54,.26);
+  }
+  body.planner-layout #location-status {
+    display: inline-block;
+    margin: 6px 0 0;
+    padding: 5px 8px;
+    border-radius: 10px;
+    background: rgba(255,255,255,.92);
+    box-shadow: 0 3px 10px rgba(18,54,62,.1);
+  }
+  body.planner-layout #location-status:empty { display: none; }
+  body.planner-layout #result-count,
+  body.planner-layout .results { display: none; }
+  body.planner-layout .bottom-tools {
+    display: none;
+  }
+
+  #spot-dialog {
+    position: fixed;
+    inset: auto 0 0 0;
+    width: 100%;
+    height: min(84dvh,760px);
+    max-width: none;
+    max-height: 88dvh;
+    margin: 0;
+    padding: 42px 14px calc(14px + env(safe-area-inset-bottom));
+    border: 0;
+    border-top: 1px solid var(--ss-line);
+    border-radius: 28px 28px 0 0;
+    transition: height .22s ease, transform .22s ease;
+  }
+  #spot-dialog::backdrop {
+    background: rgba(13,40,48,.16);
+    backdrop-filter: none;
+  }
+  #spot-dialog.is-collapsed {
+    height: 34dvh;
+    min-height: 255px;
+  }
+  #spot-dialog.is-collapsed #spot-content {
+    overflow: hidden;
+    max-height: calc(34dvh - 50px);
+  }
+  #spot-dialog.is-collapsed .spot-essentials,
+  #spot-dialog.is-collapsed .spot-feeds,
+  #spot-dialog.is-collapsed .detail-actions,
+  #spot-dialog.is-collapsed .detail-more,
+  #spot-dialog.is-collapsed #spot-content > .primary {
+    display: none;
+  }
+  .spot-sheet-handle {
+    display: flex;
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    left: 50%;
+    right: auto;
+    width: 120px;
+    height: 38px;
+    transform: translateX(-50%);
+    align-items: center;
+    justify-content: center;
+    touch-action: pan-y;
+  }
+  .spot-sheet-handle span {
+    width: 66px;
+    height: 6px;
+    border-radius: 99px;
+    background: #b9c8cc;
+  }
+  #spot-dialog .close,
+  #spot-sheet-toggle {
+    top: 8px;
+  }
+  #spot-content .detail-banner {
+    height: 142px;
+    border-radius: 17px;
+  }
+  #spot-content h2 { font-size: 24px; }
+  #spot-content .detail-lede {
+    max-height: none;
+    overflow: visible;
+  }
+  .spot-stat-grid {
+    grid-template-columns: repeat(3,minmax(0,1fr));
+    gap: 8px;
+  }
+  .spot-stat {
+    min-height: 94px;
+    padding: 10px 6px;
+  }
+  .spot-stat:nth-child(n+4) { min-height: 86px; }
+  .icon-actions {
+    grid-template-columns: repeat(3,minmax(0,1fr));
+  }
+  .spot-action { min-height: 64px; }
+  .condition-strip {
+    grid-template-columns: repeat(3,minmax(0,1fr));
+  }
+  .condition-compact {
+    min-height: 94px;
+  }
+  .condition-strip .condition-compact:nth-child(n+4) {
+    min-height: 84px;
+  }
+  .leaflet-control-zoom {
+    margin-bottom: calc(18px + env(safe-area-inset-bottom)) !important;
+  }
+}
+
+@media (max-width: 390px) {
+  body.planner-layout header .nz { display: none; }
+  .spot-stat-grid,
+  .condition-strip { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  .spot-stat-label,
+  .condition-copy > span { font-size: 10px !important; }
+  .spot-stat-result,
+  .condition-copy strong { font-size: 12px !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #spot-dialog { transition: none; }
+}
+
+/* Keep the global add-spot action independent of the translucent header. */
+body.planner-layout > #contribute.floating-contribute {
+  position: fixed;
+  z-index: 1450;
+  right: 18px;
+  bottom: 88px;
+  width: 50px;
+  height: 50px;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.7);
+  border-radius: 17px;
+  background: rgba(255,255,255,.96);
+  box-shadow: 0 9px 26px rgba(18,54,62,.18);
+  font-size: 23px;
+}
+@media (max-width: 780px) {
+  body.planner-layout > #contribute.floating-contribute {
+    right: 12px;
+    bottom: calc(78px + env(safe-area-inset-bottom));
+    width: 48px;
+    height: 48px;
+  }
+}
+
+/* Worker Preview trigger */
+
+
+/* Mobile thumb-reach refinement ------------------------------------------------
+   Keep primary search/actions low, move Add Spot high, and pin attribution to
+   the true map edge. Desktop layout is unchanged.
+------------------------------------------------------------------------------- */
+@media (max-width: 780px) {
+  /* Add spot: top-right, paired visually with the brand rather than the bottom UI. */
+  body.planner-layout > #contribute.floating-contribute {
+    top: calc(10px + env(safe-area-inset-top));
+    right: 10px;
+    bottom: auto;
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+  }
+
+  /* Search/location/layers: thumb zone at the bottom, above attribution. */
+  body.planner-layout .sidebar {
+    inset: auto 10px calc(30px + env(safe-area-inset-bottom)) 10px;
+  }
+
+  body.planner-layout .search-toolbar {
+    align-items: end;
+  }
+
+  body.planner-layout .search-row,
+  body.planner-layout .map-tool {
+    box-shadow: 0 8px 28px rgba(18,54,62,.18);
+  }
+
+  /* Layers opens upward from the bottom search controls. */
+  body.planner-layout .layers-panel {
+    top: auto;
+    bottom: calc(92px + env(safe-area-inset-bottom));
+  }
+
+  /* Keep geolocation feedback immediately above the search controls. */
+  body.planner-layout #location-status {
+    position: absolute;
+    left: 0;
+    bottom: 56px;
+    margin: 0;
+  }
+
+  /* Leaflet attribution belongs on the literal map edge. */
+  .leaflet-control-attribution {
+    position: fixed !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    margin: 0 !important;
+    padding: 2px 5px !important;
+    z-index: 1200 !important;
+    max-width: calc(100vw - 8px);
+    line-height: 1.2 !important;
+    border-radius: 5px 0 0 0;
+    background: rgba(255,255,255,.88) !important;
+  }
+
+  /* Zoom controls clear the bottom search bar and attribution. */
+  .leaflet-control-zoom {
+    margin-bottom: calc(112px + env(safe-area-inset-bottom)) !important;
+  }
+}
+
+
+
+/* Spot cards: filled water-type colour, icon-first layout. */
+#spot-content .detail-meta {
+  min-height: 8px;
+  margin: 0;
+}
+#spot-content .detail-meta .listing-status {
+  font-size: 10px;
+  padding: 4px 7px;
+}
+
+.spot-stat-grid {
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 10px;
+  margin: 12px 0 16px;
+}
+.spot-stat {
+  min-height: 112px;
+  padding: 14px 8px 12px;
+  border: 0;
+  border-radius: 19px;
+  box-shadow: 0 6px 18px rgba(20,54,62,.10);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.spot-stat-icon {
+  min-height: 32px;
+  display: grid;
+  place-items: center;
+  font-size: 27px;
+  line-height: 1;
+  color: #fff;
+}
+.spot-stat-label {
+  margin-top: 8px;
+  font-size: 11px;
+  font-weight: 650;
+  color: rgba(255,255,255,.82);
+}
+.spot-stat-result {
+  width: 100%;
+  margin-top: 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 760;
+  color: #fff;
+}
+
+/* Fill the whole card with the same type colour used by the map vocabulary. */
+.spot-stat-grid.water-type-lake .spot-stat {
+  background: #238aa0;
+}
+.spot-stat-grid.water-type-river .spot-stat {
+  background: #6f8854;
+}
+.spot-stat-grid.water-type-sea .spot-stat {
+  background: #337e96;
+}
+.spot-stat-grid.water-type-pool .spot-stat {
+  background: #7865a8;
+}
+
+/* Remove the old accent-strip treatment entirely. */
+.spot-stat-grid .spot-stat::before { content: none !important; }
+
+@media (max-width: 780px) {
+  .spot-stat-grid {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 9px;
+  }
+  .spot-stat {
+    min-height: 104px;
+    padding: 12px 8px 11px;
+  }
+  .spot-stat-icon { font-size: 26px; }
+  .spot-stat-label { font-size: 11px; }
+  .spot-stat-result { font-size: 14px; }
+}
+
+
+
+/* Authoritative icon-heavy card sizing override. */
+@media (max-width: 780px) {
+  .spot-stat-grid { grid-template-columns: repeat(2,minmax(0,1fr)) !important; }
+  .spot-stat, .spot-stat:nth-child(n+4) {
+    min-height: 104px !important;
+    padding: 12px 8px 11px !important;
+  }
+}
+
+
+/* Primary condition summary --------------------------------------------------
+   Inspired by Strava/Komoot: informational stats, not buttons.
+---------------------------------------------------------------------------- */
+.spot-condition-summary {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: 0;
+  margin: 16px 0 20px;
+  padding: 2px 0 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+.condition-summary-item {
+  position: relative;
+  min-width: 0;
+  padding: 6px 10px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.condition-summary-item + .condition-summary-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 16%;
+  bottom: 16%;
+  width: 1px;
+  background: rgba(21,56,59,.10);
+}
+.condition-summary-icon {
+  min-height: 28px;
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  line-height: 1;
+}
+.condition-summary-label {
+  margin-top: 7px;
+  color: var(--ss-muted);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.15;
+}
+.condition-summary-value {
+  margin-top: 4px;
+  color: var(--ss-ink);
+  font-size: 17px;
+  line-height: 1.05;
+  font-weight: 760;
+  letter-spacing: -.02em;
+}
+
+/* A very light type tint behind the whole summary, never individual buttons. */
+.spot-condition-summary.water-type-lake {
+  background: linear-gradient(180deg,rgba(35,138,160,.07),rgba(35,138,160,.025));
+  border-radius: 18px;
+}
+.spot-condition-summary.water-type-river {
+  background: linear-gradient(180deg,rgba(111,136,84,.07),rgba(111,136,84,.025));
+  border-radius: 18px;
+}
+.spot-condition-summary.water-type-sea {
+  background: linear-gradient(180deg,rgba(51,126,150,.07),rgba(51,126,150,.025));
+  border-radius: 18px;
+}
+.spot-condition-summary.water-type-pool {
+  background: linear-gradient(180deg,rgba(120,101,168,.07),rgba(120,101,168,.025));
+  border-radius: 18px;
+}
+
+/* Facilities now read as secondary content rather than top-level cards. */
+.spot-stat-grid { display: none !important; }
+
+@media (max-width: 780px) {
+  .spot-condition-summary {
+    grid-template-columns: repeat(4,minmax(0,1fr));
+    margin: 12px -2px 18px;
+  }
+  .condition-summary-item {
+    padding: 8px 5px 9px;
+  }
+  .condition-summary-icon {
+    font-size: 22px;
+  }
+  .condition-summary-label {
+    font-size: 9.5px;
+  }
+  .condition-summary-value {
+    font-size: 15px;
+  }
+}
+
+
+
+/* Title provenance and photo presence ------------------------------------- */
+#spot-content h2 + .detail-meta {
+  margin: -1px 0 9px;
+  min-height: 0;
+}
+#spot-content h2 + .detail-meta .listing-status {
+  display: inline-flex;
+  align-items: center;
+  width: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ss-muted);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .01em;
+}
+#spot-content .detail-banner:empty {
+  display: none;
+}
+
+
+
+/* Clean spot-sheet title row ------------------------------------------------ */
+.spot-sheet-handle,
+.spot-sheet-toggle {
+  display: none !important;
+}
+
+#spot-dialog {
+  padding-top: 14px;
+}
+
+#spot-dialog .close {
+  top: 14px;
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  font-size: 28px;
+  line-height: 1;
+  color: var(--ss-ink);
+}
+
+#spot-content h2 {
+  padding-right: 48px;
+  margin-top: 4px;
+}
+
+@media (max-width: 780px) {
+  #spot-dialog {
+    padding: 14px 14px calc(14px + env(safe-area-inset-bottom));
+  }
+  #spot-dialog .close {
+    top: 14px;
+    right: 14px;
+  }
+  #spot-content h2 {
+    padding-right: 50px;
+    margin-top: 2px;
+  }
+}
+
+
+
+/* Show the complete spot description directly below the heading. */
+#spot-content .detail-lede {
+  max-height: none !important;
+  overflow: visible !important;
+  display: block;
+  white-space: normal;
+  line-height: 1.45;
+}
+
+
+
+/* Always-visible practical spot information -------------------------------- */
+.spot-info-block {
+  margin: 9px 0;
+  padding: 13px 14px;
+  border: 1px solid var(--ss-line);
+  border-radius: 15px;
+  background: #fff;
+}
+.spot-info-heading {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 5px;
+}
+.spot-info-icon {
+  width: 22px;
+  display: inline-grid;
+  place-items: center;
+  color: var(--ss-ink);
+  font-size: 17px;
+  line-height: 1;
+}
+.spot-info-heading strong {
+  font-size: 13px;
+  font-weight: 720;
+}
+.spot-info-copy {
+  margin: 0 0 0 31px;
+  color: var(--ss-muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.spot-info-block.hazard {
+  background: #fffaf0;
+  border-color: #ead9aa;
+}
+
+
+
+/* Four primary swim-condition stats. */
+.spot-condition-summary {
+  grid-template-columns: repeat(4,minmax(0,1fr));
+}
+
+/* Compact, icon-led 24-hour forecast -------------------------------------- */
+.forecast-24h {
+  margin: 18px 0 12px;
+  padding-top: 2px;
+}
+.forecast-24h-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.forecast-24h-head h3 {
+  margin: 0;
+  color: var(--ss-muted);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.forecast-24h-strip {
+  display: grid;
+  grid-template-columns: repeat(6,minmax(0,1fr));
+  gap: 2px;
+  padding: 8px 0 4px;
+}
+.forecast-24h-item {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.forecast-24h-time {
+  color: var(--ss-muted);
+  font-size: 9px;
+  line-height: 1.1;
+}
+.forecast-24h-icon {
+  margin: 6px 0 5px;
+  font-size: 19px;
+  line-height: 1;
+}
+.forecast-24h-temp {
+  font-size: 12px;
+  font-weight: 720;
+  line-height: 1.1;
+}
+.forecast-full-link {
+  margin-top: 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ss-water);
+  font-size: 12px;
+  font-weight: 650;
+  text-decoration: none;
+}
+.forecast-full-link:hover,
+.forecast-full-link:focus-visible {
+  text-decoration: underline;
+}
+
+@media (max-width: 780px) {
+  .spot-condition-summary {
+    grid-template-columns: repeat(4,minmax(0,1fr));
+  }
+  .condition-summary-item {
+    padding-inline: 3px;
+  }
+  .condition-summary-label {
+    font-size: 8.8px;
+  }
+  .condition-summary-value {
+    font-size: 14px;
+  }
+  .forecast-24h-strip {
+    gap: 0;
+  }
+  .forecast-24h-icon {
+    font-size: 18px;
+  }
+  .forecast-24h-temp {
+    font-size: 11px;
+  }
+}
+
+
+
+/* Rainfall is hazard context, not a primary current-condition metric. */
+.spot-hazard-rain {
+  margin: 9px 0 0 31px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(112,87,28,.14);
+  color: #755f2a;
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.4;
+}
+
+
+
+/* Sea conditions use the same light icon-led language as weather forecast. */
+.sea-condition-strip {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 0;
+  margin: 8px 0 12px;
+}
+.sea-condition-item {
+  position: relative;
+  min-width: 0;
+  padding: 8px 10px 9px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.sea-condition-item + .sea-condition-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 16%;
+  bottom: 16%;
+  width: 1px;
+  background: rgba(21,56,59,.10);
+}
+.sea-condition-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+.sea-condition-label {
+  margin-top: 6px;
+  color: var(--ss-muted);
+  font-size: 10px;
+  font-weight: 600;
+}
+.sea-condition-value {
+  margin-top: 3px;
+  color: var(--ss-ink);
+  font-size: 14px;
+  font-weight: 740;
+}
+
+
+
+/* Compact LAWA summary ------------------------------------------------------ */
+.water-quality-card {
+  margin-top: 16px;
+}
+.lawa-results {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 0;
+  margin: 7px 0 8px;
+}
+.lawa-result-item {
+  min-width: 0;
+  padding: 8px 12px 9px 0;
+}
+.lawa-result-item + .lawa-result-item {
+  padding-left: 14px;
+  border-left: 1px solid rgba(21,56,59,.10);
+}
+.lawa-result-label {
+  display: block;
+  color: var(--ss-muted);
+  font-size: 10px;
+  font-weight: 600;
+}
+.lawa-result-value {
+  display: block;
+  margin-top: 4px;
+  color: var(--ss-ink);
+  font-size: 16px;
+  font-weight: 760;
+  line-height: 1.1;
+}
+.lawa-source-link {
+  display: inline-block;
+  margin-top: 3px;
+  color: var(--ss-water);
+  font-size: 11px;
+  font-weight: 650;
+  text-decoration: none;
+}
+.lawa-source-link:hover,
+.lawa-source-link:focus-visible {
+  text-decoration: underline;
+}
+
+
+
+/* Nearest public toilet sits inside Facilities as supporting context. */
+.spot-facility-nearest {
+  margin: 9px 0 0 31px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(21,56,59,.08);
+  color: var(--ss-ink);
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.4;
+}
+
+
+
+/* Let condition sections flow without divider rules. */
+#spot-dialog .spot-feeds .feed-section {
+  border-top: 0;
+}
+
+/* Community groups the participatory actions in one quiet section. */
+.spot-community {
+  margin: 20px 0 8px;
+}
+.spot-community > h3 {
+  margin: 0 0 10px;
+}
+.community-actions {
+  margin: 0;
+}
+.community-route-action small {
+  display: block;
+  margin-top: 2px;
+  color: var(--ss-muted);
+  font-size: 9px;
+  font-weight: 600;
+}
+.community-route-action:disabled {
+  opacity: .72;
+  cursor: default;
+}
+.quiet-pro-action {
+  margin: 12px 14px 14px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ss-muted);
+  font-size: 11px;
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+
+
+/* Community uses the same heading language as weather/sea/water quality. */
+.spot-community {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 0;
+}
+.spot-community > h3 {
+  margin: 0 0 10px;
+}
+
+/* Community actions mirror the icon-led condition summary. */
+.community-icon-strip {
+  display: grid;
+  grid-template-columns: repeat(5,minmax(0,1fr));
+  gap: 0;
+  margin: 4px 0 8px;
+}
+.community-icon-item {
+  appearance: none;
+  position: relative;
+  min-width: 0;
+  padding: 8px 5px 9px;
+  border: 0;
+  background: transparent;
+  color: var(--ss-ink);
+  font: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+button.community-icon-item {
+  cursor: pointer;
+}
+.community-icon-item + .community-icon-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 16%;
+  bottom: 16%;
+  width: 1px;
+  background: rgba(21,56,59,.10);
+}
+.community-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+.community-icon-label {
+  margin-top: 6px;
+  color: var(--ss-muted);
+  font-size: 9.5px;
+  font-weight: 650;
+  line-height: 1.15;
+}
+.community-icon-note {
+  margin-top: 3px;
+  color: var(--ss-muted);
+  font-size: 8.5px;
+  font-weight: 600;
+  line-height: 1.1;
+}
+.community-icon-item.is-disabled {
+  opacity: .55;
+}
+.community-icon-item:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+@media (max-width: 780px) {
+  .community-icon-strip {
+    grid-template-columns: repeat(5,minmax(0,1fr));
+  }
+  .community-icon {
+    font-size: 18px;
+  }
+  .community-icon-label {
+    font-size: 8.8px;
+  }
+}
+
+
+
+/* Force Community heading to exactly match feed headings. */
+#spot-dialog .spot-community > h3 {
+  margin: 17px 0 9px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: normal;
+  color: var(--ss-muted);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+/* Keep every Community action on one horizontal row. */
+#spot-dialog .community-icon-strip {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  width: 100%;
+  gap: 0;
+  overflow: hidden;
+}
+#spot-dialog .community-icon-item {
+  min-width: 0;
+  width: 100%;
+  padding: 7px 2px 8px;
+}
+#spot-dialog .community-icon-label {
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+  font-size: 8.5px;
+  letter-spacing: -.01em;
+}
+#spot-dialog .community-icon-note {
+  white-space: nowrap;
+  font-size: 7.5px;
+}
+@media (max-width: 390px) {
+  #spot-dialog .community-icon {
+    font-size: 17px;
+  }
+  #spot-dialog .community-icon-label {
+    font-size: 8px;
+  }
+  #spot-dialog .community-icon-note {
+    font-size: 7px;
+  }
+}
+
