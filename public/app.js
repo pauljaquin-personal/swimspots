@@ -362,17 +362,29 @@ function showSpot(s) {
   dialog.scrollTop = 0;
   history.replaceState(null, "", `#spot=${encodeURIComponent(s.id)}`);
 }
+function clearLocation({ refit = true } = {}) {
+  state.location = null;
+  userMarker?.remove();
+  userMarker = null;
+  const near = $("#near");
+  near.disabled = false;
+  near.setAttribute("aria-pressed", "false");
+  near.setAttribute("aria-label", "Centre map on my location");
+  near.title = "My location";
+  $("#location-status").textContent = "";
+  render();
+  if (refit) fit();
+}
+
 function reset() {
   Object.assign(state, {
     query: "",
     type: "all",
     region: "all",
     savedOnly: false,
-    location: null,
   });
   $("#search").value = "";
-  $("#location-status").textContent = "";
-  userMarker?.remove();
+  clearLocation({ refit: false });
   document
     .querySelectorAll("[data-type]")
     .forEach((b) =>
@@ -404,18 +416,31 @@ $("#saved").onclick = () => {
   fit();
 };
 $("#near").onclick = () => {
-  if (!navigator.geolocation) {
-    $("#location-status").textContent =
-      "Location is unavailable. Search by place instead.";
+  if (state.location) {
+    clearLocation();
+    $("#location-status").textContent = "Location cleared. Tap ◎ to locate again.";
     return;
   }
-  $("#near").disabled = true;
+
+  if (!navigator.geolocation) {
+    $("#location-status").textContent =
+      "Location is not supported by this browser. Search by place instead.";
+    return;
+  }
+
+  const near = $("#near");
+  near.disabled = true;
   $("#location-status").textContent = "Finding your location…";
+
   navigator.geolocation.getCurrentPosition(
     (position) => {
       state.location = [position.coords.latitude, position.coords.longitude];
-      $("#near").disabled = false;
-      $("#location-status").textContent = "Centred on your location";
+      near.disabled = false;
+      near.setAttribute("aria-pressed", "true");
+      near.setAttribute("aria-label", "Clear my location");
+      near.title = "Clear my location";
+      $("#location-status").textContent =
+        "Centred on your location · tap ◎ again to reset";
       userMarker?.remove();
       if (map) {
         userMarker = L.circleMarker(state.location, {
@@ -430,12 +455,24 @@ $("#near").onclick = () => {
       }
       render();
     },
-    () => {
-      $("#near").disabled = false;
-      $("#location-status").textContent =
-        "Could not get your location. Allow location access or search by place instead.";
+    (error) => {
+      near.disabled = false;
+      near.setAttribute("aria-pressed", "false");
+      if (error.code === error.PERMISSION_DENIED) {
+        $("#location-status").textContent =
+          "Location access was denied. Enable location for this site, then tap ◎ to retry.";
+      } else if (error.code === error.POSITION_UNAVAILABLE) {
+        $("#location-status").textContent =
+          "Your location is temporarily unavailable. Tap ◎ to retry or search by place.";
+      } else if (error.code === error.TIMEOUT) {
+        $("#location-status").textContent =
+          "Location request timed out. Tap ◎ to try again.";
+      } else {
+        $("#location-status").textContent =
+          "Could not get your location. Tap ◎ to retry or search by place.";
+      }
     },
-    { timeout: 10000, maximumAge: 60000 },
+    { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 },
   );
 };
 
