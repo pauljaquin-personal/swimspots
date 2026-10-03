@@ -98,7 +98,7 @@ export async function handleRequest(
 
   if (url.pathname === "/api/nearest-toilet") {
     const toiletCacheKey = new Request(
-      `${url.origin}/__toilet-cache/v1/${spot.id}`,
+      `${url.origin}/__toilet-cache/v3/${spot.id}`,
     );
     try {
       const hit = await cache?.match(toiletCacheKey);
@@ -106,11 +106,13 @@ export async function handleRequest(
     } catch {}
 
     const result = await fetchNearestToilet(spot, { fetchImpl });
-    if (cache && result.status === "available") {
+    if (cache && ["available", "none-found"].includes(result.status)) {
+      const maxAge =
+        result.status === "available" ? 7 * 24 * 60 * 60 : 24 * 60 * 60;
       const response = new Response(JSON.stringify(result), {
         headers: {
           "Content-Type": "application/json",
-          "Cache-Control": "public, max-age=86400",
+          "Cache-Control": `public, max-age=${maxAge}`,
         },
       });
       const write = cache.put(toiletCacheKey, response).catch(() => {});
