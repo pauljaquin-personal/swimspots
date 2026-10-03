@@ -3017,3 +3017,47 @@ body.planner-layout > #contribute.floating-contribute {
   line-height: 1.4;
 }
 
+
+
+/* Sea conditions use the same light icon-led language as weather forecast. */
+.sea-condition-strip {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 0;
+  margin: 8px 0 12px;
+}
+.sea-condition-item {
+  position: relative;
+  min-width: 0;
+  padding: 8px 10px 9px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.sea-condition-item + .sea-condition-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 16%;
+  bottom: 16%;
+  width: 1px;
+  background: rgba(21,56,59,.10);
+}
+.sea-condition-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+.sea-condition-label {
+  margin-top: 6px;
+  color: var(--ss-muted);
+  font-size: 10px;
+  font-weight: 600;
+}
+.sea-condition-value {
+  margin-top: 3px;
+  color: var(--ss-ink);
+  font-size: 14px;
+  font-weight: 740;
+}
+
