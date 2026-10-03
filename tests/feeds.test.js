@@ -356,3 +356,55 @@ test("nearest toilet lookup selects the closest OSM toilet", async () => {
   assert.equal(result.toilet.name, "Near toilets");
   assert.ok(result.toilet.distanceMetres < 100);
 });
+
+
+test("nearest toilet lookup falls back to a second Overpass endpoint", async () => {
+  const calls = [];
+  const result = await fetchNearestToilet(
+    { coordinates: [-45.0347, 168.66] },
+    {
+      endpoints: ["https://one.example/api", "https://two.example/api"],
+      fetchImpl: async (url) => {
+        calls.push(String(url));
+        if (calls.length === 1) return new Response("", { status: 503 });
+        return Response.json({
+          elements: [{
+            type: "node",
+            id: 3,
+            lat: -45.035,
+            lon: 168.66,
+            tags: { amenity: "toilets", name: "Fallback toilets" },
+          }],
+        });
+      },
+    },
+  );
+  assert.deepEqual(calls, [
+    "https://one.example/api",
+    "https://two.example/api",
+  ]);
+  assert.equal(result.status, "available");
+  assert.equal(result.toilet.name, "Fallback toilets");
+});
+
+test("nearest toilet lookup distinguishes none found from provider failure", async () => {
+  const none = await fetchNearestToilet(
+    { coordinates: [-45.0347, 168.66] },
+    {
+      endpoints: ["https://one.example/api"],
+      fetchImpl: async () => Response.json({ elements: [] }),
+    },
+  );
+  assert.equal(none.status, "none-found");
+  assert.equal(none.toilet, null);
+
+  const failed = await fetchNearestToilet(
+    { coordinates: [-45.0347, 168.66] },
+    {
+      endpoints: ["https://one.example/api", "https://two.example/api"],
+      fetchImpl: async () => new Response("", { status: 503 }),
+    },
+  );
+  assert.equal(failed.status, "temporarily-unavailable");
+  assert.equal(failed.toilet, null);
+});
