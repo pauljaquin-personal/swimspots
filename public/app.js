@@ -251,6 +251,11 @@ function showSpot(s) {
       <strong class="condition-summary-value" data-summary="wind">—</strong>
     </div>
     <div class="condition-summary-item">
+      <span class="condition-summary-icon" aria-hidden="true">🧭</span>
+      <span class="condition-summary-label">Wind dir</span>
+      <strong class="condition-summary-value" data-summary="wind-direction">—</strong>
+    </div>
+    <div class="condition-summary-item">
       <span class="condition-summary-icon" aria-hidden="true">☔</span>
       <span class="condition-summary-label">Past rain</span>
       <strong class="condition-summary-value" data-summary="rain">—</strong>
