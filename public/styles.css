@@ -3161,3 +3161,87 @@ body.planner-layout > #contribute.floating-contribute {
   text-underline-offset: 2px;
 }
 
+
+
+/* Community uses the same heading language as weather/sea/water quality. */
+.spot-community {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 0;
+}
+.spot-community > h3 {
+  margin: 0 0 10px;
+}
+
+/* Community actions mirror the icon-led condition summary. */
+.community-icon-strip {
+  display: grid;
+  grid-template-columns: repeat(5,minmax(0,1fr));
+  gap: 0;
+  margin: 4px 0 8px;
+}
+.community-icon-item {
+  appearance: none;
+  position: relative;
+  min-width: 0;
+  padding: 8px 5px 9px;
+  border: 0;
+  background: transparent;
+  color: var(--ss-ink);
+  font: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+button.community-icon-item {
+  cursor: pointer;
+}
+.community-icon-item + .community-icon-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 16%;
+  bottom: 16%;
+  width: 1px;
+  background: rgba(21,56,59,.10);
+}
+.community-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+.community-icon-label {
+  margin-top: 6px;
+  color: var(--ss-muted);
+  font-size: 9.5px;
+  font-weight: 650;
+  line-height: 1.15;
+}
+.community-icon-note {
+  margin-top: 3px;
+  color: var(--ss-muted);
+  font-size: 8.5px;
+  font-weight: 600;
+  line-height: 1.1;
+}
+.community-icon-item.is-disabled {
+  opacity: .55;
+}
+.community-icon-item:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+@media (max-width: 780px) {
+  .community-icon-strip {
+    grid-template-columns: repeat(5,minmax(0,1fr));
+  }
+  .community-icon {
+    font-size: 18px;
+  }
+  .community-icon-label {
+    font-size: 8.8px;
+  }
+}
+
