@@ -524,6 +524,7 @@ function clearLocation({ refit = true } = {}) {
 }
 
 function reset() {
+  clearToiletMarker();
   Object.assign(state, {
     query: "",
     type: "all",
