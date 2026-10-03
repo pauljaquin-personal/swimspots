@@ -2913,9 +2913,9 @@ body.planner-layout > #contribute.floating-contribute {
 
 
 
-/* Five primary swim-condition stats. */
+/* Four primary swim-condition stats. */
 .spot-condition-summary {
-  grid-template-columns: repeat(5,minmax(0,1fr));
+  grid-template-columns: repeat(4,minmax(0,1fr));
 }
 
 /* Compact, icon-led 24-hour forecast -------------------------------------- */
@@ -2982,7 +2982,7 @@ body.planner-layout > #contribute.floating-contribute {
 
 @media (max-width: 780px) {
   .spot-condition-summary {
-    grid-template-columns: repeat(5,minmax(0,1fr));
+    grid-template-columns: repeat(4,minmax(0,1fr));
   }
   .condition-summary-item {
     padding-inline: 3px;
@@ -3002,5 +3002,18 @@ body.planner-layout > #contribute.floating-contribute {
   .forecast-24h-temp {
     font-size: 11px;
   }
+}
+
+
+
+/* Rainfall is hazard context, not a primary current-condition metric. */
+.spot-hazard-rain {
+  margin: 9px 0 0 31px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(112,87,28,.14);
+  color: #755f2a;
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.4;
 }
 
