@@ -394,6 +394,153 @@ export async function fetchLawaSwim(
 const QLDC_TOILETS_URL =
   "https://gis.qldc.govt.nz/server/rest/services/OpenSpaces/Parks_and_Open_Spaces_VIEWER/MapServer/26/query";
 
+const OFFICIAL_TOILET_OVERRIDES = {
+  "aparima-river-thornbury": {
+    name: "Thornbury Bridge Toilet",
+    address: "212 Gropers Bush Thornbury Road, Thornbury",
+    source: {
+      name: "Southland District Council",
+      url: "https://www.southlanddc.govt.nz/community-and-facilities/toliet/",
+      kind: "council",
+    },
+  },
+  "colac-bay": {
+    name: "Colac Bay Foreshore Toilet",
+    address: "17 Foreshore Road, Colac Bay",
+    source: {
+      name: "Southland District Council",
+      url: "https://www.southlanddc.govt.nz/community-and-facilities/toliet/",
+      kind: "council",
+    },
+  },
+  "lake-manapouri-frasers-beach": {
+    name: "Manapouri Frasers Beach, Central Toilet",
+    address: "1 Cathedral Drive, Manapouri",
+    source: {
+      name: "Southland District Council",
+      url: "https://www.southlanddc.govt.nz/community-and-facilities/toliet/",
+      kind: "council",
+    },
+  },
+  "lake-te-anau-boat-harbour": {
+    name: "Te Anau Boat Harbour Toilet",
+    address: "177 Te Anau Terrace, Te Anau",
+    source: {
+      name: "Southland District Council",
+      url: "https://www.southlanddc.govt.nz/community-and-facilities/toliet/",
+      kind: "council",
+    },
+  },
+  "mataura-river-riversdale": {
+    name: "Riversdale Toilet",
+    address: "26 Berwick Street, Riversdale",
+    source: {
+      name: "Southland District Council",
+      url: "https://www.southlanddc.govt.nz/community-and-facilities/toliet/",
+      kind: "council",
+    },
+  },
+  "monkey-island": {
+    name: "Monkey Island Toilet",
+    address: "27 Monkey Island Road, Monkey Island",
+    source: {
+      name: "Southland District Council",
+      url: "https://www.southlanddc.govt.nz/community-and-facilities/toliet/",
+      kind: "council",
+    },
+  },
+  "porpoise-bay": {
+    name: "Curio Bay Campground Main Toilet",
+    address: "601 Waikawa Curio Bay Road, Curio Bay",
+    source: {
+      name: "Southland District Council",
+      url: "https://www.southlanddc.govt.nz/community-and-facilities/toliet/",
+      kind: "council",
+    },
+  },
+  "riverton-rocks-mitchells-bay": {
+    name: "Riverton Rocks Bunker Toilet",
+    address: "92 Rocks Highway, Riverton",
+    source: {
+      name: "Southland District Council",
+      url: "https://www.southlanddc.govt.nz/community-and-facilities/toliet/",
+      kind: "council",
+    },
+  },
+  "waiau-river-tuatapere": {
+    name: "Tuatapere Toilet",
+    address: "42 Main Road, Tuatapere",
+    source: {
+      name: "Southland District Council",
+      url: "https://www.southlanddc.govt.nz/community-and-facilities/toliet/",
+      kind: "council",
+    },
+  },
+  "waikaia-river-waikaia": {
+    name: "Waikaia Toilet",
+    address: "39 Blaydon Street, Waikaia",
+    source: {
+      name: "Southland District Council",
+      url: "https://www.southlanddc.govt.nz/community-and-facilities/toliet/",
+      kind: "council",
+    },
+  },
+  "bluff-morrisons-beach": {
+    name: "Bluff Public Toilet",
+    address: "94 Gore Street, Bluff",
+    source: {
+      name: "Invercargill City Council",
+      url: "https://www.icc.govt.nz/services/public-toilets",
+      kind: "council",
+    },
+  },
+  "new-river-estuary-omaui": {
+    name: "Omaui Reserve public toilet",
+    address: "Mokomoko Road, Omaui",
+    source: {
+      name: "Invercargill City Council",
+      url: "https://www.icc.govt.nz/services/public-toilets",
+      kind: "council",
+    },
+  },
+  "new-river-estuary-water-ski-club": {
+    name: "Sandy Point public toilet near Water Ski Club",
+    address: "Sandy Point Road, Invercargill",
+    source: {
+      name: "Invercargill City Council",
+      url: "https://www.icc.govt.nz/services/public-toilets",
+      kind: "council",
+    },
+  },
+  "oreti-beach-dunns-road": {
+    name: "Oreti Beach Toilet",
+    address: "Dunns Road, Invercargill",
+    source: {
+      name: "Invercargill City Council",
+      url: "https://www.icc.govt.nz/services/public-toilets",
+      kind: "council",
+    },
+  },
+};
+
+function officialToiletOverride(spot) {
+  const item = OFFICIAL_TOILET_OVERRIDES[spot.id];
+  if (!item) return null;
+  return {
+    status: "available",
+    source: item.source,
+    toilet: {
+      name: item.name,
+      address: item.address,
+      distanceMetres: null,
+      coordinates: null,
+      accessible: null,
+      officialListing: true,
+    },
+    radiusMetres: null,
+  };
+}
+
 const OVERPASS_URLS = [
   "https://overpass-api.de/api/interpreter",
   "https://overpass.kumi.systems/api/interpreter",
@@ -543,6 +690,9 @@ export async function fetchNearestToilet(
       toilet: null,
       message: "This swim spot does not have usable coordinates.",
     };
+
+  const official = officialToiletOverride(spot);
+  if (official) return official;
 
   // Prefer QLDC's authoritative public-toilet asset layer where it returns
   // an open facility nearby. Outside the district, or if the council service
