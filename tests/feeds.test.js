@@ -9,6 +9,7 @@ import {
   parseLawaSwimHtml,
   fetchLawaSwim,
   fetchNearestToilet,
+  fetchNearestQldcToilet,
   distanceMetres,
 } from "../src/feeds.js";
 import { handleRequest } from "../src/worker.js";
@@ -407,4 +408,71 @@ test("nearest toilet lookup distinguishes none found from provider failure", asy
   );
   assert.equal(failed.status, "temporarily-unavailable");
   assert.equal(failed.toilet, null);
+});
+
+
+test("QLDC toilet lookup selects the nearest open council toilet", async () => {
+  const result = await fetchNearestQldcToilet(
+    { coordinates: [-45.0312, 168.6626] },
+    {
+      fetchImpl: async (url) => {
+        const parsed = new URL(String(url));
+        assert.equal(parsed.searchParams.get("where"), "OPSTAT='01'");
+        assert.equal(parsed.searchParams.get("inSR"), "4326");
+        assert.equal(parsed.searchParams.get("outSR"), "4326");
+        return Response.json({
+          features: [
+            {
+              attributes: {
+                ASSETID: "T1",
+                SITENME: "Queenstown Bay Toilets",
+                OPSTAT: "01",
+                DUNIWC: "01",
+                BABYCHGE: "01",
+              },
+              geometry: { x: 168.6630, y: -45.0310 },
+            },
+            {
+              attributes: {
+                ASSETID: "T2",
+                SITENME: "Further Toilet",
+                OPSTAT: "01",
+              },
+              geometry: { x: 168.67, y: -45.04 },
+            },
+          ],
+        });
+      },
+    },
+  );
+  assert.equal(result.status, "available");
+  assert.equal(result.source.name, "Queenstown Lakes District Council");
+  assert.equal(result.toilet.name, "Queenstown Bay Toilets");
+  assert.equal(result.toilet.accessible, true);
+  assert.equal(result.toilet.babyChange, true);
+});
+
+test("combined toilet lookup prefers QLDC before OpenStreetMap", async () => {
+  let calls = 0;
+  const result = await fetchNearestToilet(
+    { coordinates: [-45.0312, 168.6626] },
+    {
+      endpoints: ["https://overpass.example/api"],
+      fetchImpl: async (url) => {
+        calls++;
+        if (String(url).includes("gis.qldc.govt.nz")) {
+          return Response.json({
+            features: [{
+              attributes: { ASSETID: "T1", SITENME: "Council toilet", OPSTAT: "01" },
+              geometry: { x: 168.6630, y: -45.0310 },
+            }],
+          });
+        }
+        throw new Error("OSM should not be called");
+      },
+    },
+  );
+  assert.equal(calls, 1);
+  assert.equal(result.status, "available");
+  assert.equal(result.source.name, "Queenstown Lakes District Council");
 });
