@@ -3061,3 +3061,50 @@ body.planner-layout > #contribute.floating-contribute {
   font-weight: 740;
 }
 
+
+
+/* Compact LAWA summary ------------------------------------------------------ */
+.water-quality-card {
+  margin-top: 16px;
+}
+.lawa-results {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 0;
+  margin: 7px 0 8px;
+}
+.lawa-result-item {
+  min-width: 0;
+  padding: 8px 12px 9px 0;
+}
+.lawa-result-item + .lawa-result-item {
+  padding-left: 14px;
+  border-left: 1px solid rgba(21,56,59,.10);
+}
+.lawa-result-label {
+  display: block;
+  color: var(--ss-muted);
+  font-size: 10px;
+  font-weight: 600;
+}
+.lawa-result-value {
+  display: block;
+  margin-top: 4px;
+  color: var(--ss-ink);
+  font-size: 16px;
+  font-weight: 760;
+  line-height: 1.1;
+}
+.lawa-source-link {
+  display: inline-block;
+  margin-top: 3px;
+  color: var(--ss-water);
+  font-size: 11px;
+  font-weight: 650;
+  text-decoration: none;
+}
+.lawa-source-link:hover,
+.lawa-source-link:focus-visible {
+  text-decoration: underline;
+}
+
