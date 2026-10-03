@@ -368,7 +368,18 @@ export function mountConditions(container, spot, summaryContainer = null) {
     set("air", number(weather?.current?.airTemperature));
     set("wind", number(weather?.current?.windSpeed));
     set("wind-direction", compassPoint(weather?.current?.windDirection?.value));
-    set("rain", number(weather?.rain48h));
+
+    const hazardRain = document.querySelector("[data-hazard-rain]");
+    if (hazardRain) {
+      const rain = weather?.rain48h;
+      if (rain?.value === null || rain?.value === undefined) {
+        hazardRain.textContent = "Past rainfall unavailable.";
+      } else if (Number(rain.value) > 0) {
+        hazardRain.textContent = `Past 48h rain: ${number(rain)}${rain.lastPrecipitationAt ? ` · last around ${date(rain.lastPrecipitationAt)}` : ""}`;
+      } else {
+        hazardRain.textContent = "Past 48h rain: none modelled.";
+      }
+    }
   }
 
   function render() {
