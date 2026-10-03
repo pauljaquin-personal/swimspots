@@ -285,8 +285,19 @@ function showSpot(s) {
   fetch(`/api/nearest-toilet?spot=${encodeURIComponent(s.id)}`)
     .then((response) => (response.ok ? response.json() : Promise.reject()))
     .then((data) => {
-      if (!data?.toilet) {
-        toiletNote.textContent = "Nearest public toilet: unavailable.";
+      if (data?.status === "none-found") {
+        const km = Math.round(Number(data.radiusMetres || 10000) / 1000);
+        toiletNote.textContent =
+          `Nearest public toilet: none mapped within ${km} km.`;
+        toiletNote.title =
+          "OpenStreetMap lookup completed, but no mapped public toilet was found within the search radius.";
+        return;
+      }
+      if (data?.status === "temporarily-unavailable" || !data?.toilet) {
+        toiletNote.textContent =
+          "Nearest public toilet: lookup temporarily unavailable.";
+        toiletNote.title =
+          "The external OpenStreetMap toilet lookup could not be reached. This does not mean there is no toilet nearby.";
         return;
       }
       const metres = Number(data.toilet.distanceMetres);
@@ -299,7 +310,8 @@ function showSpot(s) {
       toiletNote.title = "Approximate straight-line distance from this swim-spot coordinate. Source: OpenStreetMap.";
     })
     .catch(() => {
-      toiletNote.textContent = "Nearest public toilet: unavailable.";
+      toiletNote.textContent =
+        "Nearest public toilet: lookup temporarily unavailable.";
     });
 
   essentials.append(
