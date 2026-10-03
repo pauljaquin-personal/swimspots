@@ -2872,3 +2872,42 @@ body.planner-layout > #contribute.floating-contribute {
   line-height: 1.45;
 }
 
+
+
+/* Always-visible practical spot information -------------------------------- */
+.spot-info-block {
+  margin: 9px 0;
+  padding: 13px 14px;
+  border: 1px solid var(--ss-line);
+  border-radius: 15px;
+  background: #fff;
+}
+.spot-info-heading {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 5px;
+}
+.spot-info-icon {
+  width: 22px;
+  display: inline-grid;
+  place-items: center;
+  color: var(--ss-ink);
+  font-size: 17px;
+  line-height: 1;
+}
+.spot-info-heading strong {
+  font-size: 13px;
+  font-weight: 720;
+}
+.spot-info-copy {
+  margin: 0 0 0 31px;
+  color: var(--ss-muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.spot-info-block.hazard {
+  background: #fffaf0;
+  border-color: #ead9aa;
+}
+
