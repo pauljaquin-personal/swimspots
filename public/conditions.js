@@ -15,6 +15,28 @@ const external = (label, url) => {
   return a;
 };
 
+const regionalWaterQualitySources = {
+  Otago: {
+    label: "ORC",
+    name: "Otago Regional Council",
+    url: "https://www.orc.govt.nz/environment/water-care/water-quality/recreational-water-quality",
+  },
+  Southland: {
+    label: "Environment Southland",
+    name: "Environment Southland",
+    url: "https://www.es.govt.nz/environment/water/swimming",
+  },
+  Auckland: {
+    label: "Safeswim",
+    name: "Auckland Council Safeswim",
+    url: "https://www.safeswim.org.nz/",
+  },
+};
+
+function regionalWaterQualitySource(spot) {
+  return regionalWaterQualitySources[spot.region] || null;
+}
+
 const number = (metric, digits = 1) =>
   typeof metric?.value === "number" && Number.isFinite(metric.value)
     ? `${metric.value.toFixed(digits)} ${metric.unit}`
@@ -258,6 +280,8 @@ function waterQualityView(spot) {
     resultItem("Latest result", "latestResult"),
   );
 
+  const sourceLinks = el("div", null, "water-quality-source-links");
+
   const lawaDetails = detailsBlock("LAWA");
   const source = external(
     "Open LAWA ↗",
@@ -265,8 +289,17 @@ function waterQualityView(spot) {
   );
   source.className = "lawa-source-link";
   lawaDetails.append(source);
+  sourceLinks.append(lawaDetails);
 
-  section.append(results, lawaDetails);
+  const regionalSource = regionalWaterQualitySource(spot);
+  if (regionalSource) {
+    const regional = external(`${regionalSource.label} ↗`, regionalSource.url);
+    regional.className = "regional-water-source";
+    regional.title = regionalSource.name;
+    sourceLinks.append(regional);
+  }
+
+  section.append(results, sourceLinks);
 
   if (spot.lawa?.siteId) {
     fetch(`/api/lawa?spot=${encodeURIComponent(spot.id)}`)
@@ -301,14 +334,6 @@ export function mountConditions(container, spot, summaryContainer = null) {
   const feeds = el("div");
   container.append(feeds, waterQualityView(spot));
 
-  if (spot.council) {
-    const council = detailsBlock(spot.council.name);
-    council.classList.add("council-links");
-    council.append(el("p", spot.council.note, "small"));
-    for (const source of spot.council.links)
-      council.append(external(source.name + " ↗", source.url));
-    container.append(council);
-  }
 
   function renderSummary() {
     if (!summaryContainer || !payload) return;

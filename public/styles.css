@@ -3468,3 +3468,35 @@ button.community-icon-item {
 .community-icon-strip {
   padding: 3px 4px;
 }
+
+
+/* Regional water-quality sources ------------------------------------------ */
+.water-quality-source-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+.water-quality-source-links .quiet-detail-row {
+  margin: 0;
+}
+.water-quality-source-links .quiet-detail-row > summary,
+.regional-water-source {
+  min-height: 0;
+  padding: 5px 0;
+  font-size: 10.5px;
+  font-weight: 650;
+  line-height: 1.2;
+  color: var(--ss-water);
+  text-decoration: none;
+}
+.regional-water-source::before {
+  content: "·";
+  margin-right: 8px;
+  color: var(--ss-muted);
+}
+.regional-water-source:hover,
+.regional-water-source:focus-visible {
+  text-decoration: underline;
+}
