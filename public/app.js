@@ -373,12 +373,6 @@ function showSpot(s) {
   };
   if (map) content.append(show);
   const dialog = $("#spot-dialog");
-  dialog.classList.remove("is-collapsed");
-  $("#spot-sheet-handle")?.setAttribute("aria-expanded", "true");
-  if ($("#spot-sheet-toggle")) {
-    $("#spot-sheet-toggle").textContent = "⌄";
-    $("#spot-sheet-toggle").setAttribute("aria-label", "Collapse spot details");
-  }
   if (!dialog.open) dialog.showModal();
   dialog.scrollTop = 0;
   history.replaceState(null, "", `#spot=${encodeURIComponent(s.id)}`);
@@ -564,45 +558,6 @@ $("#spot-dialog").addEventListener("close", () => {
   disposeConditions();
   history.replaceState(null, "", location.pathname + location.search);
 });
-
-function setSpotSheetCollapsed(collapsed) {
-  const dialog = $("#spot-dialog");
-  dialog.classList.toggle("is-collapsed", collapsed);
-  $("#spot-sheet-handle")?.setAttribute("aria-expanded", String(!collapsed));
-  const toggle = $("#spot-sheet-toggle");
-  if (toggle) {
-    toggle.textContent = collapsed ? "⌃" : "⌄";
-    toggle.setAttribute("aria-label", collapsed ? "Expand spot details" : "Collapse spot details");
-  }
-  if (collapsed) dialog.scrollTop = 0;
-}
-$("#spot-sheet-handle")?.addEventListener("click", () =>
-  setSpotSheetCollapsed(!$("#spot-dialog").classList.contains("is-collapsed")),
-);
-$("#spot-sheet-toggle")?.addEventListener("click", () =>
-  setSpotSheetCollapsed(!$("#spot-dialog").classList.contains("is-collapsed")),
-);
-
-let sheetTouchStart = null;
-$("#spot-sheet-handle")?.addEventListener(
-  "touchstart",
-  (event) => {
-    sheetTouchStart = event.touches[0]?.clientY ?? null;
-  },
-  { passive: true },
-);
-$("#spot-sheet-handle")?.addEventListener(
-  "touchend",
-  (event) => {
-    if (sheetTouchStart == null) return;
-    const end = event.changedTouches[0]?.clientY ?? sheetTouchStart;
-    const delta = end - sheetTouchStart;
-    if (delta > 36) setSpotSheetCollapsed(true);
-    if (delta < -36) setSpotSheetCollapsed(false);
-    sheetTouchStart = null;
-  },
-  { passive: true },
-);
 
 mountSubmission();
 async function init() {
