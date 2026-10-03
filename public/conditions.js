@@ -71,7 +71,7 @@ function forecastGlyph(row) {
   return "○";
 }
 
-function compactForecastView(feed, fullDetails) {
+function compactForecastView(feed) {
   const future = (feed?.forecast || [])
     .filter((r) => Date.parse(r.validAt) > Date.now())
     .slice(0, 24);
@@ -94,16 +94,6 @@ function compactForecastView(feed, fullDetails) {
     strip.append(item);
   });
   section.append(strip);
-
-  const more = el("button", "View full forecast", "forecast-full-link");
-  more.type = "button";
-  more.onclick = () => {
-    if (fullDetails) {
-      fullDetails.open = true;
-      fullDetails.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
-  section.append(more);
   return section;
 }
 
@@ -188,7 +178,7 @@ function weatherView(feed) {
   );
   more.append(credit);
 
-  const compactForecast = compactForecastView(feed, more);
+  const compactForecast = compactForecastView(feed);
   if (compactForecast) section.append(compactForecast);
   section.append(more);
   return section;
@@ -204,13 +194,21 @@ function marineView(feed) {
     return section;
   }
 
-  const cards = el("div", null, "conditions condition-strip");
-  cards.append(
-    metricCard("≈", "Sea temp", number(feed.current.seaTemperature)),
-    metricCard("⌇", "Wave", number(feed.current.waveHeight, 2)),
-    metricCard("↔", "Period", number(feed.current.wavePeriod)),
-  );
-  section.append(cards);
+  const seaStrip = el("div", null, "sea-condition-strip");
+  [
+    ["≈", "Sea temp", number(feed.current.seaTemperature)],
+    ["⌇", "Wave", number(feed.current.waveHeight, 2)],
+    ["↔", "Period", number(feed.current.wavePeriod)],
+  ].forEach(([glyph, label, value]) => {
+    const item = el("div", null, "sea-condition-item");
+    item.append(
+      el("span", glyph, "sea-condition-icon"),
+      el("span", label, "sea-condition-label"),
+      el("strong", value, "sea-condition-value"),
+    );
+    seaStrip.append(item);
+  });
+  section.append(seaStrip);
 
   const more = detailsBlock("About sea conditions", "≈");
   more.append(
