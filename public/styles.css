@@ -3656,3 +3656,58 @@ body.planner-layout header nav.brand-menu-panel {
 body.planner-layout header nav.brand-menu-panel[hidden] {
   display: none;
 }
+
+
+/* Regional water-quality source chevron ---------------------------------- */
+.regional-water-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.regional-water-chevron {
+  color: var(--ss-muted);
+  font-size: 13px;
+  line-height: 1;
+  text-decoration: none;
+}
+
+
+/* Supporting toilet location ------------------------------------------------ */
+.toilet-map-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 5px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ss-water);
+  font: inherit;
+  font-size: 10.5px;
+  font-weight: 650;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+}
+.toilet-map-action:hover,
+.toilet-map-action:focus-visible {
+  text-decoration: underline;
+}
+.toilet-map-marker {
+  background: transparent;
+  border: 0;
+}
+.toilet-map-marker span {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--ss-water);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(24,63,60,.24);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: -.02em;
+}
