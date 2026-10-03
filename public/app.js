@@ -569,24 +569,6 @@ function openSiteInfo(title, body) {
   if (!dialog.open) dialog.showModal();
 }
 
-$("#about-link").onclick = () =>
-  openSiteInfo(
-    "About Swimspots",
-    "A simple map for discovering open-water swimming locations around Aotearoa New Zealand. Conditions, access and local information can change, so always check current official advice before swimming.",
-  );
-
-$("#contact-link").onclick = () =>
-  openSiteInfo(
-    "Contact",
-    "A contact form will be added here. For now, this keeps a clear place in the interface for feedback and corrections.",
-  );
-
-$("#social-link").onclick = () =>
-  openSiteInfo(
-    "Follow Swimspots",
-    "Social links will live here once the Swimspots channels are set up.",
-  );
-
 $("#share-link").onclick = async () => {
   const shareData = {
     title: "Swimspots NZ",
@@ -608,6 +590,28 @@ $("#share-link").onclick = async () => {
   }
   openSiteInfo("Share", location.href);
 };
+
+
+const brandMenuToggle = $("#brand-menu-toggle");
+const brandMenuPanel = $("#brand-menu-panel");
+if (brandMenuToggle && brandMenuPanel) {
+  const setBrandMenu = (open) => {
+    brandMenuPanel.hidden = !open;
+    brandMenuToggle.setAttribute("aria-expanded", String(open));
+  };
+  brandMenuToggle.addEventListener("click", (event) => {
+    event.stopPropagation();
+    setBrandMenu(brandMenuPanel.hidden);
+  });
+  brandMenuPanel.addEventListener("click", (event) => event.stopPropagation());
+  document.addEventListener("click", () => setBrandMenu(false));
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      setBrandMenu(false);
+      brandMenuToggle.focus();
+    }
+  });
+}
 
 document
   .querySelectorAll("dialog .close")

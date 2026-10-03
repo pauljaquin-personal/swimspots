@@ -16,9 +16,17 @@
   <body class="planner-layout">
     <a class="skip" href="#search">Skip to swim spots</a>
     <header>
-      <a class="brand" href="/" aria-label="Swim Spots home"
-        ><span class="brand-icon">≋</span>swimspots<span class="nz">NZ</span></a
-      >
+      <div class="brand-menu">
+        <button id="brand-menu-toggle" class="brand brand-menu-toggle" type="button" aria-label="Open Swimspots menu" aria-expanded="false" aria-controls="brand-menu-panel">
+          <span class="brand-icon">≋</span>swimspots<span class="nz">NZ</span><span class="brand-menu-chevron" aria-hidden="true">⌄</span>
+        </button>
+        <nav id="brand-menu-panel" class="brand-menu-panel" aria-label="Swimspots information" hidden>
+          <a href="/about.html">About</a>
+          <a href="/swim-safely.html">Swim safely</a>
+          <a href="/community.html">Community</a>
+          <a href="/sources.html">Sources</a>
+        </nav>
+      </div>
     </header>
     <button id="contribute" class="outline icon-only floating-contribute" aria-label="Suggest a spot" title="Suggest a spot">＋</button>
     <main>
@@ -97,11 +105,11 @@
       </section>
     </main>
     <nav class="bottom-tools" aria-label="Site links">
-      <button id="about-link" class="bottom-tool" aria-label="About Swimspots" title="About">i</button>
-      <button id="contact-link" class="bottom-tool" aria-label="Contact Swimspots" title="Contact">✉</button>
+      <a class="bottom-tool" href="/about.html" aria-label="About Swimspots" title="About">i</a>
+      <a class="bottom-tool" href="/community.html" aria-label="Community and contact" title="Community">✉</a>
       <button id="share-link" class="bottom-tool" aria-label="Share Swimspots" title="Share">↗</button>
       <a class="bottom-tool" href="https://www.facebook.com/swimspots.nz" target="_blank" rel="noopener noreferrer" aria-label="Swimspots on Facebook" title="Facebook">f</a>
-      <button id="social-link" class="bottom-tool" aria-label="Social links" title="Social links">⋯</button>
+      <a class="bottom-tool" href="/sources.html" aria-label="Sources and limitations" title="Sources">⋯</a>
     </nav>
     <dialog id="site-info-dialog" aria-labelledby="site-info-title">
       <button class="close" aria-label="Close site information">×</button>
