@@ -14,6 +14,7 @@ let spots = [],
   map,
   markers,
   userMarker,
+  toiletMarker,
   mapTiles,
   satelliteTiles,
   activeBaseLayer = "map";
@@ -136,6 +137,56 @@ function save(id) {
   }
   render();
 }
+function clearToiletMarker() {
+  toiletMarker?.remove();
+  toiletMarker = null;
+}
+
+function showToiletOnMap(spot, toilet) {
+  if (!map || !Array.isArray(toilet?.coordinates)) return;
+  const [lat, lon] = toilet.coordinates.map(Number);
+  if (!Number.isFinite(lat) || !Number.isFinite(lon)) return;
+
+  clearToiletMarker();
+  toiletMarker = L.marker([lat, lon], {
+    title: toilet.name || "Public toilet",
+    alt: toilet.name || "Public toilet",
+    icon: L.divIcon({
+      className: "toilet-map-marker",
+      html: "<span>WC</span>",
+      iconSize: [30, 30],
+      iconAnchor: [15, 15],
+    }),
+  })
+    .addTo(map)
+    .bindTooltip(el("span", toilet.name || "Public toilet"), {
+      className: "spot-tooltip",
+      direction: "top",
+      offset: [0, -12],
+    });
+
+  const markerElement = toiletMarker.getElement();
+  if (markerElement)
+    markerElement.setAttribute("aria-label", toilet.name || "Public toilet");
+
+  const dialog = $("#spot-dialog");
+  if (dialog.open) dialog.close();
+
+  map.fitBounds([spot.coordinates, [lat, lon]], {
+    padding: [60, 60],
+    maxZoom: 16,
+    animate: false,
+  });
+  toiletMarker.openTooltip();
+}
+
+function toiletExternalMapUrl(toilet) {
+  const query = toilet?.address || toilet?.name;
+  return query
+    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`
+    : null;
+}
+
 function fit() {
   const visible = selectSpots(spots, state);
   if (map && visible.length)
@@ -219,6 +270,7 @@ function render() {
   });
 }
 function showSpot(s) {
+  clearToiletMarker();
   disposeConditions();
   const content = $("#spot-content");
   content.replaceChildren();
@@ -285,21 +337,63 @@ function showSpot(s) {
   fetch(`/api/nearest-toilet?spot=${encodeURIComponent(s.id)}`)
     .then((response) => (response.ok ? response.json() : Promise.reject()))
     .then((data) => {
-      if (!data?.toilet) {
-        toiletNote.textContent = "Nearest public toilet: unavailable.";
+      if (data?.status === "none-found") {
+        const km = Math.round(Number(data.radiusMetres || 10000) / 1000);
+        toiletNote.textContent =
+          `Nearest public toilet: none mapped within ${km} km.`;
+        toiletNote.title =
+          "OpenStreetMap lookup completed, but no mapped public toilet was found within the search radius.";
         return;
       }
-      const metres = Number(data.toilet.distanceMetres);
-      const distance =
-        metres >= 1000
-          ? `${(metres / 1000).toFixed(metres >= 10000 ? 0 : 1)} km`
-          : `${Math.max(10, Math.round(metres / 10) * 10)} m`;
-      toiletNote.textContent =
-        `Nearest public toilet: ${data.toilet.name} · about ${distance} away.`;
-      toiletNote.title = "Approximate straight-line distance from this swim-spot coordinate. Source: OpenStreetMap.";
+      if (data?.status === "temporarily-unavailable" || !data?.toilet) {
+        toiletNote.textContent =
+          "Nearest public toilet: lookup temporarily unavailable.";
+        toiletNote.title =
+          "The external OpenStreetMap toilet lookup could not be reached. This does not mean there is no toilet nearby.";
+        return;
+      }
+      const rawDistance = data.toilet.distanceMetres;
+      const metres =
+        rawDistance === null || rawDistance === undefined
+          ? null
+          : Number(rawDistance);
+      const hasDistance = Number.isFinite(metres) && metres >= 0;
+      if (hasDistance) {
+        const distance =
+          metres >= 1000
+            ? `${(metres / 1000).toFixed(metres >= 10000 ? 0 : 1)} km`
+            : `${Math.max(10, Math.round(metres / 10) * 10)} m`;
+        toiletNote.textContent =
+          `Nearest public toilet: ${data.toilet.name} · about ${distance} away.`;
+      } else {
+        toiletNote.textContent =
+          `Nearest public toilet: ${data.toilet.name}.`;
+      }
+      const sourceName = data?.source?.name || "public mapping data";
+      toiletNote.title = hasDistance
+        ? `Approximate straight-line distance from this swim-spot coordinate. Source: ${sourceName}.`
+        : `Official council toilet listing. Source: ${sourceName}.`;
+
+      const action = el(
+        data.toilet.coordinates ? "button" : "a",
+        data.toilet.coordinates ? "Toilet on map ›" : "Open toilet location ›",
+        "toilet-map-action",
+      );
+      if (data.toilet.coordinates) {
+        action.type = "button";
+        action.onclick = () => showToiletOnMap(s, data.toilet);
+      } else {
+        const mapUrl = toiletExternalMapUrl(data.toilet);
+        if (!mapUrl) return;
+        action.href = mapUrl;
+        action.target = "_blank";
+        action.rel = "noopener noreferrer";
+      }
+      facilitiesBlock.append(action);
     })
     .catch(() => {
-      toiletNote.textContent = "Nearest public toilet: unavailable.";
+      toiletNote.textContent =
+        "Nearest public toilet: lookup temporarily unavailable.";
     });
 
   essentials.append(
@@ -430,6 +524,7 @@ function clearLocation({ refit = true } = {}) {
 }
 
 function reset() {
+  clearToiletMarker();
   Object.assign(state, {
     query: "",
     type: "all",
