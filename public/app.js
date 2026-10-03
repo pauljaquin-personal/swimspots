@@ -257,12 +257,24 @@ function showSpot(s) {
     </div>
   `;
   const essentials = el("section", null, "spot-essentials");
+  const infoBlock = (label, glyph, value, className = "") => {
+    const block = el("div", null, `spot-info-block ${className}`.trim());
+    block.append(
+      el("div", null, "spot-info-heading"),
+      el("p", value || "Not yet verified.", "spot-info-copy"),
+    );
+    block.querySelector(".spot-info-heading").append(
+      el("span", glyph, "spot-info-icon"),
+      el("strong", label),
+    );
+    return block;
+  };
   essentials.append(
     el("h3", "Know before you go"),
-    infoDisclosure("Access", "↗", s.access),
-    infoDisclosure("Parking", "P", s.parking),
-    infoDisclosure("Facilities", "⌂", s.facilities),
-    infoDisclosure("Hazards", "!", s.hazards, "hazard"),
+    infoBlock("Access", "↗", s.access),
+    infoBlock("Parking", "Ⓟ", s.parking),
+    infoBlock("Facilities", "⌂", s.facilities),
+    infoBlock("Hazards", "⚠", s.hazards, "hazard"),
   );
   const artwork = detailArtwork(s);
   if (artwork) content.append(artwork);
