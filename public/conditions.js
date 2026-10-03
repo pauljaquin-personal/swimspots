@@ -305,10 +305,7 @@ export function mountConditions(container, spot, summaryContainer = null) {
     loading = false;
 
   const feeds = el("div");
-  const status = el("p", "Loading conditions…", "small condition-load-status");
-  status.setAttribute("role", "status");
-  const retry = el("button", "↻ Refresh", "outline feed-refresh compact-refresh");
-  container.append(feeds, status, retry, waterQualityView(spot));
+  container.append(feeds, waterQualityView(spot));
 
   if (spot.council) {
     const council = detailsBlock(spot.council.name, "i");
@@ -361,8 +358,6 @@ export function mountConditions(container, spot, summaryContainer = null) {
   async function refresh() {
     if (loading || closed) return;
     loading = true;
-    retry.disabled = true;
-    status.textContent = "Loading conditions…";
     controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 12_000);
     try {
@@ -377,10 +372,6 @@ export function mountConditions(container, spot, summaryContainer = null) {
       if (closed) return;
       payload = data;
       render();
-      status.textContent =
-        data.weather.status === "unavailable"
-          ? "Some conditions unavailable."
-          : "Updated";
     } catch {
       if (!closed) {
         if (payload) {
@@ -388,16 +379,12 @@ export function mountConditions(container, spot, summaryContainer = null) {
             if (payload[key]?.current) payload[key].status = "stale";
           render();
         }
-        status.textContent = "Conditions unavailable · retry";
       }
     } finally {
       clearTimeout(timer);
       loading = false;
-      if (!closed) retry.disabled = false;
     }
   }
-
-  retry.onclick = refresh;
   refresh();
   const tick = setInterval(() => {
     if (payload && !closed) render();
