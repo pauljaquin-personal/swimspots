@@ -255,11 +255,6 @@ function showSpot(s) {
       <span class="condition-summary-label">Wind dir</span>
       <strong class="condition-summary-value" data-summary="wind-direction">—</strong>
     </div>
-    <div class="condition-summary-item">
-      <span class="condition-summary-icon" aria-hidden="true">☔</span>
-      <span class="condition-summary-label">Past rain</span>
-      <strong class="condition-summary-value" data-summary="rain">—</strong>
-    </div>
   `;
   const essentials = el("section", null, "spot-essentials");
   const infoBlock = (label, glyph, value, className = "") => {
@@ -274,12 +269,18 @@ function showSpot(s) {
     );
     return block;
   };
+
+  const hazardsBlock = infoBlock("Hazards", "⚠", s.hazards, "hazard");
+  const rainNote = el("p", "Rainfall loading…", "spot-hazard-rain");
+  rainNote.dataset.hazardRain = "";
+  hazardsBlock.append(rainNote);
+
   essentials.append(
     el("h3", "Know before you go"),
+    hazardsBlock,
     infoBlock("Access", "↗", s.access),
     infoBlock("Parking", "Ⓟ", s.parking),
     infoBlock("Facilities", "⌂", s.facilities),
-    infoBlock("Hazards", "⚠", s.hazards, "hazard"),
   );
   const artwork = detailArtwork(s);
   if (artwork) content.append(artwork);
