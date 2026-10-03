@@ -121,21 +121,6 @@ function weatherView(feed) {
     return section;
   }
 
-  const current = el("div", null, "conditions condition-strip");
-  current.append(
-    metricCard("°", "Air", number(feed.current.airTemperature)),
-    metricCard("→", "Wind", number(feed.current.windSpeed)),
-    metricCard("↝", "Gusts", number(feed.current.windGusts)),
-    metricCard("⌁", "From", compassPoint(feed.current.windDirection?.value)),
-    metricCard(
-      "◌",
-      "Rain 48h",
-      number(feed.rain48h),
-      feed.rain48h?.value > 0 ? "condition-attention" : "",
-    ),
-  );
-  section.append(current);
-
   if (feed.rain48h?.value > 0) {
     section.append(
       el(
