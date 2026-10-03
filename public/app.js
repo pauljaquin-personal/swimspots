@@ -307,7 +307,9 @@ function showSpot(s) {
           : `${Math.max(10, Math.round(metres / 10) * 10)} m`;
       toiletNote.textContent =
         `Nearest public toilet: ${data.toilet.name} · about ${distance} away.`;
-      toiletNote.title = "Approximate straight-line distance from this swim-spot coordinate. Source: OpenStreetMap.";
+      const sourceName = data?.source?.name || "public mapping data";
+      toiletNote.title =
+        `Approximate straight-line distance from this swim-spot coordinate. Source: ${sourceName}.`;
     })
     .catch(() => {
       toiletNote.textContent =
