@@ -2466,8 +2466,8 @@ body.planner-layout .bottom-tool {
   }
   #spot-content h2 { font-size: 24px; }
   #spot-content .detail-lede {
-    max-height: 3.2em;
-    overflow: hidden;
+    max-height: none;
+    overflow: visible;
   }
   .spot-stat-grid {
     grid-template-columns: repeat(3,minmax(0,1fr));
@@ -2859,5 +2859,16 @@ body.planner-layout > #contribute.floating-contribute {
     padding-right: 50px;
     margin-top: 2px;
   }
+}
+
+
+
+/* Show the complete spot description directly below the heading. */
+#spot-content .detail-lede {
+  max-height: none !important;
+  overflow: visible !important;
+  display: block;
+  white-space: normal;
+  line-height: 1.45;
 }
 
