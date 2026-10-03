@@ -312,10 +312,19 @@ function showSpot(s) {
   const feedPanel = el("div", null, "spot-feeds");
   content.append(feedPanel);
   disposeConditions = mountConditions(feedPanel, s, conditionSummary);
-  const actions = el("div", null, "detail-actions icon-actions");
-  const source = link("Water quality", s.conditionsSource.url);
-  source.className = "spot-action";
-  source.prepend(el("span", "💧", "spot-action-icon"));
+  const community = el("section", null, "spot-community");
+  community.append(el("h3", "Community"));
+
+  const communityActions = el("div", null, "detail-actions icon-actions community-actions");
+
+  const routes = el("button", null, "spot-action community-route-action");
+  routes.append(
+    el("span", "↝", "spot-action-icon"),
+    el("span", "Swim routes"),
+    el("small", "Coming soon"),
+  );
+  routes.disabled = true;
+  routes.setAttribute("aria-disabled", "true");
 
   const bookmark = el("button", null, "spot-action");
   const setBookmarkLabel = () => {
@@ -363,25 +372,15 @@ function showSpot(s) {
       `Tell us what looks wrong with ${s.name}. A dedicated report form is planned; for now use Contact so we know which listing needs attention.`,
     );
 
-  const premium = el("button", null, "spot-action premium-action");
-  premium.append(el("span", "♛", "spot-action-icon"), el("span", "Pro"));
-  premium.onclick = () =>
-    openSiteInfo(
-      "Swimspots Pro",
-      "Premium condition tools are planned. Core safety information and source limitations will remain visible to everyone.",
-    );
+  communityActions.append(routes, contribute, bookmark, share, report);
+  community.append(communityActions);
+  content.append(community);
 
-  actions.append(source, bookmark, share, report, premium, contribute);
-  content.append(actions);
   const more = el("details", null, "detail-more");
   const moreSummary = el("summary");
   moreSummary.append(icon("More about this spot", "⋯"), el("span", "›", "disclosure-chevron"));
   more.append(moreSummary);
-  more.append(
-    el("h3", "Swim routes"),
-    el("p", "No verified routes published for this spot yet."),
-    el("h3", "About this listing"),
-  );
+  more.append(el("h3", "About this listing"));
   const provenance = el("p");
   provenance.append(
     s.source.url
@@ -404,6 +403,15 @@ function showSpot(s) {
     );
     more.append(communitySource);
   }
+
+  const premium = el("button", "Swimspots Pro · coming soon", "quiet-pro-action");
+  premium.onclick = () =>
+    openSiteInfo(
+      "Swimspots Pro",
+      "Premium condition tools are planned. Core safety information and source limitations will remain visible to everyone.",
+    );
+  more.append(premium);
+
   content.append(more);
   const show = el("button", "Show on map", "primary");
   show.onclick = () => {
