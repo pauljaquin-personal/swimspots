@@ -62,6 +62,55 @@ function detailsBlock(label, glyph) {
   return details;
 }
 
+function forecastGlyph(row) {
+  const rain = Number(row?.precipitation?.value ?? row?.precipitation ?? 0);
+  const wind = Number(row?.windSpeed?.value ?? row?.windSpeed ?? 0);
+  if (rain >= 1) return "🌧";
+  if (rain > 0) return "🌦";
+  if (wind >= 30) return "💨";
+  return "○";
+}
+
+function compactForecastView(feed, fullDetails) {
+  const future = (feed?.forecast || [])
+    .filter((r) => Date.parse(r.validAt) > Date.now())
+    .slice(0, 24);
+
+  if (!future.length) return null;
+
+  const section = el("section", null, "forecast-24h");
+  const header = el("div", null, "forecast-24h-head");
+  header.append(el("h3", "Next 24 hours"));
+  section.append(header);
+
+  const strip = el("div", null, "forecast-24h-strip");
+  const sample = future.filter((_, i) => i % 4 === 0).slice(0, 6);
+  sample.forEach((r) => {
+    const item = el("div", null, "forecast-24h-item");
+    const timeText = new Date(r.validAt).toLocaleTimeString([], {
+      hour: "numeric",
+    });
+    item.append(
+      el("span", timeText, "forecast-24h-time"),
+      el("span", forecastGlyph(r), "forecast-24h-icon"),
+      el("strong", number(r.airTemperature), "forecast-24h-temp"),
+    );
+    strip.append(item);
+  });
+  section.append(strip);
+
+  const more = el("button", "View full forecast", "forecast-full-link");
+  more.type = "button";
+  more.onclick = () => {
+    if (fullDetails) {
+      fullDetails.open = true;
+      fullDetails.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+  section.append(more);
+  return section;
+}
+
 function weatherView(feed) {
   const section = el("section", null, "feed-section compact-feed");
   section.append(el("h3", "Weather"));
@@ -167,6 +216,9 @@ function weatherView(feed) {
     ),
   );
   more.append(credit);
+
+  const compactForecast = compactForecastView(feed, more);
+  if (compactForecast) section.append(compactForecast);
   section.append(more);
   return section;
 }
@@ -315,6 +367,7 @@ export function mountConditions(container, spot, summaryContainer = null) {
     );
     set("air", number(weather?.current?.airTemperature));
     set("wind", number(weather?.current?.windSpeed));
+    set("wind-direction", compassPoint(weather?.current?.windDirection?.value));
     set("rain", number(weather?.rain48h));
   }
 
