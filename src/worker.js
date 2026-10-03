@@ -98,7 +98,7 @@ export async function handleRequest(
 
   if (url.pathname === "/api/nearest-toilet") {
     const toiletCacheKey = new Request(
-      `${url.origin}/__toilet-cache/v2/${spot.id}`,
+      `${url.origin}/__toilet-cache/v3/${spot.id}`,
     );
     try {
       const hit = await cache?.match(toiletCacheKey);
