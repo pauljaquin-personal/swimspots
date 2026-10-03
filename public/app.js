@@ -230,14 +230,30 @@ function showSpot(s) {
   const title = el("h2", s.name);
   title.id = "spot-title";
   const lede = el("p", s.description, "detail-lede");
-  const quick = el("section", null, `spot-quick-grid spot-stat-grid water-type-${s.type}`);
-  quick.setAttribute("aria-label", "Spot information");
-  quick.append(
-    statCard("🚻", "Toilets", shortResult(s.facilities), s.facilities),
-    statCard("↗", "Access", shortResult(s.access), s.access),
-    statCard("Ⓟ", "Parking", shortResult(s.parking), s.parking),
-    statCard("⚠", "Hazards", shortResult(s.hazards, "Check"), s.hazards),
-  );
+  const conditionSummary = el("section", null, `spot-condition-summary water-type-${s.type}`);
+  conditionSummary.setAttribute("aria-label", "Current swim conditions");
+  conditionSummary.innerHTML = `
+    <div class="condition-summary-item">
+      <span class="condition-summary-icon" aria-hidden="true">🌊</span>
+      <span class="condition-summary-label">Water temp</span>
+      <strong class="condition-summary-value" data-summary="water">—</strong>
+    </div>
+    <div class="condition-summary-item">
+      <span class="condition-summary-icon" aria-hidden="true">🌡</span>
+      <span class="condition-summary-label">Air temp</span>
+      <strong class="condition-summary-value" data-summary="air">—</strong>
+    </div>
+    <div class="condition-summary-item">
+      <span class="condition-summary-icon" aria-hidden="true">💨</span>
+      <span class="condition-summary-label">Wind</span>
+      <strong class="condition-summary-value" data-summary="wind">—</strong>
+    </div>
+    <div class="condition-summary-item">
+      <span class="condition-summary-icon" aria-hidden="true">☔</span>
+      <span class="condition-summary-label">Past rain</span>
+      <strong class="condition-summary-value" data-summary="rain">—</strong>
+    </div>
+  `;
   const essentials = el("section", null, "spot-essentials");
   essentials.append(
     el("h3", "Know before you go"),
@@ -246,10 +262,10 @@ function showSpot(s) {
     infoDisclosure("Facilities", "⌂", s.facilities),
     infoDisclosure("Hazards", "!", s.hazards, "hazard"),
   );
-  content.append(detailArtwork(s), meta, title, lede, quick, essentials);
+  content.append(detailArtwork(s), meta, title, lede, conditionSummary, essentials);
   const feedPanel = el("div", null, "spot-feeds");
   content.append(feedPanel);
-  disposeConditions = mountConditions(feedPanel, s);
+  disposeConditions = mountConditions(feedPanel, s, conditionSummary);
   const actions = el("div", null, "detail-actions icon-actions");
   const source = link("Water quality", s.conditionsSource.url);
   source.className = "spot-action";
