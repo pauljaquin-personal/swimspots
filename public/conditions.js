@@ -243,60 +243,54 @@ function marineView(feed) {
 
 function waterQualityView(spot) {
   const section = el("section", null, "feed-section compact-feed water-quality-card");
-  const heading = el("h3", "Water quality · LAWA");
-  section.append(heading);
+  section.append(el("h3", "Water quality"));
 
-  const action = el("div", null, "quality-action");
-  const icon = el("span", "●", "quality-icon");
-  icon.setAttribute("aria-hidden", "true");
-  const copy = el("div");
-  copy.append(
-    el("strong", "Check current water quality"),
-    el("span", "Official LAWA report"),
+  const results = el("div", null, "lawa-results");
+  const resultItem = (label, key) => {
+    const item = el("div", null, "lawa-result-item");
+    item.append(
+      el("span", label, "lawa-result-label"),
+      el("strong", "Loading…", "lawa-result-value"),
+    );
+    item.dataset.lawaKey = key;
+    return item;
+  };
+  results.append(
+    resultItem("Long-term grade", "longTermGrade"),
+    resultItem("Latest result", "latestResult"),
   );
-  const href = spot.lawa?.embedUrl || spot.conditionsSource.url;
-  const button = external("Open ↗", href);
-  button.className = "outline compact-link";
-  action.append(icon, copy, button);
-  section.append(action);
 
-  const details = detailsBlock("About this water-quality source", "i");
-  details.append(
-    el(
-      "p",
-      "Samples and warnings are not continuous readings. Check the report date and current local signs before swimming.",
-      "small",
-    ),
+  const source = external(
+    "LAWA ↗",
+    spot.conditionsSource?.url || spot.lawa?.embedUrl || "https://www.lawa.org.nz/swim",
   );
-  if (spot.lawa) {
-    const report = el("details", null, "lawa-report");
-    report.append(el("summary", "Show embedded LAWA report"));
-    const wrap = el("div", null, "lawa-scroll");
-    report.append(wrap);
-    report.addEventListener("toggle", () => {
-      if (report.open && !wrap.children.length) {
-        const iframe = el("iframe");
-        iframe.title = `LAWA water quality for ${spot.name}`;
-        iframe.src = spot.lawa.embedUrl;
-        iframe.loading = "lazy";
-        iframe.referrerPolicy = "strict-origin-when-cross-origin";
-        iframe.height = "550";
-        iframe.width = "500";
-        wrap.append(iframe);
-      }
+  source.className = "lawa-source-link";
+
+  section.append(results, source);
+
+  if (spot.lawa?.siteId) {
+    fetch(`/api/lawa?spot=${encodeURIComponent(spot.id)}`)
+      .then((response) => (response.ok ? response.json() : Promise.reject()))
+      .then((data) => {
+        for (const key of ["longTermGrade", "latestResult"]) {
+          const item = results.querySelector(`[data-lawa-key="${key}"] .lawa-result-value`);
+          if (item) item.textContent = data?.[key] || "Unavailable";
+        }
+      })
+      .catch(() => {
+        results.querySelectorAll(".lawa-result-value").forEach((node) => {
+          node.textContent = "Unavailable";
+        });
+      });
+  } else {
+    results.querySelectorAll(".lawa-result-value").forEach((node) => {
+      node.textContent = "Unavailable";
     });
-    details.append(report);
   }
-  details.append(
-    el(
-      "p",
-      "LAWA supplies and dates the report; Swimspots does not assign a safety rating.",
-      "feed-time",
-    ),
-  );
-  section.append(details);
+
   return section;
 }
+
 
 export function mountConditions(container, spot, summaryContainer = null) {
   let controller = null,
