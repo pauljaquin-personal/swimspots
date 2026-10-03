@@ -258,13 +258,15 @@ function waterQualityView(spot) {
     resultItem("Latest result", "latestResult"),
   );
 
+  const lawaDetails = detailsBlock("LAWA");
   const source = external(
-    "LAWA ↗",
+    "Open LAWA ↗",
     spot.conditionsSource?.url || spot.lawa?.embedUrl || "https://www.lawa.org.nz/swim",
   );
-  source.className = "lawa-source-link quiet-text-link";
+  source.className = "lawa-source-link";
+  lawaDetails.append(source);
 
-  section.append(results, source);
+  section.append(results, lawaDetails);
 
   if (spot.lawa?.siteId) {
     fetch(`/api/lawa?spot=${encodeURIComponent(spot.id)}`)
