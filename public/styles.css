@@ -3500,3 +3500,17 @@ button.community-icon-item {
 .regional-water-source:focus-visible {
   text-decoration: underline;
 }
+
+
+/* Regional water-quality source chevron ---------------------------------- */
+.regional-water-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.regional-water-chevron {
+  color: var(--ss-muted);
+  font-size: 13px;
+  line-height: 1;
+  text-decoration: none;
+}
