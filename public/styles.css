@@ -2817,3 +2817,47 @@ body.planner-layout > #contribute.floating-contribute {
   display: none;
 }
 
+
+
+/* Clean spot-sheet title row ------------------------------------------------ */
+.spot-sheet-handle,
+.spot-sheet-toggle {
+  display: none !important;
+}
+
+#spot-dialog {
+  padding-top: 14px;
+}
+
+#spot-dialog .close {
+  top: 14px;
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  font-size: 28px;
+  line-height: 1;
+  color: var(--ss-ink);
+}
+
+#spot-content h2 {
+  padding-right: 48px;
+  margin-top: 4px;
+}
+
+@media (max-width: 780px) {
+  #spot-dialog {
+    padding: 14px 14px calc(14px + env(safe-area-inset-bottom));
+  }
+  #spot-dialog .close {
+    top: 14px;
+    right: 14px;
+  }
+  #spot-content h2 {
+    padding-right: 50px;
+    margin-top: 2px;
+  }
+}
+
