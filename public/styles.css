@@ -3644,3 +3644,15 @@ button.community-icon-item {
     font-size: 15px;
   }
 }
+
+
+/* Ensure the logo information dropdown remains visible above the map.
+   This overrides the older rule that hides header navigation in map mode. */
+body.planner-layout header nav.brand-menu-panel {
+  display: grid;
+  align-self: auto;
+  gap: 2px;
+}
+body.planner-layout header nav.brand-menu-panel[hidden] {
+  display: none;
+}
