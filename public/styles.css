@@ -2794,3 +2794,26 @@ body.planner-layout > #contribute.floating-contribute {
   }
 }
 
+
+
+/* Title provenance and photo presence ------------------------------------- */
+#spot-content h2 + .detail-meta {
+  margin: -1px 0 9px;
+  min-height: 0;
+}
+#spot-content h2 + .detail-meta .listing-status {
+  display: inline-flex;
+  align-items: center;
+  width: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ss-muted);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .01em;
+}
+#spot-content .detail-banner:empty {
+  display: none;
+}
+
