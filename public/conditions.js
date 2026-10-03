@@ -277,7 +277,7 @@ function waterQualityView(spot) {
   return section;
 }
 
-export function mountConditions(container, spot) {
+export function mountConditions(container, spot, summaryContainer = null) {
   let controller = null,
     closed = false,
     payload = null,
@@ -298,8 +298,29 @@ export function mountConditions(container, spot) {
     container.append(council);
   }
 
+  function renderSummary() {
+    if (!summaryContainer || !payload) return;
+    const set = (key, value) => {
+      const node = summaryContainer.querySelector(`[data-summary="${key}"]`);
+      if (node) node.textContent = value || "—";
+    };
+
+    const weather = payload.weather;
+    const marine = payload.marine;
+
+    set("water",
+      spot.type === "sea"
+        ? number(marine?.current?.seaTemperature)
+        : number(spot.waterTemperature)
+    );
+    set("air", number(weather?.current?.airTemperature));
+    set("wind", number(weather?.current?.windSpeed));
+    set("rain", number(weather?.rain48h));
+  }
+
   function render() {
     if (!payload) return;
+    renderSummary();
     feeds.replaceChildren(weatherView(payload.weather));
     if (spot.type === "sea") feeds.append(marineView(payload.marine));
   }
