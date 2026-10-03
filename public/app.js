@@ -300,16 +300,27 @@ function showSpot(s) {
           "The external OpenStreetMap toilet lookup could not be reached. This does not mean there is no toilet nearby.";
         return;
       }
-      const metres = Number(data.toilet.distanceMetres);
-      const distance =
-        metres >= 1000
-          ? `${(metres / 1000).toFixed(metres >= 10000 ? 0 : 1)} km`
-          : `${Math.max(10, Math.round(metres / 10) * 10)} m`;
-      toiletNote.textContent =
-        `Nearest public toilet: ${data.toilet.name} · about ${distance} away.`;
+      const rawDistance = data.toilet.distanceMetres;
+      const metres =
+        rawDistance === null || rawDistance === undefined
+          ? null
+          : Number(rawDistance);
+      const hasDistance = Number.isFinite(metres) && metres >= 0;
+      if (hasDistance) {
+        const distance =
+          metres >= 1000
+            ? `${(metres / 1000).toFixed(metres >= 10000 ? 0 : 1)} km`
+            : `${Math.max(10, Math.round(metres / 10) * 10)} m`;
+        toiletNote.textContent =
+          `Nearest public toilet: ${data.toilet.name} · about ${distance} away.`;
+      } else {
+        toiletNote.textContent =
+          `Nearest public toilet: ${data.toilet.name}.`;
+      }
       const sourceName = data?.source?.name || "public mapping data";
-      toiletNote.title =
-        `Approximate straight-line distance from this swim-spot coordinate. Source: ${sourceName}.`;
+      toiletNote.title = hasDistance
+        ? `Approximate straight-line distance from this swim-spot coordinate. Source: ${sourceName}.`
+        : `Official council toilet listing. Source: ${sourceName}.`;
     })
     .catch(() => {
       toiletNote.textContent =
