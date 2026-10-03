@@ -3108,3 +3108,16 @@ body.planner-layout > #contribute.floating-contribute {
   text-decoration: underline;
 }
 
+
+
+/* Nearest public toilet sits inside Facilities as supporting context. */
+.spot-facility-nearest {
+  margin: 9px 0 0 31px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(21,56,59,.08);
+  color: var(--ss-ink);
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.4;
+}
+
