@@ -391,6 +391,9 @@ export async function fetchLawaSwim(
 }
 
 
+const QLDC_TOILETS_URL =
+  "https://gis.qldc.govt.nz/server/rest/services/OpenSpaces/Parks_and_Open_Spaces_VIEWER/MapServer/26/query";
+
 const OVERPASS_URLS = [
   "https://overpass-api.de/api/interpreter",
   "https://overpass.kumi.systems/api/interpreter",
@@ -423,6 +426,101 @@ function toiletName(tags = {}) {
   );
 }
 
+
+function qldcToiletName(attributes = {}) {
+  return (
+    attributes.SITENME ||
+    attributes.ROAD ||
+    attributes.SUBLOC ||
+    attributes.ASSETID ||
+    "QLDC public toilet"
+  );
+}
+
+export async function fetchNearestQldcToilet(
+  spot,
+  { fetchImpl = fetch, timeoutMs = 9000, radius = 10000 } = {},
+) {
+  const [lat, lon] = spot.coordinates || [];
+  const source = {
+    name: "Queenstown Lakes District Council",
+    url: "https://gis.qldc.govt.nz/server/rest/services/OpenSpaces/Parks_and_Open_Spaces_VIEWER/MapServer/26",
+    kind: "council",
+  };
+  if (!finite(lat) || !finite(lon))
+    return { status: "unavailable", source, toilet: null };
+
+  const url = new URL(QLDC_TOILETS_URL);
+  const params = {
+    where: "OPSTAT='01'",
+    outFields:
+      "ASSETID,SITENME,ROAD,SUBLOC,OPSTAT,DUNIWC,DFWC,DMWC,BABYCHGE",
+    geometry: `${lon},${lat}`,
+    geometryType: "esriGeometryPoint",
+    inSR: "4326",
+    distance: String(radius),
+    units: "esriSRUnit_Meter",
+    outSR: "4326",
+    returnGeometry: "true",
+    f: "json",
+  };
+  for (const [key, value] of Object.entries(params))
+    url.searchParams.set(key, value);
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const response = await fetchImpl(url, {
+      signal: controller.signal,
+      headers: { Accept: "application/json" },
+    });
+    if (!response.ok) throw new Error("QLDC toilet provider unavailable");
+    const data = await response.json();
+    if (!Array.isArray(data?.features))
+      throw new Error("Invalid QLDC toilet response");
+
+    const candidates = data.features
+      .map((feature) => {
+        const tLat = feature.geometry?.y;
+        const tLon = feature.geometry?.x;
+        if (!finite(tLat) || !finite(tLon)) return null;
+        const attributes = feature.attributes || {};
+        const distance = distanceMetres([lat, lon], [tLat, tLon]);
+        const disabled =
+          ["01"].includes(attributes.DUNIWC) ||
+          ["01"].includes(attributes.DFWC) ||
+          ["01"].includes(attributes.DMWC);
+        return {
+          sourceId: attributes.ASSETID || null,
+          name: qldcToiletName(attributes),
+          coordinates: [tLat, tLon],
+          distanceMetres: Math.round(distance),
+          accessible: disabled ? true : null,
+          babyChange: attributes.BABYCHGE === "01" ? true : null,
+          operatingStatus: "open",
+        };
+      })
+      .filter(Boolean)
+      .sort((a, b) => a.distanceMetres - b.distanceMetres);
+
+    return {
+      status: candidates.length ? "available" : "none-found",
+      source,
+      toilet: candidates[0] || null,
+      radiusMetres: radius,
+    };
+  } catch {
+    return {
+      status: "temporarily-unavailable",
+      source,
+      toilet: null,
+      radiusMetres: radius,
+    };
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 export async function fetchNearestToilet(
   spot,
   {
@@ -445,6 +543,16 @@ export async function fetchNearestToilet(
       toilet: null,
       message: "This swim spot does not have usable coordinates.",
     };
+
+  // Prefer QLDC's authoritative public-toilet asset layer where it returns
+  // an open facility nearby. Outside the district, or if the council service
+  // is unavailable, fall back to OpenStreetMap.
+  const qldc = await fetchNearestQldcToilet(spot, {
+    fetchImpl,
+    timeoutMs,
+    radius,
+  });
+  if (qldc.status === "available") return qldc;
 
   const query = `
 [out:json][timeout:8];
@@ -519,6 +627,6 @@ out center tags;
     radiusMetres: radius,
     message: successfulResponse
       ? `No mapped public toilet was found within ${Math.round(radius / 1000)} km.`
-      : "The public-toilet lookup service could not be reached. Try again later.",
+      : "Neither the council nor OpenStreetMap toilet lookup could be reached. Try again later.",
   };
 }
