@@ -79,10 +79,6 @@ function compactForecastView(feed, fullDetails) {
   if (!future.length) return null;
 
   const section = el("section", null, "forecast-24h");
-  const header = el("div", null, "forecast-24h-head");
-  header.append(el("h3", "Next 24 hours"));
-  section.append(header);
-
   const strip = el("div", null, "forecast-24h-strip");
   const sample = future.filter((_, i) => i % 4 === 0).slice(0, 6);
   sample.forEach((r) => {
@@ -113,22 +109,12 @@ function compactForecastView(feed, fullDetails) {
 
 function weatherView(feed) {
   const section = el("section", null, "feed-section compact-feed");
-  section.append(el("h3", "Weather"));
+  section.append(el("h3", "Weather forecast"));
   if (!feed || feed.status === "unavailable") {
     section.append(
       el("p", "Weather temporarily unavailable.", "feed-error"),
     );
     return section;
-  }
-
-  if (feed.rain48h?.value > 0) {
-    section.append(
-      el(
-        "p",
-        `Rain in the past 48 hours${feed.rain48h.lastPrecipitationAt ? ` · last around ${date(feed.rain48h.lastPrecipitationAt)}` : ""}. Check water-quality advice.`,
-        "feed-rain-alert compact-alert",
-      ),
-    );
   }
 
   const more = detailsBlock("Weather details & forecast", "☼");
