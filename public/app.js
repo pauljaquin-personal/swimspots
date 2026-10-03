@@ -89,16 +89,18 @@ function cardArtwork(s) {
   return art;
 }
 function detailArtwork(s) {
+  if (!s.photo?.url) return null;
+
   const banner = el("div", null, "detail-banner");
-  if (!s.photo?.url) return banner;
   const img = document.createElement("img");
   img.src = s.photo.url;
   img.alt = s.photo.alt || `${s.name} swimming spot`;
   img.decoding = "async";
+
   img.onerror = () => {
-    img.remove();
-    banner.querySelector(".photo-credit")?.remove();
+    banner.remove();
   };
+
   banner.append(img);
   if (s.photo.credit) {
     const credit = el("span", "Photo: ", "photo-credit");
@@ -262,7 +264,9 @@ function showSpot(s) {
     infoDisclosure("Facilities", "⌂", s.facilities),
     infoDisclosure("Hazards", "!", s.hazards, "hazard"),
   );
-  content.append(detailArtwork(s), meta, title, lede, conditionSummary, essentials);
+  const artwork = detailArtwork(s);
+  if (artwork) content.append(artwork);
+  content.append(title, meta, lede, conditionSummary, essentials);
   const feedPanel = el("div", null, "spot-feeds");
   content.append(feedPanel);
   disposeConditions = mountConditions(feedPanel, s, conditionSummary);
