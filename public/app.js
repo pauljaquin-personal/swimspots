@@ -14,6 +14,7 @@ let spots = [],
   map,
   markers,
   userMarker,
+  toiletMarker,
   mapTiles,
   satelliteTiles,
   activeBaseLayer = "map";
@@ -136,6 +137,56 @@ function save(id) {
   }
   render();
 }
+function clearToiletMarker() {
+  toiletMarker?.remove();
+  toiletMarker = null;
+}
+
+function showToiletOnMap(spot, toilet) {
+  if (!map || !Array.isArray(toilet?.coordinates)) return;
+  const [lat, lon] = toilet.coordinates.map(Number);
+  if (!Number.isFinite(lat) || !Number.isFinite(lon)) return;
+
+  clearToiletMarker();
+  toiletMarker = L.marker([lat, lon], {
+    title: toilet.name || "Public toilet",
+    alt: toilet.name || "Public toilet",
+    icon: L.divIcon({
+      className: "toilet-map-marker",
+      html: "<span>WC</span>",
+      iconSize: [30, 30],
+      iconAnchor: [15, 15],
+    }),
+  })
+    .addTo(map)
+    .bindTooltip(el("span", toilet.name || "Public toilet"), {
+      className: "spot-tooltip",
+      direction: "top",
+      offset: [0, -12],
+    });
+
+  const markerElement = toiletMarker.getElement();
+  if (markerElement)
+    markerElement.setAttribute("aria-label", toilet.name || "Public toilet");
+
+  const dialog = $("#spot-dialog");
+  if (dialog.open) dialog.close();
+
+  map.fitBounds([spot.coordinates, [lat, lon]], {
+    padding: [60, 60],
+    maxZoom: 16,
+    animate: false,
+  });
+  toiletMarker.openTooltip();
+}
+
+function toiletExternalMapUrl(toilet) {
+  const query = toilet?.address || toilet?.name;
+  return query
+    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`
+    : null;
+}
+
 function fit() {
   const visible = selectSpots(spots, state);
   if (map && visible.length)
@@ -219,6 +270,7 @@ function render() {
   });
 }
 function showSpot(s) {
+  clearToiletMarker();
   disposeConditions();
   const content = $("#spot-content");
   content.replaceChildren();
@@ -321,6 +373,23 @@ function showSpot(s) {
       toiletNote.title = hasDistance
         ? `Approximate straight-line distance from this swim-spot coordinate. Source: ${sourceName}.`
         : `Official council toilet listing. Source: ${sourceName}.`;
+
+      const action = el(
+        data.toilet.coordinates ? "button" : "a",
+        data.toilet.coordinates ? "Toilet on map ›" : "Open toilet location ›",
+        "toilet-map-action",
+      );
+      if (data.toilet.coordinates) {
+        action.type = "button";
+        action.onclick = () => showToiletOnMap(s, data.toilet);
+      } else {
+        const mapUrl = toiletExternalMapUrl(data.toilet);
+        if (!mapUrl) return;
+        action.href = mapUrl;
+        action.target = "_blank";
+        action.rel = "noopener noreferrer";
+      }
+      facilitiesBlock.append(action);
     })
     .catch(() => {
       toiletNote.textContent =
