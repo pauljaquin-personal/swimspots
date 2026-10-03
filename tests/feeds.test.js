@@ -8,6 +8,8 @@ import {
   fetchProvider,
   parseLawaSwimHtml,
   fetchLawaSwim,
+  fetchNearestToilet,
+  distanceMetres,
 } from "../src/feeds.js";
 import { handleRequest } from "../src/worker.js";
 const now = Date.parse("2026-09-21T00:15:00Z"),
@@ -315,4 +317,42 @@ test("LAWA fetch is restricted to a known site id and returns parsed values", as
   assert.equal(result.status, "available");
   assert.equal(result.longTermGrade, "Good");
   assert.equal(result.latestResult, "Caution advised");
+});
+
+
+test("distanceMetres returns a sensible straight-line distance", () => {
+  const d = distanceMetres([-45.0347, 168.66], [-45.0357, 168.66]);
+  assert.ok(d > 100 && d < 120);
+});
+
+test("nearest toilet lookup selects the closest OSM toilet", async () => {
+  const result = await fetchNearestToilet(
+    { coordinates: [-45.0347, 168.66] },
+    {
+      fetchImpl: async (_url, init) => {
+        assert.equal(init.method, "POST");
+        return Response.json({
+          elements: [
+            {
+              type: "node",
+              id: 1,
+              lat: -45.0400,
+              lon: 168.6600,
+              tags: { amenity: "toilets", name: "Far toilets" },
+            },
+            {
+              type: "node",
+              id: 2,
+              lat: -45.0350,
+              lon: 168.6600,
+              tags: { amenity: "toilets", name: "Near toilets" },
+            },
+          ],
+        });
+      },
+    },
+  );
+  assert.equal(result.status, "available");
+  assert.equal(result.toilet.name, "Near toilets");
+  assert.ok(result.toilet.distanceMetres < 100);
 });
