@@ -293,7 +293,8 @@ function waterQualityView(spot) {
 
   const regionalSource = regionalWaterQualitySource(spot);
   if (regionalSource) {
-    const regional = external(`${regionalSource.label} ↗`, regionalSource.url);
+    const regional = external(regionalSource.label, regionalSource.url);
+    regional.append(el("span", "›", "regional-water-chevron"));
     regional.className = "regional-water-source";
     regional.title = regionalSource.name;
     sourceLinks.append(regional);
