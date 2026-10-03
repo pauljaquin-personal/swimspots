@@ -6,6 +6,8 @@ import {
   getConditions,
   providerURL,
   fetchProvider,
+  parseLawaSwimHtml,
+  fetchLawaSwim,
 } from "../src/feeds.js";
 import { handleRequest } from "../src/worker.js";
 const now = Date.parse("2026-09-21T00:15:00Z"),
@@ -275,4 +277,42 @@ test("worker serves assets and approved conditions; caches normalized results", 
   );
   await handleRequest(req, env, null, options);
   assert.equal(calls, 1);
+});
+
+
+test("LAWA parser extracts long-term grade and labelled latest result", () => {
+  const html = `
+    <div>Lake Whakatipu / Wakatipu - at Queenstown Bay</div>
+    <strong>Excellent</strong><span>Long-term grade</span>
+    <div>Latest result: Suitable for swimming</div>
+  `;
+  assert.deepEqual(parseLawaSwimHtml(html), {
+    longTermGrade: "Excellent",
+    latestResult: "Suitable for swimming",
+  });
+});
+
+test("LAWA parser fails cleanly when values are absent", () => {
+  assert.deepEqual(parseLawaSwimHtml("<p>No result published</p>"), {
+    longTermGrade: null,
+    latestResult: null,
+  });
+});
+
+test("LAWA fetch is restricted to a known site id and returns parsed values", async () => {
+  const result = await fetchLawaSwim(
+    {
+      lawa: { siteId: 40722, embedUrl: "https://embed.lawa.org.nz/test/40722/" },
+      conditionsSource: { url: "https://www.lawa.org.nz/example" },
+    },
+    {
+      fetchImpl: async (url) => {
+        assert.equal(String(url), "https://embed.lawa.org.nz/test/40722/");
+        return new Response("Good Long-term grade Latest result: Caution advised");
+      },
+    },
+  );
+  assert.equal(result.status, "available");
+  assert.equal(result.longTermGrade, "Good");
+  assert.equal(result.latestResult, "Caution advised");
 });
